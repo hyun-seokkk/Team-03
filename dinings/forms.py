@@ -1,5 +1,5 @@
 from django import forms
-from .models import Dining
+from .models import Dining, Review
 
 
 class DiningForm(forms.ModelForm):
