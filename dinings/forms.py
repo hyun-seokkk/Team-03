@@ -7,3 +7,8 @@ class DiningForm(forms.ModelForm):
         model = Dining
         fields = '__all__'
         exclude = ['like_users']
+        
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = '__all__'
