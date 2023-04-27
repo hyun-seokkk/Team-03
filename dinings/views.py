@@ -5,23 +5,58 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
-    pass
+    dinings = Dining.objects.all()
+    context = {
+        'dinings':dinings,
+    }
+    return render(request, 'dinings/index.html',context)
 
-
+# @login_required
 def dining_create(request):
     if request.method == 'POST':
         form = DiningForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('dinings:index')
-            
     else:
         form = DiningForm()
     context = {
         'form': form,
     }
-    return render(request, 'dinings/dining_create.html', context)
+    return render(request, 'dinings/create.html', context)
 
+def dining_detail(request, dining_pk):
+    dining = Dining.objects.get(pk=dining_pk)
+    review_form = ReviewForm()
+    reviews = dining.reviews.all()
+    context = {
+        'dining': dining,
+        'review_form': review_form,
+        'reviews':reviews,
+    }
+    return render(request, 'dinings/details.html', context)
+
+# @login_required
+def dining_update(request, dining_pk):
+    dining = Dining.objects.get(pk=dining_pk)
+    if request.method == "POST":
+        form = DiningForm(request.POST, instance=dining)
+        if form.is_valid():
+            form.save()
+            return redirect('dinings:dining_detail', dining_pk)
+    else:
+        form = DiningForm(instance=dining)
+    context = {
+        'dining': dining,
+        'form':form,
+    }
+    return render(request, 'dinings/update.html',context)
+
+# @login_required
+def dining_delete(requset, dining_pk):
+    dining = Dining.objects.get(pk=dining_pk)
+    dining.delete()
+    return redirect('dinings:index')
 
 @login_required
 def review_create(request, dining_pk):
