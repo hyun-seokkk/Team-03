@@ -7,6 +7,12 @@ from django.contrib.auth.decorators import login_required
 def index(request):
     pass
 
+def detail(request, pk):
+    dining = Dining.objects.get(pk=pk)
+    context = {
+        'dining': dining,
+    }
+    return render(request, 'dinings/details.html', context)
 
 def dining_create(request):
     if request.method == 'POST':
@@ -41,6 +47,7 @@ def review_create(request, dining_pk):
         review_form = ReviewForm()
     context = {
         'review_form': review_form,
+        'dining': dining,
     }
     return render(request, 'dinings/review_create.html', context)
 
@@ -82,6 +89,8 @@ def review_update(request, dining_pk, review_pk):
         return redirect('dinings:detail', dining_pk)
     context = {
         'review_form': review_form,
+        'dining_pk': dining_pk,
+        'review_pk': review_pk,
     }
     return render(request, 'dinings/review_update.html', context)
 
