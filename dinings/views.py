@@ -9,10 +9,22 @@ def index(request):
 
 def detail(request, pk):
     dining = Dining.objects.get(pk=pk)
+    reviews = dining.review_set.all()
+    sum = 0
+    avg = 0
+
+    # zero division error 때문에 조건문 추가
+    if reviews:
+        for review in reviews:
+            sum += review.rating
+        # 총 평점을 나타내기 위해 avg 변수에 평균 할당
+        avg = sum / len(reviews)
     context = {
         'dining': dining,
+        'reviews': reviews,
+        'avg': avg,
     }
-    return render(request, 'dinings/details.html', context)
+    return render(request, 'base.html', context)
 
 
 def dining_create(request):

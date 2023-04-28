@@ -18,6 +18,7 @@ class Dining(models.Model):
     address_mc_do = models.CharField(max_length=20)
     address_city = models.CharField(max_length=20)
     address_dong = models.CharField(max_length=20)
+    address_detail = models.CharField(max_length=100)
     opening_hours = models.CharField(max_length=20)
     phone_number = models.CharField(max_length=20, blank=True)
     
