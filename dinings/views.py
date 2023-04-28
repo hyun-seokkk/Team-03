@@ -12,7 +12,7 @@ def detail(request, pk):
     context = {
         'dining': dining,
     }
-    return render(request, 'dinings/detail.html', context)
+    return render(request, 'dinings/details.html', context)
 
 def dining_create(request):
     if request.method == 'POST':
