@@ -41,6 +41,7 @@ def review_create(request, dining_pk):
         review_form = ReviewForm()
     context = {
         'review_form': review_form,
+        'dining': dining,
     }
     return render(request, 'dinings/review_create.html', context)
 
@@ -82,5 +83,7 @@ def review_update(request, dining_pk, review_pk):
         return redirect('dinings:detail', dining_pk)
     context = {
         'review_form': review_form,
+        'dining_pk': dining_pk,
+        'review_pk': review_pk,
     }
     return render(request, 'dinings/review_update.html', context)
