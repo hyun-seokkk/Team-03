@@ -84,3 +84,20 @@ def review_update(request, dining_pk, review_pk):
         'review_form': review_form,
     }
     return render(request, 'dinings/review_update.html', context)
+
+
+@login_required
+def dining_update(request, dining_pk):
+    dining = Dining.objects.get(pk=dining_pk)
+    if request.method == 'POST':
+        form = DiningForm(request.POST, instance=dining)
+        if form.is_valid():
+            form.save()
+            return redirect('dining:detail', dining_pk)
+    else:
+        form = DiningForm(instance=dining)
+    context = {
+        'form':form,
+        'dining':dining
+    }
+    return render(request, 'dining/update.html', context)

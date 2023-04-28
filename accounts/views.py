@@ -1,8 +1,12 @@
 from django.shortcuts import render, redirect
-from .forms import CustomUserCreationForm, CustomUserChangeForm
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login as auth_login, logout as auth_logout
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import login as auth_login, logout as auth_logout
+from django.contrib.auth import get_user_model
+
+from .forms import CustomUserCreationForm, CustomUserChangeForm
+from dinings.models import Dining
 
 # Create your views here.
 def index(request):
@@ -64,3 +68,35 @@ def update(request):
         'form': form,
     }
     return render(request, 'accounts/update.html', context)
+
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            return redirect('accounts:index')
+    else:
+        form = PasswordChangeForm(request.user)
+    context = {
+        'form': form,
+    }
+    return render(request, 'accounts/change_password.html', context)
+
+
+def profile(request, username):
+    User = get_user_model()
+    person = User.objects.get(username=username)
+    dinings = Dining.objects.order_by('-pk')
+    context = {
+        'person': person,
+        'dinings': dinings,
+    }
+    return render(request, 'accounts/profile.html', context)
+
+
+# def follow(request, user_pk):
+#     User = get_user_model()
+#     person = User.objects.get(pk=user_pk)
