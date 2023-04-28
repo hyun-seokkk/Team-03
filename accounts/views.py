@@ -97,6 +97,12 @@ def profile(request, username):
     return render(request, 'accounts/profile.html', context)
 
 
-# def follow(request, user_pk):
-#     User = get_user_model()
-#     person = User.objects.get(pk=user_pk)
+def follow(request, user_pk):
+    User = get_user_model()
+    person = User.objects.get(pk=user_pk)
+
+    if request.user in person.followers.all():
+        person.followers.remove(request.user)
+    else:
+        person.followers.add(request.user)
+    return redirect('accounts:profile', person.username)

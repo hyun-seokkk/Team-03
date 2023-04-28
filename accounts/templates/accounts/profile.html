@@ -8,5 +8,16 @@
 </head>
 <body>
   <h1>{{ user }}의 프로필</h1>
+
+  {% comment %} {% if request.user.username != person.username %} {% endcomment %}
+    <form action="{% url 'accounts:follow' person.pk %}" method="post">
+      {% csrf_token %}
+      {% if request.user in person.followers.all %}
+        <input type="submit" value="팔로우 취소">
+      {% else %}
+        <input type="submit" value="팔로우">
+      {% endif %}
+    </form>
+  {% comment %} {% endif %} {% endcomment %}
 </body>
 </html>
