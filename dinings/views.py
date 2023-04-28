@@ -123,3 +123,9 @@ def dining_update(request, dining_pk):
         'dining':dining
     }
     return render(request, 'dining/update.html', context)
+
+@login_required
+def dining_delete(requset, dining_pk):
+    dining = Dining.objects.get(pk=dining_pk)
+    dining.delete()
+    return redirect('dinings:index')
