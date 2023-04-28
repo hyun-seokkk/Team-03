@@ -7,6 +7,12 @@ from django.contrib.auth.decorators import login_required
 def index(request):
     pass
 
+def detail(request, pk):
+    dining = Dining.objects.get(pk=pk)
+    context = {
+        'dining': dining,
+    }
+    return render(request, 'dinings/detail.html', context)
 
 def dining_create(request):
     if request.method == 'POST':
