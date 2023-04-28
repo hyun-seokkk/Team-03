@@ -5,8 +5,7 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
-    pass
-
+    return render(request, 'base.html')
 
 def detail(request, pk):
     dining = Dining.objects.get(pk=pk)

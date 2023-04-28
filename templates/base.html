@@ -47,6 +47,7 @@
       align-items: center;
       width: 55%;
     }
+
     {% block style %}{% endblock style %}
   </style>
   <body>
@@ -144,6 +145,9 @@
         </ul>
       </div>
     </nav>
+
+    {% include 'dinings/details.html' %}
+
 
     <footer
       class="pt-4 pb-3"
