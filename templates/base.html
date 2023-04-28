@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}{% endblock title %}</title>
-
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -18,16 +17,8 @@
     />
   </head>
   <style>
-
-    .font-weight-bold {
-      font-weight: bold;
-    }
-
-    footer {
-      letter-spacing: -2px;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
     }
 
     a {
@@ -35,84 +26,113 @@
       text-color: black
     }
 
-    .navbar {
-      width: 120%;
-      height: 50px;
+    input {
+      max-width: 430px;
+      min-width: 430px;
+      height: 42px;
+      border-radius: 30px;
+      background-color: rgb(245, 245, 245);
+      box-sizing: border-box;
     }
 
-    .navbar-nav {
+    #nav1 {
       display: flex;
-      flex-direction: row;
       justify-content: center;
+      width: 100%;
+      min-height: 74px;
+      border-bottom: 1px solid rgb(234, 234, 234);
+      background-color: white;
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 282px 506px auto;
       align-items: center;
-      width: 55%;
+      min-width: 1070px;
+      height: 100%;
+      padding-left: 0px;
+      padding-right: 0px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+
+
+    #nav1 > div:last-child {
+      margin-left: auto;
+    }
+
+    #nav2 {
+      width: 100%;
+      min-width: 1070px;
+      height: 100%;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+
+    #nav2 .navbar-collapse {
+      display: flex;
+      justify-content: center;
+    }
+
+    footer {
+      letter-spacing: -2px;
+      position: fixed;
+      bottom: 0px;
+      font-size: 14px;
+      max-height: 198px;
+      padding: 40px 0px;
+      box-sizing: border-box;
+      align-items: center;
+      width: 100%;
+      min-width: 1070px;
+      height: 198px;
+      margin-top: 0px;
+    }
+
+    .font-weight-bold {
+      font-weight: bold;
     }
 
     {% block style %}{% endblock style %}
   </style>
   <body>
-    <div
-      class="container d-flex justify-content-between align-items-center flex-wrap"
-      style="height=64px;"
-    >
-      <div
-        class="row align-items-center justify-content-between"
-        style="width: 55%"
-      >
-        <div class="col-md-2">
-          <a href="#">
-            <img
-              class="Diningcode__Logo"
-              src="https://dcicons.s3.ap-northeast-1.amazonaws.com/new/images/web/react_components/Header/logo.png"
-              alt="다이닝코드"
-              width="148.194px"
-              height="auto"
-            />
-          </a>
-        </div>
-        <div class="col-md-6">
-          <form class="form-inline d-flex justify-content-between">
-            <div class="input-group">
-              <input
-                class="form-control"
-                type="search"
-                placeholder="지역, 음식 또는 식당명 입력"
-                aria-label="Search"
-                style="
-                  background-color: #fff;
-                  border: 1px solid #ccc;
-                  border-radius: 5px;
-                  padding: 5px;
-                "
-              />
-              <div class="input-group-append">
-                <button class="btn" type="submit" aria-label="검색하기 버튼">
-                  <i class="bi bi-search"></i>
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-        <div class="col-md-4 d-flex align-items-center">
-          <div class="d-flex flex-row">
-            <a class="mx-3" href="#" style="color: black">로그인</a>
-            <a class="mx-3" href="#" style="color: black">회원가입</a>
-          </div>
-        </div>
+    <div id="nav1">
+      <div class="col-md-2">
+        <a href="#">
+          <img
+            class="logo"
+            src="https://dcicons.s3.ap-northeast-1.amazonaws.com/new/images/web/react_components/Header/logo.png"
+            alt="다이닝코드"
+            width="148.194px"
+            height="auto"
+          />
+        </a>
+      </div>
+
+      <div class="input-group">
+        <input
+          class="form-control"
+          type="text"
+          placeholder="지역, 음식 또는 식당명 입력"
+          aria-label="Search"
+        />
+        <button class="btn btn-outline-info" type="button">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+
+      <div>
+        <a class="mx-3" href="#" style="color: black">로그인</a>
+        <a class="mx-3" href="#" style="color: black">회원가입</a>
       </div>
     </div>
 
-    <nav
-      class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between align-items-center flex-wrap"
-    >
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav2">
       <div class="navbar-collapse">
         <ul
           class="navbar-nav"
           style="
-            display: flex;
-            flex-direction: row;
             justify-content: center;
             align-items: center;
+            margin-right: 400px;
           "
         >
           <li class="nav-item">
@@ -209,6 +229,40 @@
             </div>
           </div>
         </div>
+    <footer class="bg-light d-flex justify-content-center">
+      <div style="margin-right: 350px">
+        <p class="mb-3">
+          <a href="#" class="font-weight-bold text-dark">데이터 제휴 문의</a>
+          <span class="mx-2">|</span>
+          <a href="#" class="font-weight-bold text-dark">개인정보처리방침</a>
+          <span class="mx-2">|</span>
+          <a href="#" class="font-weight-bold text-dark">이용약관</a>
+          <span class="mx-2">|</span>
+          <a href="#" class="font-weight-bold text-dark"
+            >위치기반 서비스 이용약관</a
+          >
+        </p>
+
+        <p class="mb-2">
+          <span class="font-weight-bold">(주)다이닝코드</span>
+          <span class="mx-2">|</span>
+          <span>대표이사 : 신효섭</span>
+          <span class="mx-2">|</span>
+          <span>소재지 : 서울특별시 강남구 테헤란로79길 6</span>
+        </p>
+
+        <p class="mb-2">이메일 문의 : contact@diningcode.com</p>
+
+        <p>
+          <span
+            >전화 문의 : 02-457-1304 (평일 : 10:00 ~ 19:00, 주말/공휴일
+            제외)</span
+          >
+        </p>
+      </div>
+
+      <div style="letter-spacing: -1px; position: relative; padding-top: 80px">
+        Copyright Ⓒ 2023 Diningcode
       </div>
     </footer>
 

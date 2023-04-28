@@ -10,7 +10,7 @@
   <h1>리뷰 작성</h1>
   <form action={% block form_url %}"{% url 'dinings:review_create' dining.pk %}"{% endblock form_url %} method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ review_form.as_p }}
     <input type="submit" value="게시">
   </form>
 </body>

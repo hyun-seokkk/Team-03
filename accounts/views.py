@@ -15,14 +15,14 @@ def index(request):
 def signup(request):
     #로그인 돼있으면 메인페이지로
     if request.user.is_authenticated:
-        return redirect('#')
+        return redirect('accounts:index')
 
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             auth_login(request, user)
-            return redirect('#')
+            return redirect('accounts:index')
     else:
         form = CustomUserCreationForm()
     context = {
@@ -34,7 +34,7 @@ def signup(request):
 def login(request):
     #로그인 돼있으면 메인페이지로
     if request.user.is_authenticated:
-        return redirect('#')
+        return redirect('accounts:index')
     
     if request.method == 'POST':
         form = AuthenticationForm(request, request.POST)
@@ -97,6 +97,12 @@ def profile(request, username):
     return render(request, 'accounts/profile.html', context)
 
 
-# def follow(request, user_pk):
-#     User = get_user_model()
-#     person = User.objects.get(pk=user_pk)
+def follow(request, user_pk):
+    User = get_user_model()
+    person = User.objects.get(pk=user_pk)
+
+    if request.user in person.followers.all():
+        person.followers.remove(request.user)
+    else:
+        person.followers.add(request.user)
+    return redirect('accounts:profile', person.username)
