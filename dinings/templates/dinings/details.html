@@ -1,257 +1,338 @@
 <div class="container text-nowrap">
   <div class="row">
-    
-      <!-- 왼쪽 사이드바 < 지도 > -->
-      <div class="col-3">
-        <div class='card'>
-          <div>지도</div>
-          <p>맛집더보기</p>
+    <!-- 왼쪽 사이드바 < 지도 > -->
+    <div class="col-3">
+      <div class="card">
+        <div>지도</div>
+        <p>맛집더보기</p>
+      </div>
+    </div>
+
+    <!-- 오른쪽 상세 페이지 -->
+    <div class="col-9">
+      <!-- 1번 상자 -->
+      <div class="card mb-3">
+        <div class="row">
+          <div class="col-6">
+            <img
+              src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png"
+              alt="..."
+              class="img-fluid"
+            />
+            <div class="row row-cols-2">
+              <div class="col">
+                <img
+                  src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png"
+                  alt="..."
+                  class="img-fluid"
+                />
+              </div>
+              <div class="col">
+                <img
+                  src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png"
+                  alt="..."
+                  class="img-fluid"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="container col-6">
+            <div class="row row-cols-2">
+              <div class="col p-0">
+                <img
+                  src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png"
+                  alt="..."
+                  class="img-fluid"
+                />
+              </div>
+              <div class="col">
+                <img
+                  src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png"
+                  alt="..."
+                  class="img-fluid"
+                />
+              </div>
+              <div class="col">
+                <img
+                  src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png"
+                  alt="..."
+                  class="img-fluid"
+                />
+              </div>
+              <div class="col">
+                <img
+                  src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png"
+                  alt="..."
+                  class="img-fluid"
+                />
+              </div>
+              <div class="col">
+                <img
+                  src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png"
+                  alt="..."
+                  class="img-fluid"
+                />
+              </div>
+              <div class="col">
+                <img
+                  src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png"
+                  alt="..."
+                  class="img-fluid"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container mt-3">
+          <h1>{{ dining.title }}</h1>
+          <div class="d-flex gap-2">
+            <p>{{ dining.address_city }} |</p>
+            <!-- 검색 view 생성하기 -->
+            <p>음식종류</p>
+          </div>
+          <div class="d-flex gap-2">
+            <b><p>{{ reviews.half_star_rating }}점</p></b>
+            <p>{{ reviews.all|length }}명의 평가</p>
+            <p>{{ avg }}점</p>
+            <!-- 별점만큼 별 색칠되게 하기-->
+            <p>별점</p>
+          </div>
+        </div>
+        <hr />
+        <div class="d-flex justify-content-between mb-3">
+          <div>
+            <button type="button" class="btn btn-outline-dark">
+              좋아요<span>({{ dining.like_users.all|length }})</span>
+            </button>
+            {% comment %}
+            <form action="{% url 'articles:likes' article.pk %}" method="POST">
+              {% csrf_token %} {% if request.user in article.like_users.all %}
+              <input type="submit" value="좋아요 취소" />
+              {% else %}
+              <input type="submit" value="좋아요" />
+              {% endif %}
+            </form>
+            {% endcomment %}
+            <button type="button" class="btn btn-outline-dark">공유</button>
+          </div>
+          <button type="button" class="btn btn-outline-dark">평가하기</button>
         </div>
       </div>
 
-
-      <!-- 오른쪽 상세 페이지 -->
-      <div class="col-9">
-
-        <!-- 1번 상자 -->
-        <div class="card mb-3">
-          <div class="row">
-            <div class="col-6">
-              <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
-              <div class="row row-cols-2">
-                <div class="col">
-                  <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
-                </div>
-                <div class="col">
-                  <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
-                </div>
-              </div>
-            </div>
-            <div class="container col-6">
-              <div class="row row-cols-2">
-                <div class="col p-0">
-                  <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
-                </div>
-                <div class="col">
-                  <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
-                </div>
-                <div class="col">
-                  <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
-                </div>
-                <div class="col">
-                  <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
-                </div>
-                <div class="col">
-                  <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
-                </div>
-                <div class="col">
-                  <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="container mt-3">
-            <h1>{{ dining.title }}</h1>
-            <div class="d-flex gap-2">
-              <p>{{ dining.address_city }} |  </p>
-              <!-- 검색 view 생성하기 -->
-              <p>음식종류</p>
-            </div>
-            <div class="d-flex gap-2">
-              <b><p>{{ reviews.half_star_rating }}점</p></b>
-              <p>{{ reviews.all|length }}명의 평가</p>
-              <p>{{ avg }}점</p>
-              <!-- 별점만큼 별 색칠되게 하기-->
-              <p>별점</p>
-            </div>
-          </div>
-          <hr>
-          <div class="d-flex justify-content-between mb-3">
-            <div>
-              <button type="button" class="btn btn-outline-dark">좋아요<span>({{ dining.like_users.all|length }})</span></button>
-              {% comment %} <form action="{% url 'articles:likes' article.pk %}" method="POST">
-                {% csrf_token %}
-                {% if request.user in article.like_users.all %}
-                  <input type="submit" value="좋아요 취소">
-                {% else %}
-                  <input type="submit" value="좋아요">
-                {% endif %}
-              </form> {% endcomment %}
-              <button type="button" class="btn btn-outline-dark">공유</button>
-            </div>
-            <button type="button" class="btn btn-outline-dark">평가하기</button>
-
-          </div>
+      <!-- 2번 상자 -->
+      <div class="container card mb-3">
+        <div class="d-flex gap-2">
+          <a href="#">{{ dining.address_mc_do}}</a>
+          <a href="#">{{ dining.address_city}}</a>
+          <a href="#">{{ dining.address_dong}}</a>
+          <!-- 추가 해야함-->
+          <p>{{ dining.address_detail }}</p>
         </div>
-
-        <!-- 2번 상자 -->
-        <div class="container card mb-3">
-          <div class="d-flex gap-2">
-            <a href="#">{{ dining.address_mc_do}}</a>
-            <a href="#">{{ dining.address_city}}</a>
-            <a href="#">{{ dining.address_dong}}</a>
-            <!-- 추가 해야함-->
-            <p>{{ dining.address_detail }}</p>
-          </div>
-          <div>
-            <p>{{ dining.phone_number }}</p>
-          </div>
-          <div>
-            {% for tag in dining.tags.all %}
-              <a href="#">{{ tag.name }}</a>
-            {% endfor %}
-          </div>
-          <!-- 추가 하고싶으면 하면 될듯함-->
-          <div>
-            <p>태그2</p>
-          </div>
-          <!-- 모달 넣기 -->
-          <div class="">
-            <a href="">폐업신고</a>
-            <a href="">정보수정 제안</a>
-          </div>
+        <div>
+          <p>{{ dining.phone_number }}</p>
         </div>
-
-        <!-- 3번 상자 -->
-        <div class="container card mb-3">
-          <h2>영업시간</h2>
-          <div class="d-flex justify-content-between">
-            <!-- 요일 추가 -->
-            <p>요일</p>
-            <!-- 시간 -->
-            <p>{{ dining.opening_hours }}</p>
-          </div>
-          <hr>
-          <h2>메뉴정보</h2>
-          <div class="d-flex justify-content-between">
-            <p>메뉴이름</p>
-            <p>가격</p>
-          </div>
-          <hr>
-          <h2>맛집태그</h2>
-          <div class="d-flex gap-3">
-            <!-- 태그 수 많을 수록 텍스트 크기 커지게 -->
-            {% for tag in dining.tags.all %}
-            <a href="#">{{ tag.name }}</a>
-            {% endfor %}
-          </div>
+        <div>
+          {% for tag in dining.tags.all %}
+          <a href="#">{{ tag.name }}</a>
+          {% endfor %}
         </div>
+        <!-- 추가 하고싶으면 하면 될듯함-->
+        <div>
+          <p>태그2</p>
+        </div>
+        <!-- 모달 넣기 -->
+        <div class="">
+          <a href="">폐업신고</a>
+          <a href="">정보수정 제안</a>
+        </div>
+      </div>
 
-        <!-- 리뷰 -->
-        <div class="container card mb-3">
-          <h2>{{ reviews.all|length }}건의 방문자 평가</h2>
-          <hr>
-          <div class="d-flex">
-            <div class="col-8">
-              <p>{{ avg }}점</p>
-              <div class="d-flex gap-1">
-              
-                <!-- 리뷰에 평가 세부모델 추가하기 -->
-                <p>맛</p>
-                <p>가격</p>
-                <p>서비스</p>
-              </div>
-              <div class="d-flex gap-5">
-                <p>방문목적</p>
-                <div class="d-flex gap-3">
-                  {% for tag in dining.tags.all %}
-                  <a href="#">{{ tag.name }}</a>
-                  {% endfor %}
-                </div>
-              </div>
-              <div class="d-flex gap-5">
-                <p>분위기</p>
-                <div class="d-flex gap-3">
-                  {% for tag in dining.tags.all %}
-                  <a href="#">{{ tag.name }}</a>
-                  {% endfor %}
-                </div>
-              </div>
-              <div class="d-flex gap-5">
-                <p>편의시설</p>
-                <div class="d-flex gap-3">
-                  {% for tag in dining.tags.all %}
-                  <a href="#">{{ tag.name }}</a>
-                  {% endfor %}
-                </div>
-              </div>
+      <!-- 3번 상자 -->
+      <div class="container card mb-3">
+        <h2>영업시간</h2>
+        <div class="d-flex justify-content-between">
+          <!-- 요일 추가 -->
+          <p>요일</p>
+          <!-- 시간 -->
+          <p>{{ dining.opening_hours }}</p>
+        </div>
+        <hr />
+        <h2>메뉴정보</h2>
+        <div class="d-flex justify-content-between">
+          <p>메뉴이름</p>
+          <p>가격</p>
+        </div>
+        <hr />
+        <h2>맛집태그</h2>
+        <div class="d-flex gap-3">
+          <!-- 태그 수 많을 수록 텍스트 크기 커지게 -->
+          {% for tag in dining.tags.all %}
+          <a href="#">{{ tag.name }}</a>
+          {% endfor %}
+        </div>
+      </div>
 
-
-            </div>
-            <div class="col-4">
-              <div class="d-flex">
-                <p>매우만족(5)</p>
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">20</div>
-                </div>
-              </div>
-              <div class="d-flex">
-                <p>만족(4)</p>
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" style="width: 80%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">20</div>
-                </div>
-              </div>
-              <div class="d-flex">
-                <p>보통(0)</p>
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" style="width: 80%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">20</div>
-                </div>
-              </div>
-              <div class="d-flex">
-                <p>불만(5)</p>
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" style="width: 80%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">20</div>
-                </div>
-              </div>
-              <div class="d-flex">
-                <p>매우 불만(5)</p>
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" style="width: 80%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">20</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <hr>
-
-          
-          {% for review in reviews %}
-          
-          <div class="container">
-            <div class="d-flex">
-              <!-- 프로필 사진 추가-->
-              <img src="" alt="#">
-              <div>
-                <div class="d-flex gap-2">
-                  <p>{{ review.user.username }}</p>
-                  <p>작성개수{{ review.user.review_set.all|length }},공감개수{{ review.like_users.all|length }}</p>
-                </div>
-                <div class="d-flex gap-2">
-                  <p>별점</p>
-                  <p>날짜</p>
-                </div>
-              </div>
-            </div>
+      <!-- 리뷰 -->
+      <div class="container card mb-3">
+        <h2>{{ reviews.all|length }}건의 방문자 평가</h2>
+        <hr />
+        <div class="d-flex">
+          <div class="col-8">
+            <p>{{ avg }}점</p>
             <div class="d-flex gap-1">
+              <!-- 리뷰에 평가 세부모델 추가하기 -->
               <p>맛</p>
               <p>가격</p>
               <p>서비스</p>
             </div>
-            <!-- 댓글은 wrap 사용-->
-            <div class="text-wrap">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore, non similique repellat dolor facilis rerum omnis. Cum tempora numquam molestiae laborum ut in sint, totam dolorem reiciendis asperiores nemo veritatis earum ipsam omnis porro delectus a! Sint adipisci nostrum tempora veniam fuga, iusto non quas nulla consequuntur harum, pariatur labore?
+            <div class="d-flex gap-5">
+              <p>방문목적</p>
+              <div class="d-flex gap-3">
+                {% for tag in dining.tags.all %}
+                <a href="#">{{ tag.name }}</a>
+                {% endfor %}
+              </div>
             </div>
-            <img src="" alt="#">
-            <div class="d-flex gap-2">
-              <p class="border border-primary rounded-pill">점심식사</p>
-              <p>저녁식사</p>
+            <div class="d-flex gap-5">
+              <p>분위기</p>
+              <div class="d-flex gap-3">
+                {% for tag in dining.tags.all %}
+                <a href="#">{{ tag.name }}</a>
+                {% endfor %}
+              </div>
             </div>
-            <button>공감</button>
+            <div class="d-flex gap-5">
+              <p>편의시설</p>
+              <div class="d-flex gap-3">
+                {% for tag in dining.tags.all %}
+                <a href="#">{{ tag.name }}</a>
+                {% endfor %}
+              </div>
+            </div>
           </div>
-          {% endfor %}
-
+          <div class="col-4">
+            <div class="d-flex">
+              <p>매우만족(5)</p>
+              <div class="progress">
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  style="width: 100%"
+                  aria-valuenow="70"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  20
+                </div>
+              </div>
+            </div>
+            <div class="d-flex">
+              <p>만족(4)</p>
+              <div class="progress">
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  style="width: 80%"
+                  aria-valuenow="20"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  20
+                </div>
+              </div>
+            </div>
+            <div class="d-flex">
+              <p>보통(0)</p>
+              <div class="progress">
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  style="width: 80%"
+                  aria-valuenow="20"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  20
+                </div>
+              </div>
+            </div>
+            <div class="d-flex">
+              <p>불만(5)</p>
+              <div class="progress">
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  style="width: 80%"
+                  aria-valuenow="20"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  20
+                </div>
+              </div>
+            </div>
+            <div class="d-flex">
+              <p>매우 불만(5)</p>
+              <div class="progress">
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  style="width: 80%"
+                  aria-valuenow="20"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  20
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+        <hr />
 
+        {% for review in reviews %}
+
+        <div class="container">
+          <div class="d-flex">
+            <!-- 프로필 사진 추가-->
+            <img src="" alt="#" />
+            <div>
+              <div class="d-flex gap-2">
+                <p>{{ review.user.username }}</p>
+                <p>
+                  작성개수{{ review.user.review_set.all|length }},공감개수{{
+                  review.like_users.all|length }}
+                </p>
+              </div>
+              <div class="d-flex gap-2">
+                <p>별점</p>
+                <p>날짜</p>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex gap-1">
+            <p>맛</p>
+            <p>가격</p>
+            <p>서비스</p>
+          </div>
+          <!-- 댓글은 wrap 사용-->
+          <div class="text-wrap">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore,
+            non similique repellat dolor facilis rerum omnis. Cum tempora
+            numquam molestiae laborum ut in sint, totam dolorem reiciendis
+            asperiores nemo veritatis earum ipsam omnis porro delectus a! Sint
+            adipisci nostrum tempora veniam fuga, iusto non quas nulla
+            consequuntur harum, pariatur labore?
+          </div>
+          <img src="" alt="#" />
+          <div class="d-flex gap-2">
+            <p class="border border-primary rounded-pill">점심식사</p>
+            <p>저녁식사</p>
+          </div>
+          <button>공감</button>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
   </div>
 </div>
-
