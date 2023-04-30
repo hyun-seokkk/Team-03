@@ -8,6 +8,7 @@ class DiningForm(forms.ModelForm):
         fields = '__all__'
         exclude = ['like_users']
 
+
 class ReviewForm(forms.ModelForm):
     rating = forms.FloatField(widget=forms.NumberInput(attrs={'step': 0.5, 'min':0, 'max':5}))
     rating_taste = forms.FloatField(widget=forms.NumberInput(attrs={'step': 0.5, 'min':0, 'max':5}))
