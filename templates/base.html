@@ -199,7 +199,9 @@
       </div>
     </div>
 
-    {% include 'dinings/details.html' %}
+    {% comment %} {% include 'dinings/details.html' %} {% endcomment %}
+    {% block content %}
+    {% endblock content %}
 
     <footer class="bg-light d-flex justify-content-center">
       <div style="margin-right: 350px">
@@ -210,9 +212,7 @@
           <span class="mx-2">|</span>
           <a href="#" class="font-weight-bold text-dark">이용약관</a>
           <span class="mx-2">|</span>
-          <a href="#" class="font-weight-bold text-dark"
-            >위치기반 서비스 이용약관</a
-          >
+          <a href="#" class="font-weight-bold text-dark">위치기반 서비스 이용약관</a>
         </p>
 
         <p class="mb-2">

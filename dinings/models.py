@@ -74,11 +74,20 @@ class Review(models.Model):
     rating_price = models.FloatField()
     rating_kind = models.FloatField()
 
-    def half_star_rating(self):
-        # 반올림한 별점 값을 구함
+    def star_rating(self):
         rounded_rating = round(self.rating * 2) / 2
-
-        # 별점 반개 문자열을 반환
+        return '★' * int(rounded_rating) + '☆' * (rounded_rating % 1 == 0.5)
+    
+    def star_rating_taste(self):
+        rounded_rating = round(self.rating_taste * 2) / 2
+        return '★' * int(rounded_rating) + '☆' * (rounded_rating % 1 == 0.5)
+    
+    def star_rating_price(self):
+        rounded_rating = round(self.rating_price * 2) / 2
+        return '★' * int(rounded_rating) + '☆' * (rounded_rating % 1 == 0.5)
+    
+    def star_rating_kind(self):
+        rounded_rating = round(self.rating_kind * 2) / 2
         return '★' * int(rounded_rating) + '☆' * (rounded_rating % 1 == 0.5)
     
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="like_reviews")

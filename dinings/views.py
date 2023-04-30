@@ -24,7 +24,7 @@ def detail(request, pk):
         'reviews': reviews,
         'avg': avg,
     }
-    return render(request, 'base.html', context)
+    return render(request, 'dinings/detail.html', context)
 
 
 def dining_create(request):
