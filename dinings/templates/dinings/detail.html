@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}
 <div class="container text-nowrap">
   <div class="row">
     
@@ -215,38 +217,39 @@
 
           
           {% for review in reviews %}
-          
-          <div class="container">
-            <div class="d-flex">
-              <!-- 프로필 사진 추가-->
-              <img src="" alt="#">
-              <div>
-                <div class="d-flex gap-2">
-                  <p>{{ review.user.username }}</p>
-                  <p>작성개수{{ review.user.review_set.all|length }},공감개수{{ review.like_users.all|length }}</p>
-                </div>
-                <div class="d-flex gap-2">
-                  <p>별점</p>
-                  <p>날짜</p>
+            <div class="container">
+              <div class="d-flex">
+                <!-- 프로필 사진 추가-->
+                <img src="" alt="#">
+                <div>
+                  <div class="d-flex gap-2">
+                    <p>{{ review.user.username }}</p>
+                    <p>작성개수{{ review.user.review_set.all|length }},공감개수{{ review.like_users.all|length }}</p>
+                  </div>
+                  <div class="d-flex gap-2">
+                    <p>별점 {{ review.star_rating }} </p>
+                    <p>날짜</p>
+                  </div>
                 </div>
               </div>
+              <div class="d-flex gap-1">
+                <p>맛 {{ review.star_rating_taste }}</p>
+                <p>가격 {{ review.star_rating_price }}</p>
+                <p>서비스 {{ review.star_rating_kind }}</p>
+              </div>
+              <!-- 댓글은 wrap 사용-->
+              <div class="text-wrap">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore, non similique repellat dolor facilis rerum omnis. Cum tempora numquam molestiae laborum ut in sint, totam dolorem reiciendis asperiores nemo veritatis earum ipsam omnis porro delectus a! Sint adipisci nostrum tempora veniam fuga, iusto non quas nulla consequuntur harum, pariatur labore?
+              </div>
+              <img src="" alt="#">
+              <div class="d-flex gap-2">
+                <p class="border border-primary rounded-pill">점심식사</p>
+                <p>저녁식사</p>
+              </div>
+              <button>공감</button>
             </div>
-            <div class="d-flex gap-1">
-              <p>맛</p>
-              <p>가격</p>
-              <p>서비스</p>
-            </div>
-            <!-- 댓글은 wrap 사용-->
-            <div class="text-wrap">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore, non similique repellat dolor facilis rerum omnis. Cum tempora numquam molestiae laborum ut in sint, totam dolorem reiciendis asperiores nemo veritatis earum ipsam omnis porro delectus a! Sint adipisci nostrum tempora veniam fuga, iusto non quas nulla consequuntur harum, pariatur labore?
-            </div>
-            <img src="" alt="#">
-            <div class="d-flex gap-2">
-              <p class="border border-primary rounded-pill">점심식사</p>
-              <p>저녁식사</p>
-            </div>
-            <button>공감</button>
-          </div>
+          {% empty %}
+            <p>아직 리뷰가 없습니다.</p>
           {% endfor %}
 
         </div>
@@ -254,4 +257,4 @@
 
   </div>
 </div>
-
+{% endblock content %}
