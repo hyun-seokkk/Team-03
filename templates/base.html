@@ -107,7 +107,7 @@
   <body>
     <div id="nav1">
       <div class="col-md-2">
-        <a href="#">
+        <a href="{% url 'dinings:index' %}">
           <img
             class="logo"
             src="https://dcicons.s3.ap-northeast-1.amazonaws.com/new/images/web/react_components/Header/logo.png"
@@ -131,8 +131,13 @@
       </div>
 
       <div>
-        <a class="mx-3" href="#" style="color: black">로그인</a>
-        <a class="mx-3" href="#" style="color: black">회원가입</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'accounts:logout' %}" style="color: black">로그아웃</a>
+        <a href="{% url 'accounts:update' %}" style="color: black">회원정보수정</a>
+        {% else %}
+        <a class="mx-3" href="{% url 'accounts:login' %}" style="color: black">로그인</a>
+        <a class="mx-3" href="{% url 'accounts:signup' %}" style="color: black">회원가입</a>
+        {% endif %}
       </div>
     </div>
 
