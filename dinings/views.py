@@ -54,7 +54,8 @@ def review_create(request, dining_pk):
             review.user = request.user
             review.dining = dining
             review.save()
-            return redirect('dinings:detail.html', dining.pk)
+            review_form.save_m2m()
+            return redirect('dinings:detail', dining.pk)
     # 리뷰 작성 페이지
     else:
         review_form = ReviewForm()
