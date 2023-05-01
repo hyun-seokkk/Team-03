@@ -7,7 +7,7 @@
     <title>Document</title>
   </head>
   <body>
-    <form action="{% url 'accounts:update' %}" method="post">
+    <form action="{% url 'accounts:update' %}" method="post" enctype="multipart/form-data">
       {% csrf_token %} {{ form.as_p }}
       <input type="submit" value="확인" />
     </form>

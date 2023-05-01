@@ -25,7 +25,7 @@ def detail(request, pk):
         for review in reviews:
             sum += review.rating
         # 총 평점을 나타내기 위해 avg 변수에 평균 할당
-        avg = sum / len(reviews)
+        avg = round(sum / len(reviews), 1)
     context = {
         'dining': dining,
         'reviews': reviews,
@@ -62,6 +62,7 @@ def review_create(request, dining_pk):
             review.user = request.user
             review.dining = dining
             review.save()
+            review_form.save_m2m()
             return redirect('dinings:detail', dining.pk)
     # 리뷰 작성 페이지
     else:
