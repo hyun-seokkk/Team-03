@@ -36,6 +36,9 @@
     }
 
     #nav1 {
+      position: sticky;
+      z-index: 999;
+      top: 0;
       display: flex;
       justify-content: center;
       width: 100%;
@@ -48,6 +51,7 @@
       align-items: center;
       min-width: 1070px;
       height: 100%;
+      max-height: 695px;
       padding-left: 0px;
       padding-right: 0px;
       box-sizing: border-box;
@@ -65,6 +69,8 @@
       height: 100%;
       box-sizing: border-box;
       font-size: 14px;
+      max-height: 45px;
+      flex-direction: row;
     }
 
     #nav2 .navbar-collapse {
@@ -143,42 +149,43 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav2">
       <div class="navbar-collapse">
-        <ul
+        <div
           class="navbar-nav"
           style="
             justify-content: center;
             align-items: center;
             margin-right: 400px;
+            flex-direction: row;
           "
         >
-          <li class="nav-item">
+          <span class="nav-item">
             <a class="nav-link mx-2" href="#">공지사항</a>
-          </li>
-          <li class="nav-item mx-2">
+          </span>
+          <span class="nav-item mx-2">
             <a
               class="nav-link"
               href="https://blog.naver.com/PostList.nhn?blogId=diningcode&amp;categoryNo=26&amp;from=postList"
               >자주 묻는 질문</a
             >
-          </li>
-          <li class="nav-item mx-2">
+          </span>
+          <span class="nav-item mx-2">
             <a
               class="nav-link"
               href="https://blog.naver.com/diningcode/222008999700"
               >다이닝코드 소개</a
             >
-          </li>
-          <li class="nav-item mx-2">
+          </span>
+          <span class="nav-item mx-2">
             <a
               class="nav-link"
               href="https://blog.naver.com/PostList.nhn?blogId=diningcode&amp;categoryNo=13&amp;from=postList"
               >다이닝코드 이용안내</a
             >
-          </li>
-          <li class="nav-item mx-2">
+          </span>
+          <span class="nav-item mx-2">
             <a class="nav-link" href="#">매거진</a>
-          </li>
-        </ul>
+          </span>
+        </div>
       </div>
     </nav>
 
