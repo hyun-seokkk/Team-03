@@ -50,11 +50,12 @@ def review_create(request, dining_pk):
     if request.method == 'POST':
         review_form = ReviewForm(request.POST, request.FILES)
         if review_form.is_valid():
+            print(review_form.cleaned_data)
             review = review_form.save(commit=False)
             review.user = request.user
             review.dining = dining
             review.save()
-            return redirect('dinings:detail.html', dining.pk)
+            return redirect('dinings:detail', dining.pk)
     # 리뷰 작성 페이지
     else:
         review_form = ReviewForm()
