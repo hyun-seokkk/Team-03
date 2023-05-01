@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'dinings',
     'accounts',
     'taggit',
+    'imagekit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
