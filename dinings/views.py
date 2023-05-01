@@ -4,8 +4,15 @@ from .forms import DiningForm, ReviewForm
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+
+
 def index(request):
-    return render(request, 'base.html')
+    dinings = Dining.objects.order_by("-pk")
+    context = {
+        'dinings': dinings,
+    }
+    return render(request, 'dinings/index.html', context)
+
 
 def detail(request, pk):
     dining = Dining.objects.get(pk=pk)
@@ -33,7 +40,7 @@ def dining_create(request):
         if form.is_valid():
             form.save()
             return redirect('dinings:index')
-            
+
     else:
         form = DiningForm()
     context = {
@@ -45,11 +52,12 @@ def dining_create(request):
 @login_required
 def review_create(request, dining_pk):
     dining = Dining.objects.get(pk=dining_pk)
-    
+
     # 리뷰 작성
     if request.method == 'POST':
         review_form = ReviewForm(request.POST, request.FILES)
         if review_form.is_valid():
+            print(review_form.cleaned_data)
             review = review_form.save(commit=False)
             review.user = request.user
             review.dining = dining
@@ -78,21 +86,22 @@ def review_detail(request, dining_pk, review_pk):
         else:
             dining.like_users.add(request.user)
         return redirect('dinings:detail', dining.pk)
-    
+
     # 리뷰 삭제
     elif request.method == 'DELETE':
         if request.user == review.user:
             review.delete()
         return redirect('dinings:index')
-    
+
 
 @login_required
 def review_update(request, dining_pk, review_pk):
     review = Review.objects.get(pk=review_pk)
-    
+
     if request.user == review.user:
         if request.method == 'POST':
-            review_form = ReviewForm(request.POST, request.FILES, instance=review)
+            review_form = ReviewForm(
+                request.POST, request.FILES, instance=review)
             if review_form.is_valid():
                 review_form.save()
                 return redirect('dinings:detail', dining_pk)
@@ -120,10 +129,11 @@ def dining_update(request, dining_pk):
     else:
         form = DiningForm(instance=dining)
     context = {
-        'form':form,
-        'dining':dining
+        'form': form,
+        'dining': dining
     }
     return render(request, 'dining/update.html', context)
+
 
 @login_required
 def dining_delete(requset, dining_pk):

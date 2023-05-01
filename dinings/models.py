@@ -69,10 +69,10 @@ class Review(models.Model):
     image4 = models.ImageField(blank=True, upload_to=review_img_path)
     image5 = models.ImageField(blank=True, upload_to=review_img_path)
 
-    rating = models.FloatField()
-    rating_taste = models.FloatField()
-    rating_price = models.FloatField()
-    rating_kind = models.FloatField()
+    rating = models.FloatField(verbose_name='평점')
+    rating_taste = models.FloatField(verbose_name='맛')
+    rating_price = models.FloatField(verbose_name='가격')
+    rating_kind = models.FloatField(verbose_name='서비스')
 
     def star_rating(self):
         rounded_rating = round(self.rating * 2) / 2
