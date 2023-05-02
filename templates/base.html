@@ -322,32 +322,28 @@
       </div>
     </footer>
 
+    {% block script %}{% endblock script %}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-      $(window).scroll(function () {
-        var headerHeight = $("#header1").outerHeight()
-        var boxBottom = $("#box").offset().top + $("#box").outerHeight()
-        var scrollPosition = $(window).scrollTop()
-        var triggerPoint = boxBottom - headerHeight
-
+      $(window).scroll(function() {
+        var headerHeight = $('#header1').outerHeight();
+        var boxBottom = $('#box').offset().top + $('#box').outerHeight();
+        var scrollPosition = $(window).scrollTop();
+        var triggerPoint = boxBottom - headerHeight;
+      
         if (scrollPosition >= triggerPoint) {
-          $("#header1").hide()
-          $("#header2").show().addClass("fixed-top")
+          $('#header1').hide();
+          $('#header2').show().addClass('fixed-top');
         } else {
-          $("#header1").show()
-          $("#header2").hide().removeClass("fixed-top")
+          $('#header1').show();
+          $('#header2').hide().removeClass('fixed-top');
         }
-
-        // 스크롤이 box의 bottom에 닿으면 header1을 보이도록 함
-        if (
-          scrollPosition + $(window).height() >=
-          $(document).height() - headerHeight
-        ) {
-          $("#header1").show()
+      
+        if (scrollPosition + $(window).height() >= $(document).height() - headerHeight) {
+          $('#header1').show();
         }
-      })
+      });
     </script>
-
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
