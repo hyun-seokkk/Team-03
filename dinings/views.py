@@ -4,6 +4,7 @@ from .forms import DiningForm, ReviewForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
+
 # Create your views here.
 
 
