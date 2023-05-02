@@ -4,6 +4,7 @@ from .forms import DiningForm, ReviewForm, MenuForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
+
 # Create your views here.
 
 
@@ -192,3 +193,4 @@ def likes(reqeust, dining_pk):
     else:
         dining.like_users.add(reqeust.user)
     return redirect('dinings:detail', dining_pk)
+

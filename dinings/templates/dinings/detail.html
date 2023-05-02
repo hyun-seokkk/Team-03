@@ -8,7 +8,10 @@
       <!-- 왼쪽 사이드바 < 지도 > -->
       <div class="col-3">
         <div class='card'>
-          <div>지도</div>
+          {% comment %} <div>지도</div> {% endcomment %}
+          <a href="{% url 'dinings:dining_create'%}">create</a>
+          <a href="{% url 'dinings:review_create' dining.pk %}">리뷰작성</a>
+
           <p>맛집더보기</p>
         </div>
       </div>
@@ -73,6 +76,7 @@
           </div>
           <hr>
           <div class="d-flex justify-content-between mb-3">
+
             <div class="like-share">
               <!-- 좋아요 기능 -->
               <form action="{% url 'dinings:likes' dining.pk %}" method="POST">
@@ -89,9 +93,10 @@
 
               <button type="button" class="d-flex m_text rounded-pill btn btn-outline-dark"><span class="material-symbols-rounded">
                 share
+
                 </span>공유</button>
             </div>
-            <button type="button" class="d-flex m_text rounded-pill btn btn-outline-dark "><span class="material-symbols-rounded">
+            <button type="button" class="d-flex m_text rounded-pill btn btn-outline-dark "><span class="material-symbols-rounded mx-1">
               edit
               </span>평가하기</button>
 
@@ -99,14 +104,17 @@
         </div>
 
         <!-- 2번 상자 -->
-        <div class="container card mb-3">
+        <div class="container card mb-3 py-2 ">
           <div class="d-flex gap-2">
+
             <i class="bi bi-geo-alt"></i>
+
             <a href="#">{{ dining.address_mc_do}}</a>
             <a href="#">{{ dining.address_city}}</a>
             <a href="#">{{ dining.address_dong}}</a>
             <span>{{ dining.address_detail }}</span>
           </div>
+
           <div>
             <i class="bi bi-telephone"></i>
             <span>{{ dining.phone_number }}</span>
@@ -118,11 +126,19 @@
             {% endfor %}
           </div>
           <!-- 추가 하고싶으면 하면 될듯함-->
-          <div>
-            <p>태그2</p>
+          <div class="d-flex gap-2">
+            <span class="icon_size material-symbols-rounded">
+              add_circle
+              </span>
+            {% for tag in dining.tags.all %}
+              <p href="#">{{ tag.name }}</p>
+            {% endfor %}
           </div>
           <!-- 모달 넣기 -->
-          <div class="">
+          <div class="d-flex gap-2">
+            <span class="icon_size material-symbols-rounded">
+              chat
+              </span>
             <a href="">폐업신고</a>
             <a href="">정보수정 제안</a>
           </div>
@@ -139,6 +155,7 @@
           </div>
           <hr>
           <h2>메뉴정보</h2>
+
           {% for menu in menus %}
             <div class='d-flex justify-content-between'>
                 <p>{{menu.name}}</p>
@@ -243,6 +260,7 @@
           <hr>
 
           
+
           {% for review in reviews %}
             <div class="container card ">
               <div class="d-flex ">
@@ -252,7 +270,7 @@
                 {% else %}
                   <img class="p-1 rounded-circle" src="{% static 'img/blank-profile-image.png' %}" class="img-fluid" style="width: 70px; height: 70px;" alt="blank-profile-image">
                 {% endif %}
-                <div>
+                <div class="container mt-2">
                   <div class="d-flex gap-2">
                     <p>{{ review.user.username }}</p>
                     <p>작성개수{{ review.user.review_set.all|length }},공감개수{{ review.like_users.all|length }}</p>
