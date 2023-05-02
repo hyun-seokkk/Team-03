@@ -31,15 +31,6 @@
       color: black;
     }
 
-    input {
-      max-width: 430px;
-      min-width: 430px;
-      height: 42px;
-      border-radius: 30px;
-      background-color: rgb(245, 245, 245);
-      box-sizing: border-box;
-    }
-
     .header1 {
       position: sticky;
       z-index: 999;
@@ -194,14 +185,24 @@
         </a>
       </div>
 
-      <form action="{% url 'dinings:search' %}">
+      <form
+        action="{% url 'dinings:search' %}"
+        style="
+          max-width: 430px;
+          min-width: 430px;
+          height: 42px;
+          border-radius: 30px;
+          background-color: rgb(245, 245, 245);
+          box-sizing: border-box;
+        "
+      >
         <div class="input-group">
           <input
             class="form-control"
             type="text"
             placeholder="지역, 음식 또는 식당명 입력"
             aria-label="Search"
-            name = 'q'
+            name="q"
           />
           <button class="btn btn-outline-info" type="button">
             <i class="bi bi-search"></i>
