@@ -12,14 +12,6 @@ def review_img_path(instance, filename):
     return f'images/review/{instance.dining}/{instance.user.username}/{filename}'
 
 
-class MenuTaggedItem(TaggedItemBase):
-    content_object = models.ForeignKey('Dining', on_delete=models.CASCADE, related_name='menu_tagged_items')
-
-
-class PriceTaggedItem(TaggedItemBase):
-    content_object = models.ForeignKey('Dining', on_delete=models.CASCADE, related_name='price_tagged_items')
-
-
 class PurposeTaggedItem(TaggedItemBase):
     content_object = models.ForeignKey('Review', on_delete=models.CASCADE, related_name='purpose_tagged_items')
 
@@ -52,8 +44,6 @@ class Dining(models.Model):
     phone_number = models.CharField(max_length=20, blank=True)
     
     tags = TaggableManager(blank=True)
-    menu_tags = TaggableManager(blank=True, through=MenuTaggedItem, related_name='menu_tags')
-    price_tags = TaggableManager(blank=True, through=PriceTaggedItem, related_name='price_tags')
 
 
 class Review(models.Model):
@@ -94,3 +84,9 @@ class Review(models.Model):
     purpose_tags = TaggableManager(blank=True, through=PurposeTaggedItem, related_name='purpose_tags')
     atmosphere_tags = TaggableManager(blank=True, through=AtmosphereTaggedItem, related_name='atmosphere_tags')
     facility_tags = TaggableManager(blank=True, through=FacilityaggedItem, related_name='facility_tags')
+
+
+class Menu(models.Model):
+    dining = models.ForeignKey(Dining, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50)
+    price = models.PositiveIntegerField()
