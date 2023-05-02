@@ -18,8 +18,8 @@
       <div class="col-9">
 
         <!-- 1번 상자 -->
-        <div class="card mb-3">
-          <div class="row ">
+        <div class="card container mb-3">
+          <div class="row mt-2">
             <div class="col-6 pe-0">
               <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
               <div class="row row-cols-2">
@@ -74,7 +74,7 @@
           <hr>
           <div class="d-flex justify-content-between mb-3">
             <div class="">
-              <button type="button" class="rounded-pill btn btn-outline-dark"><span class="material-symbols-rounded c_items">favorite</span>
+              <button type="button" class="m_text rounded-pill btn btn-outline-dark"><span class="material-symbols-rounded c_items">favorite</span>
               좋아요<span>({{ dining.like_users.all|length }})</span></button>
               {% comment %} <form action="{% url 'articles:likes' article.pk %}" method="POST">
                 {% csrf_token %}
@@ -84,11 +84,13 @@
                   <input type="submit" value="좋아요">
                 {% endif %}
               </form> {% endcomment %}
-              <button type="button" class="rounded-pill btn btn-outline-dark"><span class="material-symbols-rounded">
+              <button type="button" class="d-flex m_text rounded-pill btn btn-outline-dark"><span class="material-symbols-rounded">
                 share
                 </span>공유</button>
             </div>
-            <button type="button" class="rounded-pill btn btn-outline-dark">평가하기</button>
+            <button type="button" class="d-flex m_text rounded-pill btn btn-outline-dark "><span class="material-symbols-rounded">
+              edit
+              </span>평가하기</button>
 
           </div>
         </div>
