@@ -1,0 +1,65 @@
+.star-rating {
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+  height: 40px;
+}
+
+.star-check {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  width: 0%;
+  height: 40px;
+  overflow: hidden;
+}
+
+.star-check-1 .star-check-2 .star-check-3 .star-check-4 .star-check-5 .star-check-6 .star-check-7 .star-check-8 .star-check-9 .star-check-10{
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  height: 40px;
+  overflow: hidden;
+}
+
+.star-check-1 {
+  width: 10%;
+}
+
+.star-check-2 {
+  width: 20%;
+}
+
+.star-check-3 {
+  width: 30%;
+}
+
+.star-check-4 {
+  width: 40%;
+}
+
+.star-check-5 {
+  width: 50%;
+}
+
+.star-check-6 {
+  width: 60%;
+}
+
+.star-check-7 {
+  width: 70%;
+}
+
+.star-check-8 {
+  width: 80%;
+}
+
+.star-check-9 {
+  width: 90%;
+}
+
+.star-check-10 {
+  width: 100%;
+}

@@ -29,14 +29,23 @@ class ReviewForm(forms.ModelForm):
     rating_taste = forms.FloatField(label='맛', widget=forms.NumberInput(attrs={'step': 0.5, 'min':0, 'max':5}))
     rating_price = forms.FloatField(label='가격', widget=forms.NumberInput(attrs={'step': 0.5, 'min':0, 'max':5}))
     rating_kind = forms.FloatField(label='서비스', widget=forms.NumberInput(attrs={'step': 0.5, 'min':0, 'max':5}))
+    
+    content = forms.CharField(
+        widget = forms.Textarea(
+            attrs={
+                'style': 'width:50%',
+                'class': 'form-control',
+            }
+        )
+    )
 
     class Meta:
         model = Review
         fields = '__all__'
-        exclude = ['user', 'dining', 'like_users',]
+        exclude = ['user', 'dining', 'like_users', 'rating',]
         labels = {
-            'content':'내용',
-            'purpose_tags':'방문 목적',
+            'content':'방문 후기',
+            'purpose_tags':'방문목적',
             'atmosphere_tags':'분위기',
-            'facility_tags': '시설',
+            'facility_tags': '편의시설',
         }
