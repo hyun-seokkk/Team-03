@@ -18,36 +18,36 @@
 
         <!-- 1번 상자 -->
         <div class="card mb-3">
-          <div class="row">
+          <div class="row ">
             <div class="col-6">
               <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
               <div class="row row-cols-2">
-                <div class="col">
+                <div class="col pe-0">
                   <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
                 </div>
-                <div class="col">
+                <div class="col ps-0">
                   <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
                 </div>
               </div>
             </div>
-            <div class="container col-6">
+            <div class="container col-6 ps-0">
               <div class="row row-cols-2">
-                <div class="col p-0">
+                <div class="col pe-0">
                   <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
                 </div>
-                <div class="col">
+                <div class="col ps-0">
                   <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
                 </div>
-                <div class="col">
+                <div class="col pe-0">
                   <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
                 </div>
-                <div class="col">
+                <div class="col ps-0">
                   <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
                 </div>
-                <div class="col">
+                <div class="col pe-0">
                   <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
                 </div>
-                <div class="col">
+                <div class="col ps-0">
                   <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
                 </div>
               </div>
@@ -126,9 +126,18 @@
           </div>
           <hr>
           <h2>메뉴정보</h2>
-          <div class="d-flex justify-content-between">
-            <p>메뉴이름</p>
-            <p>가격</p>
+          <div class="d-flex justify-content-between p-2">
+            <div class="d-flex flex-column justify-content-center">
+              {% for tag in dining.menu_tags.all %}
+              <a href="">{{ tag.name }}</a>
+              {% endfor %}
+            </div>
+            <div class="d-flex flex-column justify-content-center">
+              {% for tag in dining.price_tags.all %}
+              <a href="">{{ tag.name }}</a>
+              {% endfor %}
+            </div>
+            
           </div>
           <hr>
           <h2>맛집태그</h2>
@@ -218,13 +227,13 @@
 
           
           {% for review in reviews %}
-            <div class="container">
-              <div class="d-flex">
+            <div class="container ">
+              <div class="d-flex ">
                 <!-- 프로필 사진 추가-->
                 {% if review.user.profile_image %}
-                  <img src="{{ review.user.profile_image.url }}" alt="profile_image">
+                  <img class="p-1 rounded-circle" src="{{ review.user.profile_image.url }}" alt="profile_image">
                 {% else %}
-                  <img src="{% static 'img/blank-profile-image.png' %}" class="img-fluid" style="width: 70px; height: 70px;" alt="blank-profile-image">
+                  <img class="p-1 rounded-circle" src="{% static 'img/blank-profile-image.png' %}" class="img-fluid" style="width: 70px; height: 70px;" alt="blank-profile-image">
                 {% endif %}
                 <div>
                   <div class="d-flex gap-2">
@@ -232,7 +241,7 @@
                     <p>작성개수{{ review.user.review_set.all|length }},공감개수{{ review.like_users.all|length }}</p>
                   </div>
                   <div class="d-flex gap-2">
-                    <p>별점 {{ review.star_rating }} </p>
+                    <p>{{ review.star_rating }} </p>
                     <p>날짜</p>
                   </div>
                 </div>
