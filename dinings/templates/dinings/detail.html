@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block content %}
 <div class="container text-nowrap">
   <div class="row">
@@ -19,7 +20,7 @@
         <!-- 1번 상자 -->
         <div class="card mb-3">
           <div class="row ">
-            <div class="col-6">
+            <div class="col-6 pe-0">
               <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
               <div class="row row-cols-2">
                 <div class="col pe-0">
@@ -62,16 +63,19 @@
             </div>
             <div class="d-flex gap-2">
               <b><p>{{ reviews.half_star_rating }}점</p></b>
-              <p>{{ reviews.all|length }}명의 평가</p>
-              <p>{{ avg }}점</p>
-              <!-- 별점만큼 별 색칠되게 하기-->
-              <p>별점</p>
+              <p class="sm_text">{{ reviews.all|length }}명의 평가</p>
+              <b><p class="m_text">{{ avg }}점</p></b>
+              <!-- 임시로 넣어두었음 , 총 별점 나타내야 함-->
+              {% for review in reviews %}
+              <p>{{ review.star_rating }} </p>
+              {% endfor %}
             </div>
           </div>
           <hr>
           <div class="d-flex justify-content-between mb-3">
-            <div>
-              <button type="button" class="btn btn-outline-dark">좋아요<span>({{ dining.like_users.all|length }})</span></button>
+            <div class="">
+              <button type="button" class="rounded-pill btn btn-outline-dark"><span class="material-symbols-rounded c_items">favorite</span>
+              좋아요<span>({{ dining.like_users.all|length }})</span></button>
               {% comment %} <form action="{% url 'articles:likes' article.pk %}" method="POST">
                 {% csrf_token %}
                 {% if request.user in article.like_users.all %}
@@ -80,9 +84,11 @@
                   <input type="submit" value="좋아요">
                 {% endif %}
               </form> {% endcomment %}
-              <button type="button" class="btn btn-outline-dark">공유</button>
+              <button type="button" class="rounded-pill btn btn-outline-dark"><span class="material-symbols-rounded">
+                share
+                </span>공유</button>
             </div>
-            <button type="button" class="btn btn-outline-dark">평가하기</button>
+            <button type="button" class="rounded-pill btn btn-outline-dark">평가하기</button>
 
           </div>
         </div>
@@ -93,7 +99,6 @@
             <a href="#">{{ dining.address_mc_do}}</a>
             <a href="#">{{ dining.address_city}}</a>
             <a href="#">{{ dining.address_dong}}</a>
-            <!-- 추가 해야함-->
             <p>{{ dining.address_detail }}</p>
           </div>
           <div>
@@ -137,21 +142,20 @@
               <a href="">{{ tag.name }}</a>
               {% endfor %}
             </div>
-            
           </div>
           <hr>
           <h2>맛집태그</h2>
           <div class="d-flex gap-3">
             <!-- 태그 수 많을 수록 텍스트 크기 커지게 -->
             {% for tag in dining.tags.all %}
-            <a href="#">{{ tag.name }}</a>
+            <p>{{ tag.name }}</p>
             {% endfor %}
           </div>
         </div>
 
         <!-- 리뷰 -->
         <div class="container card mb-3">
-          <h2>{{ reviews.all|length }}건의 방문자 평가</h2>
+          <h3 class="my-auto mt-3">{{ reviews.all|length }}건의 방문자 평가</h3>
           <hr>
           <div class="d-flex">
             <div class="col-8">
@@ -163,28 +167,30 @@
                 <p>가격</p>
                 <p>서비스</p>
               </div>
-              <div class="d-flex gap-5">
-                <p>방문목적</p>
-                <div class="d-flex gap-3">
-                  {% for tag in dining.tags.all %}
-                  <a href="#">{{ tag.name }}</a>
-                  {% endfor %}
+              <div class="sm_tag row ">
+                <div class="d-flex gap-5">
+                  <p>방문목적</p>
+                  <div class="d-flex gap-3">
+                    {% for tag in dining.tags.all %}
+                    <p class="border rounded-pill px-2"style="background-color: rgb(227, 227, 227);">{{ tag.name }}</p>
+                    {% endfor %}
+                  </div>
                 </div>
-              </div>
-              <div class="d-flex gap-5">
-                <p>분위기</p>
-                <div class="d-flex gap-3">
-                  {% for tag in dining.tags.all %}
-                  <a href="#">{{ tag.name }}</a>
-                  {% endfor %}
+                <div class="d-flex gap-5">
+                  <p>분위기</p>
+                  <div class="d-flex gap-3">
+                    {% for tag in dining.tags.all %}
+                    <p class="border rounded-pill px-2"style="background-color: rgb(227, 227, 227);">{{ tag.name }}</p>
+                    {% endfor %}
+                  </div>
                 </div>
-              </div>
-              <div class="d-flex gap-5">
-                <p>편의시설</p>
-                <div class="d-flex gap-3">
-                  {% for tag in dining.tags.all %}
-                  <a href="#">{{ tag.name }}</a>
-                  {% endfor %}
+                <div class="d-flex gap-5">
+                  <p>편의시설</p>
+                  <div class="d-flex gap-3">
+                    {% for tag in dining.tags.all %}
+                    <p class="border rounded-pill px-2"style="background-color: rgb(227, 227, 227);">{{ tag.name }}</p>
+                    {% endfor %}
+                  </div>
                 </div>
               </div>
 
@@ -227,7 +233,7 @@
 
           
           {% for review in reviews %}
-            <div class="container ">
+            <div class="container card ">
               <div class="d-flex ">
                 <!-- 프로필 사진 추가-->
                 {% if review.user.profile_image %}
@@ -256,11 +262,12 @@
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore, non similique repellat dolor facilis rerum omnis. Cum tempora numquam molestiae laborum ut in sint, totam dolorem reiciendis asperiores nemo veritatis earum ipsam omnis porro delectus a! Sint adipisci nostrum tempora veniam fuga, iusto non quas nulla consequuntur harum, pariatur labore?
               </div>
               <img src="" alt="#">
-              <div class="d-flex gap-2">
-                <p class="border border-primary rounded-pill">점심식사</p>
-                <p>저녁식사</p>
+              <div class="d-flex gap-2 sm_tag">
+                {% for tag in dining.tags.all %}
+                <p class="border rounded-pill px-2"style="background-color: rgb(227, 227, 227);">{{ tag.name }}</p>
+                {% endfor %}
               </div>
-              <button>공감</button>
+              <button class="">공감</button>
             </div>
           {% empty %}
             <p>아직 리뷰가 없습니다.</p>
