@@ -141,13 +141,3 @@ def dining_delete(requset, dining_pk):
     dining = Dining.objects.get(pk=dining_pk)
     dining.delete()
     return redirect('dinings:index')
-
-def get_location(request):
-    if request.method == 'POST':
-        latitude = request.POST['latitude']
-        longitude = request.POST['longitude']
-        # 여기서 위치 정보를 이용하여 시/도를 구하고, 해당 값을 context에 추가하여 템플릿으로 전달합니다.
-        context = {'city': '서울'}
-        return render(request, 'location.html', context)
-    else:
-        return render(request, 'location.html')
