@@ -1,5 +1,5 @@
 from django import forms
-from .models import Dining, Review
+from .models import Dining, Review, Menu
 
 
 class DiningForm(forms.ModelForm):
@@ -48,4 +48,14 @@ class ReviewForm(forms.ModelForm):
             'purpose_tags':'방문목적',
             'atmosphere_tags':'분위기',
             'facility_tags': '편의시설',
+        }
+
+
+class MenuForm(forms.ModelForm):
+    class Meta:
+        model = Menu
+        fields = ('name', 'price',)
+        labels = {
+            'name':'메뉴명',
+            'price':'가격',
         }
