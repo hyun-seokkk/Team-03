@@ -133,14 +133,6 @@
           console.error(error);
         });
     }
-    function submitLocation() {
-      var city = document.getElementById("city").value;
-      var gu = document.getElementById("gu").value;
-      var dong = document.getElementById("dong").value;
-      var locationElement = document.getElementById("location");
-      locationElement.innerHTML = city + " " + gu + " " + dong;
-      $('#locationModal').modal('hide'); // 모달 창 닫기
-    }
   </script>
   <body>
     <div id="nav1">
@@ -235,7 +227,7 @@
         "
       />
       <div style="margin-bottom: 20px; color: white; font-size: 20px">
-        당신을 위한<p id="location"></p>추천 맛집
+        당신을 위한<p id="location"></p>맛집 추천
       </div>
       <div>
         <form id="location-form" method="POST">
@@ -243,38 +235,8 @@
           <input type="hidden" name="latitude" id="latitude">
           <input type="hidden" name="longitude" id="longitude">
         </form>
-        <button class="btn btn-primary" data-toggle="modal" data-target="#locationModal">다른 지역 선택</button>
+        <button type="button" class="btn btn-primary">다른 지역 선택</button>
         <button class="btn btn-success" onclick="getLocation()">현 위치로 설정</button>
-      </div>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="locationModal" tabindex="-1" role="dialog" aria-labelledby="locationModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="locationModalLabel">시/구/동 입력</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="form-group">
-                <label for="cityInput">시</label>
-                <input type="text" class="form-control" id="cityInput" placeholder="시를 입력하세요">
-              </div>
-              <div class="form-group">
-                <label for="guInput">구</label>
-                <input type="text" class="form-control" id="guInput" placeholder="구를 입력하세요">
-              </div>
-              <div class="form-group">
-                <label for="dongInput">동</label>
-                <input type="text" class="form-control" id="dongInput" placeholder="동을 입력하세요">
-              </div>
-              <button type="submit" class="btn btn-primary">제출</button>
-            </form>
-          </div>
-        </div>
       </div>
     </div>
     {% comment %} {% include 'dinings/details.html' %} {% endcomment %}
