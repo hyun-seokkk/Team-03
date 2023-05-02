@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% block style %}
   .carousel-control-next {
     padding-right: -10px;
@@ -7,313 +6,225 @@
   }
 {% endblock style %}
 {% block content %}
-<div style="justify-content: center; display: grid; margin: 10px 0px; overflow-x: hidden;">
-  <div class="card" style="width: 100%">
-    <div class="card-header">#음식종류</div>
-    <div
-      class="card-body"
-      style="
-        display: flex;
-        align-items: center;
-        min-width: 1070px;
-        max-width: 1070px;
-        overflow-x: hidden;
-      "
-    >
-      <div id="carouselExample" class="carousel slide">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <div class="mx-3" style="float: left; width: 220px">
-              <div class="card mx-3" style="width: 220px; margin-right: 0px;">
-                <div class="card-body" style="padding: 0px">
-                  <img
-                    src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
-                    alt=""
-                    style="width: 220px; border-radius: 5px"
-                  />
-                </div>
+  <div style="justify-content: center; display: grid; margin: 10px 0px; overflow-x: hidden;">
+    <div class="card" style="width: 100%">
+      <div class="card-header">#음식종류</div>
+      <div
+        class="card-body"
+        style="
+          display: flex;
+          align-items: center;
+          min-width: 1070px;
+          max-width: 1070px;
+          overflow-x: hidden;
+        "
+      >
+        <div id="carouselExample" class="carousel slide">
+          <div class="carousel-inner">
+    
+              {% for dining in dinings %} {% if forloop.counter0|divisibleby:4 %}
+              <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                {% endif %}
+                  <div class="mx-3" style="float: left; width: 220px">
+                    <div class="card mx-3" style="width: 220px; margin-right: 0px;">
+                      <div class="card-body" style="padding: 0px">
+                        <a href="{% url 'dinings:detail' dining.pk %}">
+                        <img
+                          src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
+                          alt="{{ dining.title }}"
+                          style="width: 220px; border-radius: 5px"
+                        />
+                        </a>
+                      </div>
+                    </div>
+                    <a href="{% url 'dinings:detail' dining.pk %}" class="px-3">{{ dining.title }}</a>
+                  </div>
+                {% if forloop.counter0|add:1|divisibleby:4 or forloop.last %}
               </div>
-              <div class="px-3">냉면</div>
-            </div>
-
-            <div class="mx-3" style="float: left; width: 220px">
-              <div class="card mx-3" style="width: 220px">
-                <div class="card-body" style="padding: 0px">
-                  <img
-                    src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
-                    alt=""
-                    style="width: 220px; border-radius: 5px"
-                  />
-                </div>
-              </div>
-              <div class="px-3">냉면</div>
-            </div>
-
-            <div class="mx-3" style="float: left; width: 220px">
-              <div class="card mx-3" style="width: 220px">
-                <div class="card-body" style="padding: 0px">
-                  <img
-                    src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
-                    alt=""
-                    style="width: 220px; border-radius: 5px"
-                  />
-                </div>
-              </div>
-              <div class="px-3">냉면</div>
-            </div>
-
-            <div class="mx-3" style="float: left; width: 220px">
-              <div class="card mx-3" style="width: 220px">
-                <div class="card-body" style="padding: 0px">
-                  <img
-                    src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
-                    alt=""
-                    style="width: 220px; border-radius: 5px"
-                  />
-                </div>
-              </div>
-              <div class="px-3">냉면</div>
-            </div>
+              {% endif %} {% endfor %}
           </div>
 
-          <div class="carousel-item">
-            <div class="mx-3" style="float: left; width: 220px">
-              <div class="card mx-3" style="width: 220px">
-                <div class="card-body" style="padding: 0px">
-                  <img
-                    src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
-                    alt=""
-                    style="width: 220px; border-radius: 5px"
-                  />
-                </div>
-              </div>
-              <div class="px-3">냉면</div>
-            </div>
-
-            <div class="mx-3" style="float: left; width: 220px">
-              <div class="card mx-3" style="width: 220px">
-                <div class="card-body" style="padding: 0px">
-                  <img
-                    src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
-                    alt=""
-                    style="width: 220px; border-radius: 5px"
-                  />
-                </div>
-              </div>
-              <div class="px-3">냉면</div>
-            </div>
-
-            <div class="mx-3" style="float: left; width: 220px">
-              <div class="card mx-3" style="width: 220px">
-                <div class="card-body" style="padding: 0px">
-                  <img
-                    src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
-                    alt=""
-                    style="width: 220px; border-radius: 5px"
-                  />
-                </div>
-              </div>
-              <div class="px-3">냉면</div>
-            </div>
-
-            <div class="mx-3" style="float: left; width: 220px">
-              <div class="card mx-3" style="width: 220px">
-                <div class="card-body" style="padding: 0px">
-                  <img
-                    src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
-                    alt=""
-                    style="width: 220px; border-radius: 5px"
-                  />
-                </div>
-              </div>
-              <div class="px-3">냉면</div>
-            </div>
-          </div>
-
-          <button
-            class="carousel-control-prev"
-            type="button"
-            data-bs-target="#carouselExample"
-            data-bs-slide="prev"
-          >
-            <span
-              class="carousel-control-prev-icon"
-              aria-hidden="true"
-            ></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button
-            class="carousel-control-next"
-            type="button"
-            data-bs-target="#carouselExample"
-            data-bs-slide="next"
-          >
-            <span
-              class="carousel-control-next-icon"
-              aria-hidden="true"
-            ></span>
-            <span class="visually-hidden">Next</span>
-          </button>
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselExample"
+              data-bs-slide="prev"
+            >
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselExample"
+              data-bs-slide="next"
+            >
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Next</span>
+            </button>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<div style="justify-content: center; display: grid; margin: 10px 0px; overflow-x: hidden;">
-  <div class="card" style="width: 100%">
-    <div class="card-header">#음식종류</div>
-    <div
-      class="card-body"
-      style="
-        display: flex;
-        align-items: center;
-        min-width: 1070px;
-        max-width: 1070px;
-        overflow-x: hidden;
-      "
-    >
-      <div id="carouselExample2" class="carousel slide">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <div class="mx-3" style="float: left; width: 220px">
-              <div class="card mx-3" style="width: 220px; margin-right: 0px;">
-                <div class="card-body" style="padding: 0px">
-                  <img
-                    src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
-                    alt=""
-                    style="width: 220px; border-radius: 5px"
-                  />
+  <div style="justify-content: center; display: grid; margin: 10px 0px; overflow-x: hidden;">
+    <div class="card" style="width: 100%">
+      <div class="card-header">#음식종류</div>
+      <div
+        class="card-body"
+        style="
+          display: flex;
+          align-items: center;
+          min-width: 1070px;
+          max-width: 1070px;
+          overflow-x: hidden;
+        "
+      >
+        <div id="carouselExample2" class="carousel slide">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="mx-3" style="float: left; width: 220px">
+                <div class="card mx-3" style="width: 220px; margin-right: 0px;">
+                  <div class="card-body" style="padding: 0px">
+                    <img
+                      src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
+                      alt=""
+                      style="width: 220px; border-radius: 5px"
+                    />
+                  </div>
                 </div>
+                <div class="px-3">냉면</div>
               </div>
-              <div class="px-3">냉면</div>
+
+              <div class="mx-3" style="float: left; width: 220px">
+                <div class="card mx-3" style="width: 220px">
+                  <div class="card-body" style="padding: 0px">
+                    <img
+                      src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
+                      alt=""
+                      style="width: 220px; border-radius: 5px"
+                    />
+                  </div>
+                </div>
+                <div class="px-3">냉면</div>
+              </div>
+
+              <div class="mx-3" style="float: left; width: 220px">
+                <div class="card mx-3" style="width: 220px">
+                  <div class="card-body" style="padding: 0px">
+                    <img
+                      src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
+                      alt=""
+                      style="width: 220px; border-radius: 5px"
+                    />
+                  </div>
+                </div>
+                <div class="px-3">냉면</div>
+              </div>
+
+              <div class="mx-3" style="float: left; width: 220px">
+                <div class="card mx-3" style="width: 220px">
+                  <div class="card-body" style="padding: 0px">
+                    <img
+                      src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
+                      alt=""
+                      style="width: 220px; border-radius: 5px"
+                    />
+                  </div>
+                </div>
+                <div class="px-3">냉면</div>
+              </div>
             </div>
 
-            <div class="mx-3" style="float: left; width: 220px">
-              <div class="card mx-3" style="width: 220px">
-                <div class="card-body" style="padding: 0px">
-                  <img
-                    src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
-                    alt=""
-                    style="width: 220px; border-radius: 5px"
-                  />
+            <div class="carousel-item">
+              <div class="mx-3" style="float: left; width: 220px">
+                <div class="card mx-3" style="width: 220px">
+                  <div class="card-body" style="padding: 0px">
+                    <img
+                      src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
+                      alt=""
+                      style="width: 220px; border-radius: 5px"
+                    />
+                  </div>
                 </div>
+                <div class="px-3">냉면</div>
               </div>
-              <div class="px-3">냉면</div>
+
+              <div class="mx-3" style="float: left; width: 220px">
+                <div class="card mx-3" style="width: 220px">
+                  <div class="card-body" style="padding: 0px">
+                    <img
+                      src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
+                      alt=""
+                      style="width: 220px; border-radius: 5px"
+                    />
+                  </div>
+                </div>
+                <div class="px-3">냉면</div>
+              </div>
+
+              <div class="mx-3" style="float: left; width: 220px">
+                <div class="card mx-3" style="width: 220px">
+                  <div class="card-body" style="padding: 0px">
+                    <img
+                      src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
+                      alt=""
+                      style="width: 220px; border-radius: 5px"
+                    />
+                  </div>
+                </div>
+                <div class="px-3">냉면</div>
+              </div>
+
+              <div class="mx-3" style="float: left; width: 220px">
+                <div class="card mx-3" style="width: 220px">
+                  <div class="card-body" style="padding: 0px">
+                    <img
+                      src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
+                      alt=""
+                      style="width: 220px; border-radius: 5px"
+                    />
+                  </div>
+                </div>
+                <div class="px-3">냉면</div>
+              </div>
             </div>
 
-            <div class="mx-3" style="float: left; width: 220px">
-              <div class="card mx-3" style="width: 220px">
-                <div class="card-body" style="padding: 0px">
-                  <img
-                    src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
-                    alt=""
-                    style="width: 220px; border-radius: 5px"
-                  />
-                </div>
-              </div>
-              <div class="px-3">냉면</div>
-            </div>
-
-            <div class="mx-3" style="float: left; width: 220px">
-              <div class="card mx-3" style="width: 220px">
-                <div class="card-body" style="padding: 0px">
-                  <img
-                    src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
-                    alt=""
-                    style="width: 220px; border-radius: 5px"
-                  />
-                </div>
-              </div>
-              <div class="px-3">냉면</div>
-            </div>
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselExample2"
+              data-bs-slide="prev"
+            >
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselExample2"
+              data-bs-slide="next"
+            >
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Next</span>
+            </button>
           </div>
-
-          <div class="carousel-item">
-            <div class="mx-3" style="float: left; width: 220px">
-              <div class="card mx-3" style="width: 220px">
-                <div class="card-body" style="padding: 0px">
-                  <img
-                    src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
-                    alt=""
-                    style="width: 220px; border-radius: 5px"
-                  />
-                </div>
-              </div>
-              <div class="px-3">냉면</div>
-            </div>
-
-            <div class="mx-3" style="float: left; width: 220px">
-              <div class="card mx-3" style="width: 220px">
-                <div class="card-body" style="padding: 0px">
-                  <img
-                    src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
-                    alt=""
-                    style="width: 220px; border-radius: 5px"
-                  />
-                </div>
-              </div>
-              <div class="px-3">냉면</div>
-            </div>
-
-            <div class="mx-3" style="float: left; width: 220px">
-              <div class="card mx-3" style="width: 220px">
-                <div class="card-body" style="padding: 0px">
-                  <img
-                    src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
-                    alt=""
-                    style="width: 220px; border-radius: 5px"
-                  />
-                </div>
-              </div>
-              <div class="px-3">냉면</div>
-            </div>
-
-            <div class="mx-3" style="float: left; width: 220px">
-              <div class="card mx-3" style="width: 220px">
-                <div class="card-body" style="padding: 0px">
-                  <img
-                    src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
-                    alt=""
-                    style="width: 220px; border-radius: 5px"
-                  />
-                </div>
-              </div>
-              <div class="px-3">냉면</div>
-            </div>
-          </div>
-
-          <button
-            class="carousel-control-prev"
-            type="button"
-            data-bs-target="#carouselExample2"
-            data-bs-slide="prev"
-          >
-            <span
-              class="carousel-control-prev-icon"
-              aria-hidden="true"
-            ></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button
-            class="carousel-control-next"
-            type="button"
-            data-bs-target="#carouselExample2"
-            data-bs-slide="next"
-          >
-            <span
-              class="carousel-control-next-icon"
-              aria-hidden="true"
-            ></span>
-            <span class="visually-hidden">Next</span>
-          </button>
         </div>
       </div>
     </div>
   </div>
-</div>
-
 {% endblock content %} 
-{% block script %}
-{% endblock script %}
+
 

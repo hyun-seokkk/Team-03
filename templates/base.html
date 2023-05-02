@@ -15,6 +15,10 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css"
     />
+    <link 
+      rel="stylesheet" 
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" 
+    />
   </head>
   <style>
     body {
@@ -23,7 +27,8 @@
 
     a {
       text-decoration: none;
-      text-color: black
+      text-color: black;
+      color: black;
     }
 
     input {
@@ -35,7 +40,7 @@
       box-sizing: border-box;
     }
 
-    #nav1 {
+    .header1 {
       position: sticky;
       z-index: 999;
       top: 0;
@@ -43,7 +48,6 @@
       justify-content: center;
       width: 100%;
       min-height: 74px;
-      border-bottom: 1px solid rgb(234, 234, 234);
       background-color: white;
       display: grid;
       grid-auto-flow: column;
@@ -58,8 +62,27 @@
       font-size: 14px;
     }
 
+    .header2 {
+      position: fixed;
+      top: 0;
+      justify-content: center;
+      width: 100%;
+      min-height: 74px;
+      max-height: 74px;
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 235px 450px auto;
+      align-items: center;
+      min-width: 1070px;
+      height: 100%;
+      padding-left: 0px;
+      padding-right: 0px;
+      box-sizing: border-box;
+      font-size: 14px;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
 
-    #nav1 > div:last-child {
+    header > div:last-child {
       margin-left: auto;
     }
 
@@ -107,7 +130,30 @@
       margin-bottom: 20px;
       position: relative;
     }
+    .sm_text {
+      font-size: 13px;
+      align-items: center;
+      display: flex;
+      color: grey;
+    }
 
+    .m_text {
+      font-size: 13px;
+      align-items: center;
+      display: inline-block;
+    }
+
+    .sm_tag {
+      font-size: 13px;
+      align-items: center;
+      display: flex;
+
+    }
+    .icon_size {
+      width:15px;
+      font-size: 20px
+
+    }
     {% block style %}{% endblock style %}
   </style>
   <script>
@@ -135,7 +181,7 @@
     }
   </script>
   <body>
-    <div id="nav1">
+    <header id="header1" class="header1">
       <div class="col-md-2">
         <a href="{% url 'dinings:index' %}">
           <img
@@ -148,28 +194,85 @@
         </a>
       </div>
 
-      <div class="input-group">
-        <input
-          class="form-control"
-          type="text"
-          placeholder="지역, 음식 또는 식당명 입력"
-          aria-label="Search"
-        />
-        <button class="btn btn-outline-info" type="button">
-          <i class="bi bi-search"></i>
-        </button>
-      </div>
+      <form action="{% url 'dinings:search' %}">
+        <div class="input-group">
+          <input
+            class="form-control"
+            type="text"
+            placeholder="지역, 음식 또는 식당명 입력"
+            aria-label="Search"
+            name = 'q'
+          />
+          <button class="btn btn-outline-info" type="button">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </form>
 
       <div>
         {% if user.is_authenticated %}
         <a href="{% url 'accounts:logout' %}" style="color: black">로그아웃</a>
-        <a href="{% url 'accounts:update' %}" style="color: black">회원정보수정</a>
+        <a href="{% url 'accounts:update' %}" style="color: black"
+          >회원정보수정</a
+        >
+        {% comment %} <a href="{% url 'dinings:review_create' %}" style="color: black">리뷰 작성</a> {% endcomment %}
         {% else %}
-        <a class="mx-3" href="{% url 'accounts:login' %}" style="color: black">로그인</a>
-        <a class="mx-3" href="{% url 'accounts:signup' %}" style="color: black">회원가입</a>
+        <a class="mx-3" href="{% url 'accounts:login' %}" style="color: black"
+          >로그인</a
+        >
+        <a class="mx-3" href="{% url 'accounts:signup' %}" style="color: black"
+          >회원가입</a
+        >
         {% endif %}
       </div>
-    </div>
+    </header>
+
+    <header id="header2" class="header2">
+      <div>
+        <a href="{% url 'dinings:index' %}" style="width: 148.194px">
+          <img
+            class="logo"
+            src="https://dcicons.s3.ap-northeast-1.amazonaws.com/new/images/web/react_components/indexPage/recom__scroll__nav__logo.png"
+            alt="다이닝코드"
+            width="148.194px"
+            height="auto"
+            style="margin-right: 50px"
+          />
+        </a>
+      </div>
+
+      <div
+        style="
+          align-items: center;
+          display: flex;
+          font-size: 10px;
+          color: white;
+          font-size: 20px;
+          margin-left: 100px;
+        "
+      >
+        당신을 위한 XX지구 추천 맛집
+      </div>
+
+      <div style="align-items: center">
+        <button class="btn btn-primary">다른 지역 선택</button>
+        <button class="btn btn-success">현 위치로 설정</button>
+      </div>
+
+      <img
+        src="https://cdn-pro-web-247-144.cdn-nhncommerce.com/koreafood373_godomall_com/data/goods/23/03/12/1000000938/1000000938_detail_090.jpg"
+        style="
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          z-index: -555;
+          filter: brightness(50%);
+        "
+      />
+    </header>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav2">
       <div class="navbar-collapse">
@@ -239,9 +342,8 @@
         <button class="btn btn-success" onclick="getLocation()">현 위치로 설정</button>
       </div>
     </div>
-    {% comment %} {% include 'dinings/details.html' %} {% endcomment %}
-    {% block content %}
-    {% endblock content %}
+
+    {% block content %} {% endblock content %}
 
     <footer class="bg-light d-flex justify-content-center">
       <div style="margin-right: 350px">
@@ -252,7 +354,9 @@
           <span class="mx-2">|</span>
           <a href="#" class="font-weight-bold text-dark">이용약관</a>
           <span class="mx-2">|</span>
-          <a href="#" class="font-weight-bold text-dark">위치기반 서비스 이용약관</a>
+          <a href="#" class="font-weight-bold text-dark"
+            >위치기반 서비스 이용약관</a
+          >
         </p>
 
         <p class="mb-2">
@@ -278,6 +382,28 @@
       </div>
     </footer>
 
+    {% block script %}{% endblock script %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(window).scroll(function() {
+        var headerHeight = $('#header1').outerHeight();
+        var boxBottom = $('#box').offset().top + $('#box').outerHeight();
+        var scrollPosition = $(window).scrollTop();
+        var triggerPoint = boxBottom - headerHeight;
+      
+        if (scrollPosition >= triggerPoint) {
+          $('#header1').hide();
+          $('#header2').show().addClass('fixed-top');
+        } else {
+          $('#header1').show();
+          $('#header2').hide().removeClass('fixed-top');
+        }
+      
+        if (scrollPosition + $(window).height() >= $(document).height() - headerHeight) {
+          $('#header1').show();
+        }
+      });
+    </script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
