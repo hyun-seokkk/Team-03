@@ -110,6 +110,30 @@
 
     {% block style %}{% endblock style %}
   </style>
+  <script>
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    }
+
+    function showPosition(position) {
+      var lat = position.coords.latitude;
+      var lon = position.coords.longitude;
+      var url = "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=" + lat + "&longitude=" + lon + "&localityLanguage=ko";
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          var locationElement = document.getElementById("location");
+          locationElement.innerHTML = data.locality;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+  </script>
   <body>
     <div id="nav1">
       <div class="col-md-2">
@@ -203,11 +227,16 @@
         "
       />
       <div style="margin-bottom: 20px; color: white; font-size: 20px">
-        당신을 위한 XX지구 추천 맛집
+        당신을 위한<p id="location"></p>추천 맛집
       </div>
       <div>
+        <form id="location-form" method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="latitude" id="latitude">
+          <input type="hidden" name="longitude" id="longitude">
+        </form>
         <button class="btn btn-primary">다른 지역 선택</button>
-        <button class="btn btn-success">현 위치로 설정</button>
+        <button class="btn btn-success" onclick="getLocation()">현 위치로 설정</button>
       </div>
     </div>
 
