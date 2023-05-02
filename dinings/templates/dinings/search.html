@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% for search in search_list %}
+    <div>
+      <a href="{% url 'dinings:detail' search.pk %}">{{ search.title }}</a>
+    </div>
+  {% endfor %}
+{% endblock content %}

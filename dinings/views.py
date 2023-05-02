@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Dining, Review
 from .forms import DiningForm, ReviewForm
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 # Create your views here.
 
@@ -140,3 +141,20 @@ def dining_delete(requset, dining_pk):
     dining = Dining.objects.get(pk=dining_pk)
     dining.delete()
     return redirect('dinings:index')
+
+
+def search(request):
+    query = None
+    search_list = None
+
+    if 'q' in request.GET:
+        query = request.GET.get('q')
+        search_list = Dining.objects.filter(
+            Q(title__icontains=query) |
+            Q(tags__name__icontains=query)
+        ).distinct()
+    context = {
+        'query': query,
+        'search_list': search_list,
+    }
+    return render(request, 'dinings/search.html', context)
