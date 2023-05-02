@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Dining, Review
-from .forms import DiningForm, ReviewForm
+from .models import Dining, Review, Menu
+from .forms import DiningForm, ReviewForm, MenuForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
@@ -18,6 +18,9 @@ def index(request):
 def detail(request, pk):
     dining = Dining.objects.get(pk=pk)
     reviews = dining.review_set.all()
+    menu_form = MenuForm(request.POST)
+    menus = Menu.objects.all()
+
     sum = 0
     avg = 0
 
@@ -31,6 +34,8 @@ def detail(request, pk):
         'dining': dining,
         'reviews': reviews,
         'avg': avg,
+        'menus': menus,
+        'menu_form': menu_form,
     }
     return render(request, 'dinings/detail.html', context)
 
@@ -158,3 +163,32 @@ def search(request):
         'search_list': search_list,
     }
     return render(request, 'dinings/search.html', context)
+
+
+@login_required
+def menu_create(request, dining_pk):
+    dining = Dining.objects.get(pk=dining_pk)
+    menu_form = MenuForm(request.POST)
+
+    if menu_form.is_valid():
+        menu = menu_form.save(commit=False)
+        menu.dining = dining
+        menu.save()
+        return redirect('dinings:detail', dining_pk)
+
+    context = {
+        'dining': dining,
+        'menu_form': menu_form,
+    }
+    return render(request, 'dinings/detail.html', context)
+
+
+@login_required
+def likes(reqeust, dining_pk):
+    dining = Dining.objects.get(pk=dining_pk)
+
+    if dining.like_users.filter(pk=reqeust.user.pk).exists():
+        dining.like_users.remove(reqeust.user)
+    else:
+        dining.like_users.add(reqeust.user)
+    return redirect('dinings:detail', dining_pk)
