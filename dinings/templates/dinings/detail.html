@@ -77,17 +77,18 @@
           <hr>
           <div class="d-flex justify-content-between mb-3">
             <div class="d-flex gap-2">
-              <form action="{% url 'dinings:likes' dining.pk %}" method="POST">
+              {% comment %} <form action="{% url 'dinings:likes' dining.pk %}" method="POST"> {% endcomment %}
+              <form id="like-form" data-dinings-id="{{ dining.pk }}">
                 {% csrf_token %}
-                <button type="submit" class="m_text rounded-pill btn btn-outline-dark"><i class="bi 
+                <button type="submit" class="m_text rounded-pill btn btn-outline-dark">
                   {% if request.user in dining.like_users.all %}
-                    bi-heart-fill
+                  <i class="bi bi-heart-fill"></i>
                   {% else %}
-                    bi-heart
+                  <i class="bi bi-heart"></i>
                   {% endif %}
-                  "></i>
+                  좋아요<span id="like_count">({{ dining.like_users.all|length }})</span></button>
               </form>
-              좋아요<span>({{ dining.like_users.all|length }})</span></button>
+
               <button type="button" class="rounded-pill btn btn-outline-dark m_text "><span class="material-symbols-rounded mx-1">
                 open_in_new
                 </span>공유</button>
@@ -154,16 +155,16 @@
           </div>
           <hr>
           <h2>메뉴정보</h2>
-          <div class="d-flex justify-content-between p-2">
+          <div class="p-2">
             {% for menu in menus %}
-            <div class='d-flex justify-content-between'>
+              <div class='d-flex justify-content-between'>
                 <p>{{menu.name}}</p>
                 <p>{{menu.price}}</p>
               </div>
             {% endfor %}
             <button class="btn btn-primary menu-add">추가</button>
             <div class="menu-form" style="display:none;">
-              <form action="{% url 'dinings:menu_create' dining.pk %}" method="POST">
+              <form id='menu-form' data-dining-id="{{dining.pk}}">
                 {% csrf_token %}
                 {{ menu_form.as_p }}
                 <input type="submit" value="입력">
@@ -280,9 +281,17 @@
                   <img class="p-1 rounded-circle" src="{% static 'img/blank-profile-image.png' %}" class="img-fluid" style="width: 70px; height: 70px;" alt="blank-profile-image">
                 {% endif %}
                 <div class="container mt-2">
-                  <div class="d-flex gap-2">
-                    <p>{{ review.user.username }}</p>
-                    <p>작성개수{{ review.user.review_set.all|length }},공감개수{{ review.like_users.all|length }}</p>
+                  <div class="d-flex justify-content-between gap-2">
+                    <div class="d-flex gap-2">
+                      <p>{{ review.user.username }}</p>
+                      <p>작성개수{{ review.user.review_set.all|length }},공감개수{{ review.like_users.all|length }}</p>
+                    </div>
+                    {% if request.user == review.user %}
+                      <form action="{% url 'dinings:review_delete' dining.pk review.pk %}" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" value="삭제">
+                      </form>
+                    {% endif %}
                   </div>
                   <div class="d-flex gap-2">
                     <p>{{ review.star_rating }} </p>
@@ -297,7 +306,7 @@
               </div>
               <!-- 댓글은 wrap 사용-->
               <div class="text-wrap">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore, non similique repellat dolor facilis rerum omnis. Cum tempora numquam molestiae laborum ut in sint, totam dolorem reiciendis asperiores nemo veritatis earum ipsam omnis porro delectus a! Sint adipisci nostrum tempora veniam fuga, iusto non quas nulla consequuntur harum, pariatur labore?
+                {{ review.content }}
               </div>
               <img src="" alt="#">
               <div class="d-flex gap-2 sm_tag">
@@ -305,7 +314,10 @@
                 <p class="border rounded-pill px-2"style="background-color: rgb(227, 227, 227);">{{ tag.name }}</p>
                 {% endfor %}
               </div>
-              <button class="d-block">공감</button>
+              <form action="{% url 'dinings:review_like' dining.pk review.pk %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="d-block">공감 <span>({{ review.like_users.all|length }})</span></button>
+              </form>
             </div>
           {% empty %}
             <p>아직 리뷰가 없습니다.</p>
@@ -319,12 +331,6 @@
 {% endblock content %}
 
 {% block script %}
-<script>
-  const menuAddBtn = document.querySelector('.menu-add')
-  const menuForm = document.querySelector('.menu-form')
-  menuAddBtn.addEventListener('click', (event) => {
-    menuForm.setAttribute('style', '')
-    menuAddBtn.setAttribute('style', 'display:none')
-  })
-</script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="{% static 'js/detail.js' %}"></script>
 {% endblock script %}

@@ -3,7 +3,7 @@ from .models import Dining, Review, Menu
 from .forms import DiningForm, ReviewForm, MenuForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -175,7 +175,13 @@ def menu_create(request, dining_pk):
         menu = menu_form.save(commit=False)
         menu.dining = dining
         menu.save()
-        return redirect('dinings:detail', dining_pk)
+        name = menu.name
+        price = menu.price
+        context = {
+            'name': name,
+            'price': price
+        }
+        return JsonResponse(context)
 
     context = {
         'dining': dining,
@@ -185,13 +191,38 @@ def menu_create(request, dining_pk):
 
 
 @login_required
-def likes(reqeust, dining_pk):
+def likes(request, dining_pk):
     dining = Dining.objects.get(pk=dining_pk)
 
-    if dining.like_users.filter(pk=reqeust.user.pk).exists():
-        dining.like_users.remove(reqeust.user)
+    if dining.like_users.filter(pk=request.user.pk).exists():
+        dining.like_users.remove(request.user)
+        is_liked = False
     else:
-        dining.like_users.add(reqeust.user)
+        dining.like_users.add(request.user)
+        is_liked = True
+
+
+    context = {
+        'is_liked': is_liked,
+        'like_count': dining.like_users.count(),
+    }
+    return JsonResponse(context)
+
+
+@login_required
+def review_delete(request, dining_pk, review_pk):
+    review = Review.objects.get(pk=review_pk)
+    if request.user == review.user:
+        review.delete()
     return redirect('dinings:detail', dining_pk)
 
 
+@login_required
+def review_like(request, dining_pk, review_pk):
+    review = Review.objects.get(pk=review_pk)
+
+    if review.like_users.filter(pk=request.user.pk).exists():
+        review.like_users.remove(request.user)
+    else:
+        review.like_users.add(request.user)
+    return redirect('dinings:detail', dining_pk)

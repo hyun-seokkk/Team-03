@@ -16,4 +16,6 @@ urlpatterns = [
     path('search/', views.search, name='search'),
     path('<int:dining_pk>/menus', views.menu_create, name='menu_create'),
     path('<int:dining_pk>/likes/', views.likes, name='likes'),
+    path('<int:dining_pk>/reviews/<int:review_pk>/delete/', views.review_delete, name='review_delete'),
+    path('<int:dining_pk>/reviews/<int:review_pk>/like/', views.review_like, name='review_like'),
 ]
