@@ -1,9 +1,84 @@
 {% extends 'base.html' %}
+{% block style %}
+#container {
+  justify-content: center;
+  width: 100%;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 250px 800px;
+  align-items: start;
+  min-width: 1070px;
+  height: 100%;
+}
+
+#container > .card:first-child {
+  max-width: 300px; 
+  margin-right: 10px;
+  margin-right: 10px;
+  position: sticky;
+  top: 100px;
+}
+
+#container > .card:nth-child(2) {
+  display: flex;
+}
+{% endblock style %}
 
 {% block content %}
-  {% for search in search_list %}
-    <div>
-      <a href="{% url 'dinings:detail' search.pk %}">{{ search.title }}</a>
+<h5
+class="my-3 mx-auto text-center"
+style="font-family: 'Chosunilbo_myungjo', serif; max-width: 800px"
+>
+"{{ request.GET.query }}"에 관한 맛집 검색 결과입니다.
+</h5>
+
+<div id="container">
+  <div class="card my-2">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <a href="#">이용자층</a>
+      </li>
+      <li class="list-group-item">
+        <a href="#">카테고리</a>
+      </li>
+      <li class="list-group-item">
+        <a href="#">지역</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="card my-2">
+    {% for dining in dinings %}
+    <div
+      class="card m-2"
+      style="border: 0px; display: flex; flex-direction: row"
+    >
+      <div class="card" style="width: 250px; height: 250px; border: 0px">
+        <img
+          src="{{ dining.image1.url }}"
+          class="img-fluid rounded-start"
+          alt="{{ dining.title }}"
+          style="border-radius: 7px; width: 250px; height: 250px"
+        />
+      </div>
+      <div
+        class="card p-3 pt-4"
+        style="width: 550px; height: 250px; border: 0px"
+      >
+        <h5 class="card-title">{{ dining.title }}</h5>
+        <div class="card-text">
+          {% for tag in dining.tags.all %}
+          <p>{{ tag.name }}</p>
+          {% endfor %}
+        </div>
+        <div class="card-text">{{ reviews.half_star_rating }} 별점</div>
+        <div class="card-text">
+          ({{ dining.like_users.all|length }}) 좋아요
+        </div>
+        <a href="#">리뷰 보러 가기</a>
+      </div>
     </div>
-  {% endfor %}
-{% endblock content %}
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

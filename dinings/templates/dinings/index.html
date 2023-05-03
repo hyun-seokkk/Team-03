@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block style %}
 .carousel-control-next {
   padding-right: -10px;
@@ -6,42 +7,6 @@
 }
 {% endblock style %}
 
-<script>
-  function getLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-      alert("Geolocation is not supported by this browser.");
-    }
-  }
-
-  function showPosition(position) {
-    var lat = position.coords.latitude;
-    var lon = position.coords.longitude;
-    var url = "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=" + lat + "&longitude=" + lon + "&localityLanguage=ko";
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        var locationElement = document.getElementById("location");
-        locationElement.innerHTML = data.locality;
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }
-  window.onload = function() {
-    var location = localStorage.getItem("location");
-    if (location) {
-      var locationElement = document.getElementById("location");
-      locationElement.innerHTML = location;
-    }
-  };
-
-  function clearLocation() {
-    var locationElement = document.getElementById("location");
-    locationElement.innerHTML = "";
-  }
-</script>
 {% block content %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav2">
   <div class="navbar-collapse">
@@ -107,9 +72,10 @@
       color: white;
       font-size: 20px;
       margin-left: 100px;
+      font-family: 'Chosunilbo_myungjo', serif;
     "
   >
-    당신을 위한 XX지구 추천 맛집
+      당신을 위한 맛집 추천
   </div>
 
   <div style="align-items: center">
@@ -145,8 +111,8 @@
       z-index: -555;
     "
   />
-  <div style="margin-bottom: 20px; color: white; font-size: 20px">
-    당신을 위한<p id="location"></p>맛집 추천
+  <div style="margin-bottom: 20px; color: white; font-size: 30px; font-family: '조선일보명조', serif;">
+    당신을 위한<div id="location"></div>맛집 추천
   </div>
   <div>
     <form id="location-form" method="POST">
@@ -156,12 +122,16 @@
     </form>
     <button type="button" class="btn btn-primary" onclick="clearLocation()">다른 지역 선택</button>
     <button class="btn btn-success" onclick="getLocation()">현 위치로 설정</button>
+    <form action="{% url 'dinings:showmap' %}" method="POST">
+      {% csrf_token %}
+      <button class="btn btn-secondary" onclick="getLocation()">자세히 보기</button>
+    </form>
   </div>
 </div>
 
   <div style="justify-content: center; display: grid; margin: 10px 0px; overflow-x: hidden;">
     <div class="card" style="width: 100%">
-      <div class="card-header">#음식종류</div>
+      <div class="card-header" style="font-family: 'Chosunilbo_myungjo', serif; font-size: 25px;">#음식종류</div>
       <div
         class="card-body"
         style="
@@ -228,7 +198,7 @@
 
   <div style="justify-content: center; display: grid; margin: 10px 0px; overflow-x: hidden;">
     <div class="card" style="width: 100%">
-      <div class="card-header">#음식종류</div>
+      <div class="card-header" style="font-family: 'Chosunilbo_myungjo', serif; font-size: 25px;">#음식종류</div>
       <div
         class="card-body"
         style="
@@ -378,4 +348,69 @@
       </div>
     </div>
   </div>
+  <script>
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    }
+  
+    function showPosition(position) {
+      var lat = position.coords.latitude;
+      var lon = position.coords.longitude;
+      var url = "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=" + lat + "&longitude=" + lon + "&localityLanguage=ko";
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          var locationElement = document.getElementById("location");
+          locationElement.innerHTML = data.locality;
+          
+          // 위치 정보를 localStorage에 저장
+          localStorage.setItem("location", data.locality);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+    function loadLocation() {
+      var location = localStorage.getItem("location");
+      if (location) {
+        var locationElement = document.getElementById("location");
+        locationElement.innerHTML = location;
+      }
+    }
+    
+    window.onload = function() {
+      loadLocation();
+    };
+  
+    function clearLocation() {
+      localStorage.removeItem("location");
+      var locationElement = document.getElementById("location");
+      locationElement.innerHTML = "";
+    }
+  </script>
 {% endblock content %} 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(window).scroll(function() {
+    var headerHeight = $('#header1').outerHeight();
+    var boxBottom = $('#box').offset().top + $('#box').outerHeight();
+    var scrollPosition = $(window).scrollTop();
+    var triggerPoint = boxBottom - headerHeight;
+  
+    if (scrollPosition >= triggerPoint) {
+      $('#header1').hide();
+      $('#header2').show().addClass('fixed-top');
+    } else {
+      $('#header1').show();
+      $('#header2').hide().removeClass('fixed-top');
+    }
+  
+    if (scrollPosition + $(window).height() >= $(document).height() - headerHeight) {
+      $('#header1').show();
+    }
+  });
+</script>  

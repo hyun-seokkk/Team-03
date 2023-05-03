@@ -154,7 +154,14 @@
       vertical-align: middle;
     }
 
-    {% block style %}{% endblock style %}
+    @font-face {
+      font-family: 'Chosunilbo_myungjo';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+    {% block style %}
+    {% endblock style %}
   </style>
   
   <body>
@@ -188,9 +195,9 @@
             type="text"
             placeholder="지역, 음식 또는 식당명 입력"
             aria-label="Search"
-            name="q"
+            name="query"
           />
-          <button class="btn btn-outline-info" type="button">
+          <button class="btn btn-outline-info" type="submit">
             <i class="bi bi-search"></i>
           </button>
         </div>
@@ -198,11 +205,12 @@
 
       <div>
         {% if user.is_authenticated %}
-        <a href="{% url 'accounts:logout' %}" style="color: black">로그아웃</a>
-        <a href="{% url 'accounts:update' %}" style="color: black"
+        <a class="mx-1" href="{% url 'accounts:profile' user %}">{{user}}</a>
+        <a class="mx-1" href="{% url 'dinings:dining_create'%}">글작성</a>
+        <a class="mx-1" href="{% url 'accounts:logout' %}" style="color: black">로그아웃</a>
+        <a class="mx-1" href="{% url 'accounts:update' %}" style="color: black"
           >회원정보수정</a
         >
-        {% comment %} <a href="{% url 'dinings:review_create' %}" style="color: black">리뷰 작성</a> {% endcomment %}
         {% else %}
         <a class="mx-3" href="{% url 'accounts:login' %}" style="color: black"
           >로그인</a

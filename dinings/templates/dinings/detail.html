@@ -11,7 +11,8 @@
           {% comment %} <div>지도</div> {% endcomment %}
           <a href="{% url 'dinings:dining_create'%}">create</a>
           <a href="{% url 'dinings:review_create' dining.pk %}">리뷰작성</a>
-
+          <a href="{% url 'dinings:dining_update' dining.pk  %}">수정</a>
+         
           <p>맛집더보기</p>
         </div>
       </div>
@@ -19,48 +20,91 @@
 
       <!-- 오른쪽 상세 페이지 -->
       <div class="col-9">
-
         <!-- 1번 상자 -->
         <div class="card container mb-3">
           <div class="row mt-2">
             <div class="col-6 pe-0">
-              <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
+              {% if dining.image1 %}
+              <img src="{{ dining.image1.url }}" alt="..." class="img-fluid" style="height:260px; width:340px">
+              {% else %}
+              <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid" style="height:260px; width:340px">
+              {% endif %}
               <div class="row row-cols-2">
                 <div class="col pe-0">
-                  <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
+                  {% if dining.image2 %}
+                  <img src="{{ dining.image2.url }}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  {% else %}
+                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  {% endif %}
                 </div>
                 <div class="col ps-0">
-                  <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
+                  {% if dining.image3 %}
+                  <img src="{{ dining.image3.url }}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  {% else %}
+                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  {% endif %}
                 </div>
               </div>
             </div>
             <div class="container col-6 ps-0">
               <div class="row row-cols-2">
                 <div class="col pe-0">
-                  <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
+                  {% if dining.image1 %}
+                  <img src="{{ dining.image1.url }}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  {% else %}
+                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  {% endif %}
                 </div>
                 <div class="col ps-0">
-                  <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
+                  {% if dining.image2 %}
+                  <img src="{{ dining.image2.url }}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  {% else %}
+                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  {% endif %}
                 </div>
                 <div class="col pe-0">
-                  <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
+                  {% if dining.image3 %}
+                  <img src="{{ dining.image3.url }}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  {% else %}
+                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  {% endif %}
                 </div>
                 <div class="col ps-0">
-                  <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
+                  {% if dining.image1 %}
+                  <img src="{{ dining.image1.url }}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  {% else %}
+                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  {% endif %}
                 </div>
                 <div class="col pe-0">
-                  <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
+                  {% if dining.image4 %}
+                  <img src="{{ dining.image4.url }}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  {% else %}
+                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  {% endif %}
                 </div>
                 <div class="col ps-0">
-                  <img src="https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png" alt="..." class="img-fluid">
+                  {% if dining.image5 %}
+                  <img src="{{ dining.image5.url }}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  {% else %}
+                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  {% endif %}
                 </div>
               </div>
             </div>
           </div>
+
           <div class="container mt-3">
             <h1>{{ dining.title }}</h1>
             <div class="d-flex gap-2">
-              <p>{{ dining.address_city }} |  </p>
+              <p><span style="margin-bottom: 20px; color: white; font-size: 30px; font-family: '조선일보명조', serif;">
+                당신을 위한<div id="location"></div>맛집 추천
+              </span></p>
+              <form id="location-form" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="latitude" id="latitude">
+                <input type="hidden" name="longitude" id="longitude">
+              </form>
               <!-- 검색 view 생성하기 -->
               <p>음식종류</p>
             </div>
@@ -160,7 +204,7 @@
               <div class='d-flex justify-content-between'>
                 <p>{{menu.name}}</p>
                 <p>{{menu.price}}</p>
-              </div>
+            </div>
             {% endfor %}
             <button class="btn btn-primary menu-add">추가</button>
             <div class="menu-form" style="display:none;">
@@ -295,7 +339,6 @@
                   </div>
                   <div class="d-flex gap-2">
                     <p>{{ review.star_rating }} </p>
-                    <p>날짜</p>
                   </div>
                 </div>
               </div>

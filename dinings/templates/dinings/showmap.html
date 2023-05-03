@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content  %}
+<div id="map" style="width:800px;height:600px;" class="m-5"></div>
+{% endblock content  %}
+
+{% block script %}
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bf6b2ec27afff46be3e2df1a2fb99365"></script>
+  <script src="{% static 'js/dinings.js' %}"></script>
+{% endblock script %}

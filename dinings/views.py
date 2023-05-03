@@ -15,6 +15,9 @@ def index(request):
     }
     return render(request, 'dinings/index.html', context)
 
+def showmap(request):
+    return render(request, 'dinings/showmap.html')
+
 
 def detail(request, pk):
     dining = Dining.objects.get(pk=pk)
@@ -68,6 +71,7 @@ def review_create(request, dining_pk):
             review = review_form.save(commit=False)
             review.user = request.user
             review.dining = dining
+            review.rating = request.POST.get('rating')
             review.save()
             review_form.save_m2m()
             return redirect('dinings:detail', dining.pk)
@@ -139,7 +143,7 @@ def dining_update(request, dining_pk):
         'form': form,
         'dining': dining
     }
-    return render(request, 'dining/update.html', context)
+    return render(request, 'dinings/dining_update.html', context)
 
 
 @login_required
@@ -150,19 +154,9 @@ def dining_delete(requset, dining_pk):
 
 
 def search(request):
-    query = None
-    search_list = None
-
-    if 'q' in request.GET:
-        query = request.GET.get('q')
-        search_list = Dining.objects.filter(
-            Q(title__icontains=query) |
-            Q(tags__name__icontains=query)
-        ).distinct()
-    context = {
-        'query': query,
-        'search_list': search_list,
-    }
+    query = request.GET.get('query')
+    dinings = Dining.objects.filter(title__icontains=query)
+    context = {'dinings': dinings}
     return render(request, 'dinings/search.html', context)
 
 
