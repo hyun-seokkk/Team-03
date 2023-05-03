@@ -150,23 +150,6 @@ def dining_delete(requset, dining_pk):
     return redirect('dinings:index')
 
 
-# def search(request):
-#     query = None
-#     search_list = None
-
-#     if 'q' in request.GET:
-#         query = request.GET.get('q')
-#         search_list = Dining.objects.filter(
-#             Q(title__icontains=query) |
-#             Q(tags__name__icontains=query)
-#         ).distinct()
-#     context = {
-#         'query': query,
-#         'search_list': search_list,
-#     }
-#     return render(request, 'dinings/search.html', context)
-
-
 def search(request):
     query = request.GET.get('query')
     dinings = Dining.objects.filter(title__icontains=query)
@@ -201,5 +184,3 @@ def likes(reqeust, dining_pk):
     else:
         dining.like_users.add(reqeust.user)
     return redirect('dinings:detail', dining_pk)
-
-
