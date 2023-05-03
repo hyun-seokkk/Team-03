@@ -13,8 +13,8 @@
         </div>
         <div class="col-8">
           <div class="d-flex align-items-end">
-          {% if review.user.profile_image %}
-          <img class="p-1 rounded-circle" src="{{ review.user.profile_image.url }}" alt="profile_image">
+          {% if user.profile_image %}
+          <img class="p-1 rounded-circle" src="{{ user.profile_image.url }}" alt="profile_image" style="width: 140px; height: 140px;">
           {% else %}
           <img class="p-1 rounded-circle" src="{% static 'img/blank-profile-image.png' %}" class="img-fluid" style="width: 140px; height: 140px;" alt="blank-profile-image">
           {% endif %}
