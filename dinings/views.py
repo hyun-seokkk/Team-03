@@ -139,7 +139,7 @@ def dining_update(request, dining_pk):
         'form': form,
         'dining': dining
     }
-    return render(request, 'dining/update.html', context)
+    return render(request, 'dinings/dining_update.html', context)
 
 
 @login_required
