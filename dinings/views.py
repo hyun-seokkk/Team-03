@@ -20,7 +20,7 @@ def detail(request, pk):
     dining = Dining.objects.get(pk=pk)
     reviews = dining.review_set.all()
     menu_form = MenuForm(request.POST)
-    menus = Menu.objects.all()
+    menus = dining.menu_set.all()
 
     sum = 0
     avg = 0
