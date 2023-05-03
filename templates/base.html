@@ -198,10 +198,10 @@
 
       <div>
         {% if user.is_authenticated %}
-        <a href="{% url 'accounts:profile' user %}">{{user}}님</a>
-        <a href="{% url 'dinings:dining_create'%}">글 작성</a>
-        <a href="{% url 'accounts:logout' %}" style="color: black">로그아웃</a>
-        <a href="{% url 'accounts:update' %}" style="color: black"
+        <a class="mx-1" href="{% url 'accounts:profile' user %}">{{user}}님</a>
+        <a class="mx-1" href="{% url 'dinings:dining_create'%}">글작성</a>
+        <a class="mx-1" href="{% url 'accounts:logout' %}" style="color: black">로그아웃</a>
+        <a class="mx-1" href="{% url 'accounts:update' %}" style="color: black"
           >회원정보수정</a
         >
         {% else %}
