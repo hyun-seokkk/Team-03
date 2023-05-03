@@ -1,6 +1,5 @@
 {% extends 'account_base.html' %}
 {% load static %}
-
 {% block content %}
 <div class="container-fluid mt-5">
   <h4>프로필 수정하기</h4>
@@ -85,23 +84,39 @@
           <b>비밀번호</b>
         </div>
         <div class="col-8">
-
         </div>
       </div>
     </div>
   </div>
 </div>
 
+<form action="{% url 'accounts:delete' %}" method="POST" id="delete">
+  {% csrf_token %}
+  <input type="hidden" name="next" value="{{ request.path }}" />
+</form>
+<input
+  class="btn btn-outline-danger mt-3"
+  onclick="confirmDelete(event)"
+  type="submit"
+  value="회원 탈퇴"
+  style="width: 376px; margin-left: 12px"
+/>
 
-{% comment %} 
-  <form action="{% url 'accounts:update' %}" method="post" enctype="multipart/form-data">
-    {% csrf_token %} {{ form.as_p }}
-    <input type="submit" value="확인" />
-  </form>
- {% endcomment %}
+
+
 {% endblock content %}
 
 {% block script %}
+<script>
+  function confirmDelete(event) {
+    event.preventDefault()
+
+    if (confirm("정말로 탈퇴하시겠습니까?")) {
+      document.querySelector("#delete").submit()
+    }
+  }
+</script>
+
 <script>
   const inputField = document.getElementById("username");
   const warningText = document.getElementById("warning-text");

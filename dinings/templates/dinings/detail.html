@@ -11,7 +11,8 @@
           {% comment %} <div>지도</div> {% endcomment %}
           <a href="{% url 'dinings:dining_create'%}">create</a>
           <a href="{% url 'dinings:review_create' dining.pk %}">리뷰작성</a>
-
+          <a href="{% url 'dinings:dining_update' dining.pk  %}">수정</a>
+         
           <p>맛집더보기</p>
         </div>
       </div>

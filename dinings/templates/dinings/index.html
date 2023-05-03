@@ -6,42 +6,6 @@
 }
 {% endblock style %}
 
-<script>
-  function getLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-      alert("Geolocation is not supported by this browser.");
-    }
-  }
-
-  function showPosition(position) {
-    var lat = position.coords.latitude;
-    var lon = position.coords.longitude;
-    var url = "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=" + lat + "&longitude=" + lon + "&localityLanguage=ko";
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        var locationElement = document.getElementById("location");
-        locationElement.innerHTML = data.locality;
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }
-  window.onload = function() {
-    var location = localStorage.getItem("location");
-    if (location) {
-      var locationElement = document.getElementById("location");
-      locationElement.innerHTML = location;
-    }
-  };
-
-  function clearLocation() {
-    var locationElement = document.getElementById("location");
-    locationElement.innerHTML = "";
-  }
-</script>
 {% block content %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav2">
   <div class="navbar-collapse">
@@ -107,9 +71,10 @@
       color: white;
       font-size: 20px;
       margin-left: 100px;
+      font-family: '조선일보명조', serif;
     "
   >
-    당신을 위한 XX지구 추천 맛집
+      당신을 위한 맛집 추천
   </div>
 
   <div style="align-items: center">
@@ -145,8 +110,8 @@
       z-index: -555;
     "
   />
-  <div style="margin-bottom: 20px; color: white; font-size: 20px">
-    당신을 위한<p id="location"></p>맛집 추천
+  <div style="margin-bottom: 20px; color: white; font-size: 30px; font-family: '조선일보명조', serif;">
+    당신을 위한<div id="location"></div>맛집 추천
   </div>
   <div>
     <form id="location-form" method="POST">
@@ -378,6 +343,43 @@
       </div>
     </div>
   </div>
+  <script>
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    }
+  
+    function showPosition(position) {
+      var lat = position.coords.latitude;
+      var lon = position.coords.longitude;
+      var url = "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=" + lat + "&longitude=" + lon + "&localityLanguage=ko";
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          var locationElement = document.getElementById("location");
+          locationElement.innerHTML = data.locality;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+    window.onload = function() {
+      var location = localStorage.getItem("location");
+      if (location) {
+        var locationElement = document.getElementById("location");
+        locationElement.innerHTML = location;
+      }
+    };
+  
+    function clearLocation() {
+      localStorage.removeItem("location");
+      var locationElement = document.getElementById("location");
+      locationElement.innerHTML = "";
+    }
+  </script>
 {% endblock content %} 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -400,5 +402,3 @@
     }
   });
 </script>  
-
-
