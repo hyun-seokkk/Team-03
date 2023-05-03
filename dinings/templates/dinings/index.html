@@ -361,17 +361,24 @@
         .then(data => {
           var locationElement = document.getElementById("location");
           locationElement.innerHTML = data.locality;
+          
+          // 위치 정보를 localStorage에 저장
+          localStorage.setItem("location", data.locality);
         })
         .catch(error => {
           console.error(error);
         });
     }
-    window.onload = function() {
+    function loadLocation() {
       var location = localStorage.getItem("location");
       if (location) {
         var locationElement = document.getElementById("location");
         locationElement.innerHTML = location;
       }
+    }
+    
+    window.onload = function() {
+      loadLocation();
     };
   
     function clearLocation() {
@@ -379,6 +386,7 @@
       var locationElement = document.getElementById("location");
       locationElement.innerHTML = "";
     }
+
   </script>
 {% endblock content %} 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
