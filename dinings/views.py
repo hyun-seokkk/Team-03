@@ -15,6 +15,9 @@ def index(request):
     }
     return render(request, 'dinings/index.html', context)
 
+def showmap(request):
+    return render(request, 'dinings/showmap.html')
+
 
 def detail(request, pk):
     dining = Dining.objects.get(pk=pk)

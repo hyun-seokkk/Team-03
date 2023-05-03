@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content  %}
+<div id="map" style="width:800px;height:600px;" class="m-5"></div>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bf6b2ec27afff46be3e2df1a2fb99365"></script>
+<script>
+  var container = document.getElementById('map');
+  var options = {
+    center: new kakao.maps.LatLng(33.450701, 126.570667),
+    level: 3
+  };
+
+  var map = new kakao.maps.Map(container, options);
+
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+
+        // 사용자 위치 마커 생성
+        var markerPosition = new kakao.maps.LatLng(latitude, longitude);
+        var marker = new kakao.maps.Marker({
+          position: markerPosition
+        });
+        marker.setMap(map);
+
+        // 지도 중심 위치 변경
+        var centerPosition = new kakao.maps.LatLng(latitude, longitude);
+        map.setCenter(centerPosition);
+      });
+    } else {
+      alert("위치 정보를 가져올 수 없습니다.");
+    }
+  }
+
+  // 이전에 저장한 위치가 있을 경우 지도에 표시
+  var location = localStorage.getItem("location");
+  if (location) {
+    var locationElement = document.getElementById("location");
+    locationElement.innerHTML = location;
+    getLocation();
+  }
+</script>
+
+{% endblock content  %}
