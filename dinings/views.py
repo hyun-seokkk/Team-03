@@ -194,3 +194,4 @@ def likes(reqeust, dining_pk):
         dining.like_users.add(reqeust.user)
     return redirect('dinings:detail', dining_pk)
 
+
