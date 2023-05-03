@@ -76,9 +76,7 @@
           </div>
           <hr>
           <div class="d-flex justify-content-between mb-3">
-
-            <div class="like-share">
-              <!-- 좋아요 기능 -->
+            <div class="d-flex gap-2">
               <form action="{% url 'dinings:likes' dining.pk %}" method="POST">
                 {% csrf_token %}
                 <button type="submit" class="m_text rounded-pill btn btn-outline-dark"><i class="bi 
@@ -90,13 +88,11 @@
                   "></i>
               </form>
               좋아요<span>({{ dining.like_users.all|length }})</span></button>
-
-              <button type="button" class="d-flex m_text rounded-pill btn btn-outline-dark"><span class="material-symbols-rounded">
-                share
-
+              <button type="button" class="rounded-pill btn btn-outline-dark m_text "><span class="material-symbols-rounded mx-1">
+                open_in_new
                 </span>공유</button>
             </div>
-            <button type="button" class="d-flex m_text rounded-pill btn btn-outline-dark "><span class="material-symbols-rounded mx-1">
+            <button type="button" class="m_text rounded-pill btn btn-outline-dark "><span class="material-symbols-rounded mx-1">
               edit
               </span>평가하기</button>
 
@@ -106,23 +102,26 @@
         <!-- 2번 상자 -->
         <div class="container card mb-3 py-2 ">
           <div class="d-flex gap-2">
-
-            <i class="bi bi-geo-alt"></i>
-
+            <span class="icon_size material-symbols-rounded">
+              location_on
+              </span>
             <a href="#">{{ dining.address_mc_do}}</a>
             <a href="#">{{ dining.address_city}}</a>
             <a href="#">{{ dining.address_dong}}</a>
-            <span>{{ dining.address_detail }}</span>
+            <p>{{ dining.address_detail }}</p>
           </div>
-
-          <div>
-            <i class="bi bi-telephone"></i>
-            <span>{{ dining.phone_number }}</span>
+          <div class="d-flex gap-2">
+            <span class="icon_size material-symbols-rounded">
+              book
+              </span>
+            <p>{{ dining.phone_number }}</p>
           </div>
-          <div>
-            <i class="bi bi-tag"></i>
+          <div class="d-flex gap-2">
+            <span class="icon_size material-symbols-rounded">
+              sell
+              </span>
             {% for tag in dining.tags.all %}
-              <a href="{% url 'dinings:search' %}">{{ tag.name }}</a>
+              <p href="#">{{ tag.name }}</p>
             {% endfor %}
           </div>
           <!-- 추가 하고싶으면 하면 될듯함-->
@@ -155,20 +154,16 @@
           </div>
           <hr>
           <h2>메뉴정보</h2>
-
-          {% for menu in menus %}
-            <div class='d-flex justify-content-between'>
-                <p>{{menu.name}}</p>
-                <p>{{menu.price}}</p>
-              </div>
-            {% endfor %}
-            <button class="btn btn-primary menu-add">추가</button>
-            <div class="menu-form" style="display:none;">
-              <form action="{% url 'dinings:menu_create' dining.pk %}" method="POST">
-                {% csrf_token %}
-                {{ menu_form.as_p }}
-                <input type="submit" value="입력">
-              </form>
+          <div class="d-flex justify-content-between p-2">
+            <div class="d-flex flex-column justify-content-center">
+              {% for tag in dining.menu_tags.all %}
+              <p href="">{{ tag.name }}</p>
+              {% endfor %}
+            </div>
+            <div class="d-flex flex-column justify-content-center">
+              {% for tag in dining.price_tags.all %}
+              <p href="">{{ tag.name }}</p>
+              {% endfor %}
             </div>
           </div>
           <hr>
@@ -308,14 +303,3 @@
   </div>
 </div>
 {% endblock content %}
-
-{% block script %}
-<script>
-  const menuAddBtn = document.querySelector('.menu-add')
-  const menuForm = document.querySelector('.menu-form')
-  menuAddBtn.addEventListener('click', (event) => {
-    menuForm.setAttribute('style', '')
-    menuAddBtn.setAttribute('style', 'display:none')
-  })
-</script>
-{% endblock script %}
