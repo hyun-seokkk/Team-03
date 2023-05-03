@@ -78,21 +78,23 @@ class DiningForm(forms.ModelForm):
         label_suffix='', 
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
-    menu_tags = forms.CharField(
-        label='메뉴',
-        label_suffix='', 
-        widget=forms.TextInput(attrs={'class': 'form-control'})
-    )
-    price_tags = forms.CharField(
-        label='가격',
-        label_suffix='', 
-        widget=forms.TextInput(attrs={'class': 'form-control'})
-    )
+    # menu_tags = forms.CharField(
+    #     label='메뉴',
+    #     label_suffix='', 
+    #     widget=forms.TextInput(attrs={'class': 'form-control'})
+    # )
+    # price_tags = forms.CharField(
+    #     label='가격',
+    #     label_suffix='', 
+    #     widget=forms.TextInput(attrs={'class': 'form-control'})
+    # )
     
     class Meta:
         model = Dining
-        fields = '__all__'
-        exclude = ['like_users']
+        fields = ['title', 'content', 'image1', 'image2', 'image3', 'image4', 'image5', 
+              'address_mc_do', 'address_city', 'address_dong', 'address_detail', 
+              'opening_hours', 'phone_number', 'tags']
+        exclude = ['like_users', 'menu_tags', 'price_tags']
 
 
 class ReviewForm(forms.ModelForm):
