@@ -78,16 +78,7 @@ class DiningForm(forms.ModelForm):
         label_suffix='', 
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
-    # menu_tags = forms.CharField(
-    #     label='메뉴',
-    #     label_suffix='', 
-    #     widget=forms.TextInput(attrs={'class': 'form-control'})
-    # )
-    # price_tags = forms.CharField(
-    #     label='가격',
-    #     label_suffix='', 
-    #     widget=forms.TextInput(attrs={'class': 'form-control'})
-    # )
+  
     
     class Meta:
         model = Dining

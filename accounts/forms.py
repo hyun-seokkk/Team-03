@@ -76,5 +76,3 @@ class CustomPasswordChangeForm(PasswordChangeForm):
 
     new_password2 = forms.CharField(label='새 비밀번호 확인', label_suffix='', widget=forms.PasswordInput(
         attrs={'class': 'form-control'}))
-
-
