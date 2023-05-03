@@ -8,13 +8,15 @@ from django import forms
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserChangeForm):
         model = get_user_model()
-        fields = ('username', 'email', 'first_name',
+        fields = ('username', 'email', 'phonenumber', 'first_name',
                   'last_name', 'profile_image',)
         label_suffix = ''
 
     username = forms.CharField(label='ID', label_suffix='', widget=forms.TextInput(
         attrs={'class': 'form-control'}))
     email = forms.EmailField(label='이메일', label_suffix='', widget=forms.EmailInput(
+        attrs={'class': 'form-control'}))
+    phonenumber = forms.CharField(label='전화번호', label_suffix='', widget=forms.TextInput(
         attrs={'class': 'form-control'}))
     first_name = forms.CharField(label='이름', label_suffix='', widget=forms.TextInput(
         attrs={'class': 'form-control'}))
@@ -39,13 +41,15 @@ class CustomUserCreationForm(UserCreationForm):
 class CustomUserChangeForm(UserChangeForm):
     class Meta(UserChangeForm):
         model = get_user_model()
-        fields = ('username', 'email', 'first_name',
+        fields = ('username', 'email', 'phonenumber' , 'first_name',
                   'last_name', 'profile_image',)
         label_suffix = ''
 
     username = forms.CharField(label='ID', label_suffix='', widget=forms.TextInput(
         attrs={'class': 'form-control'}))
     email = forms.EmailField(label='이메일', label_suffix='', widget=forms.EmailInput(
+        attrs={'class': 'form-control'}))
+    phonenumber = forms.CharField(label='전화번호', label_suffix='', widget=forms.TextInput(
         attrs={'class': 'form-control'}))
     first_name = forms.CharField(label='이름', label_suffix='', widget=forms.TextInput(
         attrs={'class': 'form-control'}))
