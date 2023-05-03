@@ -68,6 +68,7 @@ def review_create(request, dining_pk):
             review = review_form.save(commit=False)
             review.user = request.user
             review.dining = dining
+            review.rating = request.POST.get('rating')
             review.save()
             review_form.save_m2m()
             return redirect('dinings:detail', dining.pk)

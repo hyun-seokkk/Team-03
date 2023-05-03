@@ -25,7 +25,7 @@ class DiningForm(forms.ModelForm):
 
 
 class ReviewForm(forms.ModelForm):
-    rating = forms.FloatField(label='평점', widget=forms.NumberInput(attrs={'step': 0.5, 'min':0, 'max':5}))
+    # rating = forms.FloatField(label='평점', widget=forms.NumberInput(attrs={'step': 0.5, 'min':0, 'max':5}))
     rating_taste = forms.FloatField(label='맛', widget=forms.NumberInput(attrs={'step': 0.5, 'min':0, 'max':5}))
     rating_price = forms.FloatField(label='가격', widget=forms.NumberInput(attrs={'step': 0.5, 'min':0, 'max':5}))
     rating_kind = forms.FloatField(label='서비스', widget=forms.NumberInput(attrs={'step': 0.5, 'min':0, 'max':5}))
