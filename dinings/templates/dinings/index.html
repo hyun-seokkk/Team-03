@@ -374,6 +374,7 @@
     };
   
     function clearLocation() {
+      localStorage.removeItem("location");
       var locationElement = document.getElementById("location");
       locationElement.innerHTML = "";
     }
