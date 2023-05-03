@@ -158,3 +158,10 @@ def search(request):
         'search_list': search_list,
     }
     return render(request, 'dinings/search.html', context)
+
+def comment_delete(request, dining_pk, comment_pk):
+    comment = Comment.objects.get(pk=comment_pk)
+
+    if request.user == comment.user:
+        comment.delete()
+    return redirect('dinings:detail', dining_pk)
