@@ -1,9 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  {% for search in search_list %}
-    <div>
-      <a href="{% url 'dinings:detail' search.pk %}">{{ search.title }}</a>
-    </div>
-  {% endfor %}
-{% endblock content %}
+<div class="container">
+  <h2 class="my-5" style="font-family: 'Chosunilbo_myungjo', serif;">"{{ request.GET.query }}"에 관한 맛집 검색 결과입니다.</h2>
+  <div class="row">
+    {% for dining in dinings %}
+      <div class="col-3">
+        <div class="card mb-4 box-shadow">
+          <a href="{% url 'dinings:detail' dining.pk %}">
+            <img class="card-img-top" src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg" alt="{{ dining.title }}">
+          </a>
+          <div class="card-body">
+            <h5 class="card-title">{{ dining.title }}</h5>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

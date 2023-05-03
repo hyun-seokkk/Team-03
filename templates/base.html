@@ -154,6 +154,12 @@
       vertical-align: middle;
     }
 
+    @font-face {
+      font-family: 'Chosunilbo_myungjo';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
     {% block style %}{% endblock style %}
   </style>
   
@@ -188,9 +194,9 @@
             type="text"
             placeholder="지역, 음식 또는 식당명 입력"
             aria-label="Search"
-            name="q"
+            name="query"
           />
-          <button class="btn btn-outline-info" type="button">
+          <button class="btn btn-outline-info" type="submit">
             <i class="bi bi-search"></i>
           </button>
         </div>
