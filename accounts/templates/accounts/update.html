@@ -6,17 +6,86 @@
   <h4>프로필 수정하기</h4>
   <hr>
   <div class=" mt-5">
-    <div class="container-fluid">
-      <div class="d-flex border-top border-bottom">
+    <div class="container-fluid ms-3">
+      <!-- 프로필사진 -->
+      <div class="d-flex align-items-center border-bottom pb-3">
         <div class="col-4">
           <b>프로필 사진</b>
         </div>
         <div class="col-8">
-        {% if review.user.profile_image %}
+          <div class="d-flex align-items-end">
+          {% if review.user.profile_image %}
           <img class="p-1 rounded-circle" src="{{ review.user.profile_image.url }}" alt="profile_image">
-        {% else %}
+          {% else %}
           <img class="p-1 rounded-circle" src="{% static 'img/blank-profile-image.png' %}" class="img-fluid" style="width: 140px; height: 140px;" alt="blank-profile-image">
-        {% endif %}
+          {% endif %}
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+              <input type="file" class="form-control-file" id="profile_image" name="profile_image">
+            </div>
+            <button type="submit" class="btn btn-primary">업로드</button>
+          </form>
+          </div>
+          <p class="mt-3">다이닝코드의 회원 프로필 사진으로 사용될 이미지를 등록해 주세요.</p>
+        </div>
+      </div>
+      <!-- 닉네임 -->
+      <div class="d-flex align-items-center border-bottom pb-3">
+        <div class="col-4">
+          <b>닉네임</b>
+        </div>
+        <div class="col-8 mt-3">
+          <form action="{% url 'accounts:update' %}" method="post">
+            {% csrf_token %} 
+            <input type="text" class="form-control" name="username" id="username" placeholder="이름" style="width:24rem;">
+            <p id="warning-text" class="mt-3">다이닝코드에서 회원정보로 등록하실 닉네임을 입력해주세요.(영문 또는 숫자 4~10자,한글 포함 시 2~10자)</p>
+          </form>
+        </div>
+      </div>
+      <!-- 자기소개 -->
+      <div class="d-flex align-items-center border-bottom pb-3">
+        <div class="col-4">
+          <b>자기소개</b>
+        </div>
+        <div class="col-8 mt-3">
+          <form action="{% url 'accounts:update' %}" method="post">
+            {% csrf_token %} 
+            <input type="text" class="form-control" name="introduce" id="introduce" placeholder="자기소개를 입력하세요." style="width:24rem;">
+            <p class="text-center mt-3"><span id="count">0</span> 단어</p>
+          </form>
+        </div>
+      </div>
+      <!-- 프로필사진 -->
+      <div class="d-flex align-items-center border-bottom pb-3">
+        <div class="col-4">
+          <b>이메일</b>
+        </div>
+        <div class="col-8 mt-3">
+          <form action="{% url 'accounts:update' %}" method="post">
+            {% csrf_token %} 
+            <input type="text" class="form-control" name="email" id="email" placeholder="이메일" style="width:24rem;">
+            <p class="mt-3">다이닝코드에서 이용하실 이메일을 입력해 주세요.</p>
+          </form>
+        </div>
+      </div>
+      <!-- 휴대전화인증 -->
+      <div class="d-flex align-items-center border-bottom pb-3">
+        <div class="col-4">
+          <b>휴대전화인증</b>
+        </div>
+        <div class="col-8 mt-3">
+            
+          <p class="mt-3">개인화된 맛집추천, 좋아요, 비밀번호찾기, 맛집평가작성, 포인트 적 립 및 사용, 다코박스 상품구매, 할인쿠폰 등의 <br> 모든 서비스 혜택을 받을 수 있습니다.</p>
+        </div>
+      </div>
+      <!-- 비밀번호 -->
+      <div class="d-flex align-items-center border-bottom pb-3">
+        <div class="col-4">
+          <b>비밀번호</b>
+        </div>
+        <div class="col-8">
+
         </div>
       </div>
     </div>
@@ -31,3 +100,35 @@
   </form>
  {% endcomment %}
 {% endblock content %}
+
+{% block script %}
+<script>
+  const inputField = document.getElementById("username");
+  const warningText = document.getElementById("warning-text");
+
+  inputField.addEventListener("blur", function() {
+    if (this.value === "") {
+      warningText.innerHTML = '<span class="text-danger">영문 또는 숫자 4~10자,한글 포함 2~10자로 입력해주세요.</span>';
+    } else {
+      warningText.innerHTML = '다이닝코드에서 회원정보로 등록하실 닉네임을 입력해주세요.(영문 또는 숫자 4~10자,한글 포함 시 2~10자)';
+    }
+  });
+</script>
+
+<script>
+  const inputField = document.getElementById("introduce");
+  const wordCount = document.getElementById("count");
+
+  inputField.addEventListener("input", function() {
+    const wordArr = this.value.trim().split(/\s+/);
+    const wordCountValue = wordArr[0] ? wordArr.length : 0;
+    wordCount.innerHTML = `${wordCountValue} 단어`;
+
+    if (this.value.length > 25) {
+      this.value = this.value.substring(0, 25);
+    }
+  });
+</script>
+
+
+{% endblock script %}
