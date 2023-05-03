@@ -10,6 +10,31 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
 <style>
+  .custom-file-input::-webkit-file-upload-button {
+    visibility: hidden;
+  }
+  .custom-file-input::before {
+    content: '파일 선택하기';
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+  }
+  .custom-file-input:hover::before {
+    background-color: #0069d9;
+  }
+  .custom-file-input:active::before {
+    background-color: #0062cc;
+  }
+  .custom-file-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
   a {
     text-decoration: none;
     text-color: black;

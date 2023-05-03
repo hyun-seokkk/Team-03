@@ -114,3 +114,4 @@ def follow(request, user_pk):
     else:
         person.followers.add(request.user)
     return redirect('accounts:profile', person.username)
+
