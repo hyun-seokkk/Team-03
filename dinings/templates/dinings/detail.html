@@ -155,16 +155,29 @@
           <hr>
           <h2>메뉴정보</h2>
           <div class="d-flex justify-content-between p-2">
-            <div class="d-flex flex-column justify-content-center">
-              {% for tag in dining.menu_tags.all %}
-              <p href="">{{ tag.name }}</p>
-              {% endfor %}
+            {% for menu in menus %}
+            <div class='d-flex justify-content-between'>
+                <p>{{menu.name}}</p>
+                <p>{{menu.price}}</p>
+              </div>
+            {% endfor %}
+            <button class="btn btn-primary menu-add">추가</button>
+            <div class="menu-form" style="display:none;">
+              <form action="{% url 'dinings:menu_create' dining.pk %}" method="POST">
+                {% csrf_token %}
+                {{ menu_form.as_p }}
+                <input type="submit" value="입력">
+              </form>
             </div>
-            <div class="d-flex flex-column justify-content-center">
-              {% for tag in dining.price_tags.all %}
-              <p href="">{{ tag.name }}</p>
-              {% endfor %}
-            </div>
+          </div>
+          <hr>
+          <h2>맛집태그</h2>
+          
+          <div class="d-flex gap-3">
+            <!-- 태그 수 많을 수록 텍스트 크기 커지게 -->
+            {% for tag in dining.tags.all %}
+            <p>{{ tag.name }}</p>
+            {% endfor %}
           </div>
           <hr>
           <h2>맛집태그</h2>
@@ -304,3 +317,14 @@
   </div>
 </div>
 {% endblock content %}
+
+{% block script %}
+<script>
+  const menuAddBtn = document.querySelector('.menu-add')
+  const menuForm = document.querySelector('.menu-form')
+  menuAddBtn.addEventListener('click', (event) => {
+    menuForm.setAttribute('style', '')
+    menuAddBtn.setAttribute('style', 'display:none')
+  })
+</script>
+{% endblock script %}
