@@ -36,8 +36,9 @@
         팔로잉 : {{ person.followings.all|length }} / 팔로워 : {{ person.followers.all|length }}
       </div>
 
+    <div class="px-3 py-1">
       <button
-        class="btn btn-outline-primary mb-3"
+        class="btn btn-outline-primary"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#followings"
@@ -46,19 +47,19 @@
       >
         팔로잉 목록
       </button>
+    </div>
 
       <div class="collapse justify-content-center" id="followings">
-        <div class="card card-body mb-3">
-          {% for following in person.followings.all %}
-          <a href="{% url 'accounts:profile' following.username %}"
-            >{{ following.username }}</a
-          >
-          {% endfor %}
-        </div>
+        {% for following in person.followings.all %}
+        <a href="{% url 'accounts:profile' following.username %}"
+          >{{ following.username }}</a
+        >
+        {% endfor %} 
       </div>
 
+    <div class="px-3 py-1">
       <button
-        class="btn btn-outline-primary mb-3"
+        class="btn btn-outline-primary"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#followers"
@@ -67,15 +68,14 @@
       >
         팔로워 목록
       </button>
+    </div>
 
       <div class="collapse justify-content-center" id="followers">
-        <div class="card card-body mb-3">
-          {% for follower in person.followers.all %}
+        {% for follower in person.followers.all %}
           <a href="{% url 'accounts:profile' follower.username %}"
             >{{ follower.username }}</a
           >
-          {% endfor %}
-        </div>
+          {% endfor %}  
       </div>
     </div>
   </div>
