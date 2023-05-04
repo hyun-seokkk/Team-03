@@ -5,6 +5,14 @@
   padding-right: -10px;
   margin-right: -30px;
 }
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
 {% endblock style %}
 {% block content %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav2">
@@ -77,7 +85,7 @@
       당신을 위한 맛집 추천
   </div>
 
-  <div style="align-items: center">
+  <div style="align-items: center; font-family: 'Chosunilbo_myungjo', serif;">
     <button class="btn btn-primary">다른 지역 선택</button>
     <button class="btn btn-success">현 위치로 설정</button>
   </div>
@@ -113,20 +121,21 @@
   <div style="margin-bottom: 20px; color: white; font-size: 30px; font-family: '조선일보명조', serif;">
     당신을 위한<div id="location"></div>맛집 추천
   </div>
-  <div>
-    <form id="location-form" method="POST">
-      {% csrf_token %}
-      <input type="hidden" name="latitude" id="latitude">
-      <input type="hidden" name="longitude" id="longitude">
-    </form>
-    <button type="button" class="btn btn-primary" onclick="clearLocation()">다른 지역 선택</button>
-    <button class="btn btn-success" onclick="getLocation()">현 위치로 설정</button>
-    <form action="{% url 'dinings:showmap' %}" method="POST">
-      {% csrf_token %}
-      <button class="btn btn-secondary" onclick="getLocation()">자세히 보기</button>
-    </form>
-  </div>
+    <div class="button-container btn-shadow" style="font-family: 'Chosunilbo_myungjo', serif;">
+      <form id="location-form" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="latitude" id="latitude">
+        <input type="hidden" name="longitude" id="longitude">
+      </form>
+      <button type="button" class="btn btn-primary" onclick="clearLocation()">다른 지역 선택</button>
+      <button class="btn btn-success" onclick="getLocation()">현 위치로 설정</button>
+      <form action="{% url 'dinings:showmap' %}" method="POST">
+        {% csrf_token %}
+        <button class="btn btn-secondary" onclick="getLocation()">자세히 보기</button>
+      </form>
+    </div>
 </div>
+
 
 <div
   style="
@@ -141,7 +150,7 @@
       class="card-header"
       style="font-family: 'NanumBarunGothic', serif; font-size: 25px"
     >
-      #음식종류
+    #
     </div>
     <div
       class="card-body"
@@ -228,10 +237,10 @@
           <span class="visually-hidden">Next</span>
         </button>
       </div>
-
     </div>
   </div>
 </div>
+
 {% block script %}
 <script>
   function getLocation() {
@@ -277,26 +286,5 @@
     locationElement.innerHTML = "";
   }
 </script>  
-
-<script>
-  $(window).scroll(function() {
-    var headerHeight = $('#header1').outerHeight();
-    var boxBottom = $('#box').offset().top + $('#box').outerHeight();
-    var scrollPosition = $(window).scrollTop();
-    var triggerPoint = boxBottom - headerHeight;
-  
-    if (scrollPosition >= triggerPoint) {
-      $('#header1').hide();
-      $('#header2').show().addClass('fixed-top');
-    } else {
-      $('#header1').show();
-      $('#header2').hide().removeClass('fixed-top');
-    }
-  
-    if (scrollPosition + $(window).height() >= $(document).height() - headerHeight) {
-      $('#header1').show();
-    }
-  });
-</script>
 {% endblock script %}  
 {% endblock content %} 
