@@ -1,6 +1,5 @@
 from django import forms
 from .models import Dining, Review, Menu
-from taggit.forms import TagField
 
 
 class DiningForm(forms.ModelForm):
@@ -83,10 +82,8 @@ class DiningForm(forms.ModelForm):
     
     class Meta:
         model = Dining
-        fields = ['title', 'content', 'image1', 'image2', 'image3', 'image4', 'image5', 
-              'address_mc_do', 'address_city', 'address_dong', 'address_detail', 
-              'opening_hours', 'phone_number', 'tags']
-        exclude = ['like_users', 'menu_tags', 'price_tags']
+        fields = ['title', 'content', 'image1', 'image2', 'image3', 'image4', 'image5',  'opening_hours', 'phone_number', 'tags']
+        exclude = ['like_users', 'menu_tags', 'price_tags','address_mc_do', 'address_city', 'address_dong', 'address_detail', ]
 
 
 class ReviewForm(forms.ModelForm):
