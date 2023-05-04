@@ -48,7 +48,6 @@ class Dining(models.Model):
 class Review(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     dining = models.ForeignKey(Dining, on_delete=models.CASCADE)
-
     content = models.TextField(null=True)
 
     image1 = models.ImageField(blank=True, upload_to=review_img_path)
