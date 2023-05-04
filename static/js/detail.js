@@ -81,3 +81,14 @@ likeForm.addEventListener('submit', function (event) {
 
   })
 })
+
+
+const tagLinks = document.querySelectorAll('.search-tag');
+tagLinks.forEach(link => {
+  link.addEventListener('click', function(event) {
+    event.preventDefault();
+    const tag = this.dataset.tag;
+    const url = `/dinings/search/?query=${tag}`;
+    window.location.href = url;
+  });
+});
