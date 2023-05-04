@@ -6,7 +6,6 @@
   margin-right: -30px;
 }
 {% endblock style %}
-
 {% block content %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav2">
   <div class="navbar-collapse">
@@ -129,271 +128,157 @@
   </div>
 </div>
 
-  <div style="justify-content: center; display: grid; margin: 10px 0px; overflow-x: hidden;">
-    <div class="card" style="width: 100%">
-      <div class="card-header" style="font-family: 'Chosunilbo_myungjo', serif; font-size: 25px;">#음식종류</div>
-      <div
-        class="card-body"
-        style="
-          display: flex;
-          align-items: center;
-          min-width: 1070px;
-          max-width: 1070px;
-          overflow-x: hidden;
-        "
-      >
-        <div id="carouselExample" class="carousel slide">
-          <div class="carousel-inner">
-    
-              {% for dining in dinings %} {% if forloop.counter0|divisibleby:4 %}
-              <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                {% endif %}
-                  <div class="mx-3" style="float: left; width: 220px">
-                    <div class="card mx-3" style="width: 220px; margin-right: 0px;">
-                      <div class="card-body" style="padding: 0px">
-                        <a href="{% url 'dinings:detail' dining.pk %}">
-                        <img
-                          src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
-                          alt="{{ dining.title }}"
-                          style="width: 220px; border-radius: 5px"
-                        />
-                        </a>
-                      </div>
-                    </div>
-                    <a href="{% url 'dinings:detail' dining.pk %}" class="px-3">{{ dining.title }}</a>
-                  </div>
-                {% if forloop.counter0|add:1|divisibleby:4 or forloop.last %}
+<div
+  style="
+    justify-content: center;
+    display: grid;
+    margin: 10px 0px;
+    overflow-x: hidden;
+  "
+  >
+  <div class="card" style="width: 100%">
+    <div
+      class="card-header"
+      style="font-family: 'NanumBarunGothic', serif; font-size: 25px"
+    >
+      #음식종류
+    </div>
+    <div
+      class="card-body"
+      style="
+        display: flex;
+        align-items: center;
+        min-width: 1070px;
+        max-width: 1070px;
+        overflow-x: hidden;
+      "
+    >
+      <div id="carousel1" class="carousel slide">
+        <div class="carousel-inner">
+          {% for dining in dinings %} 
+          {% if forloop.counter0|divisibleby:4 %}
+          <div
+            class="carousel-item {% if forloop.first %}active{% endif %}"
+          >
+            {% endif %}
+            <div class="mx-3" style="float: left; width: 220px">
+              <div
+                class="card mx-3"
+                style="width: 220px; margin-right: 0px"
+              >
+                <div class="card-body" style="padding: 0px">
+                  <a href="{% url 'dinings:detail' dining.pk %}">
+                    {% if dining.image1 %}
+                    <img
+                      src="{{ dining.image1.url }}"
+                      class="img-fluid rounded-start"
+                      alt="{{ dining.title }}"
+                      style="
+                        border-radius: 7px;
+                        width: 250px;
+                        height: 250px;
+                      "
+                    />
+                    {% else %}
+                    <img
+                      src="{% static 'blank_img.png' %}"
+                      class="img-fluid rounded-start"
+                      alt="{{ dining.title }}"
+                      style="
+                        border-radius: 7px;
+                        width: 250px;
+                        height: 250px;
+                      "
+                    />
+                    {% endif %}
+                  </a>
+                </div>
               </div>
-              {% endif %} {% endfor %}
+              <a href="{% url 'dinings:detail' dining.pk %}" class="px-3"
+                >{{ dining.title }}</a
+              >
+            </div>
+            {% if forloop.counter0|add:1|divisibleby:4 or forloop.last %}
           </div>
-
-            <button
-              class="carousel-control-prev"
-              type="button"
-              data-bs-target="#carouselExample"
-              data-bs-slide="prev"
-            >
-              <span
-                class="carousel-control-prev-icon"
-                aria-hidden="true"
-              ></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button
-              class="carousel-control-next"
-              type="button"
-              data-bs-target="#carouselExample"
-              data-bs-slide="next"
-            >
-              <span
-                class="carousel-control-next-icon"
-                aria-hidden="true"
-              ></span>
-              <span class="visually-hidden">Next</span>
-            </button>
+          {% endif %} {% endfor %}
         </div>
+
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carousel1"
+          data-bs-slide="prev"
+        >
+          <span
+            class="carousel-control-prev-icon"
+            aria-hidden="true"
+          ></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carousel1"
+          data-bs-slide="next"
+        >
+          <span
+            class="carousel-control-next-icon"
+            aria-hidden="true"
+          ></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
+
     </div>
   </div>
+</div>
 
-  <div style="justify-content: center; display: grid; margin: 10px 0px; overflow-x: hidden;">
-    <div class="card" style="width: 100%">
-      <div class="card-header" style="font-family: 'Chosunilbo_myungjo', serif; font-size: 25px;">#음식종류</div>
-      <div
-        class="card-body"
-        style="
-          display: flex;
-          align-items: center;
-          min-width: 1070px;
-          max-width: 1070px;
-          overflow-x: hidden;
-        "
-      >
-        <div id="carouselExample2" class="carousel slide">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <div class="mx-3" style="float: left; width: 220px">
-                <div class="card mx-3" style="width: 220px; margin-right: 0px;">
-                  <div class="card-body" style="padding: 0px">
-                    <img
-                      src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
-                      alt=""
-                      style="width: 220px; border-radius: 5px"
-                    />
-                  </div>
-                </div>
-                <div class="px-3">냉면</div>
-              </div>
-
-              <div class="mx-3" style="float: left; width: 220px">
-                <div class="card mx-3" style="width: 220px">
-                  <div class="card-body" style="padding: 0px">
-                    <img
-                      src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
-                      alt=""
-                      style="width: 220px; border-radius: 5px"
-                    />
-                  </div>
-                </div>
-                <div class="px-3">냉면</div>
-              </div>
-
-              <div class="mx-3" style="float: left; width: 220px">
-                <div class="card mx-3" style="width: 220px">
-                  <div class="card-body" style="padding: 0px">
-                    <img
-                      src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
-                      alt=""
-                      style="width: 220px; border-radius: 5px"
-                    />
-                  </div>
-                </div>
-                <div class="px-3">냉면</div>
-              </div>
-
-              <div class="mx-3" style="float: left; width: 220px">
-                <div class="card mx-3" style="width: 220px">
-                  <div class="card-body" style="padding: 0px">
-                    <img
-                      src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
-                      alt=""
-                      style="width: 220px; border-radius: 5px"
-                    />
-                  </div>
-                </div>
-                <div class="px-3">냉면</div>
-              </div>
-            </div>
-
-            <div class="carousel-item">
-              <div class="mx-3" style="float: left; width: 220px">
-                <div class="card mx-3" style="width: 220px">
-                  <div class="card-body" style="padding: 0px">
-                    <img
-                      src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
-                      alt=""
-                      style="width: 220px; border-radius: 5px"
-                    />
-                  </div>
-                </div>
-                <div class="px-3">냉면</div>
-              </div>
-
-              <div class="mx-3" style="float: left; width: 220px">
-                <div class="card mx-3" style="width: 220px">
-                  <div class="card-body" style="padding: 0px">
-                    <img
-                      src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
-                      alt=""
-                      style="width: 220px; border-radius: 5px"
-                    />
-                  </div>
-                </div>
-                <div class="px-3">냉면</div>
-              </div>
-
-              <div class="mx-3" style="float: left; width: 220px">
-                <div class="card mx-3" style="width: 220px">
-                  <div class="card-body" style="padding: 0px">
-                    <img
-                      src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
-                      alt=""
-                      style="width: 220px; border-radius: 5px"
-                    />
-                  </div>
-                </div>
-                <div class="px-3">냉면</div>
-              </div>
-
-              <div class="mx-3" style="float: left; width: 220px">
-                <div class="card mx-3" style="width: 220px">
-                  <div class="card-body" style="padding: 0px">
-                    <img
-                      src="https://upload2.inven.co.kr/upload/2016/06/20/bbs/i12642502049.jpg"
-                      alt=""
-                      style="width: 220px; border-radius: 5px"
-                    />
-                  </div>
-                </div>
-                <div class="px-3">냉면</div>
-              </div>
-            </div>
-
-            <button
-              class="carousel-control-prev"
-              type="button"
-              data-bs-target="#carouselExample2"
-              data-bs-slide="prev"
-            >
-              <span
-                class="carousel-control-prev-icon"
-                aria-hidden="true"
-              ></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button
-              class="carousel-control-next"
-              type="button"
-              data-bs-target="#carouselExample2"
-              data-bs-slide="next"
-            >
-              <span
-                class="carousel-control-next-icon"
-                aria-hidden="true"
-              ></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <script>
-    function getLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-      } else {
-        alert("Geolocation is not supported by this browser.");
-      }
+{% block script %}
+<script>
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      alert("Geolocation is not supported by this browser.");
     }
-  
-    function showPosition(position) {
-      var lat = position.coords.latitude;
-      var lon = position.coords.longitude;
-      var url = "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=" + lat + "&longitude=" + lon + "&localityLanguage=ko";
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          var locationElement = document.getElementById("location");
-          locationElement.innerHTML = data.locality;
-          
-          // 위치 정보를 localStorage에 저장
-          localStorage.setItem("location", data.locality);
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    }
-    function loadLocation() {
-      var location = localStorage.getItem("location");
-      if (location) {
+  }
+
+  function showPosition(position) {
+    var lat = position.coords.latitude;
+    var lon = position.coords.longitude;
+    var url = "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=" + lat + "&longitude=" + lon + "&localityLanguage=ko";
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
         var locationElement = document.getElementById("location");
-        locationElement.innerHTML = location;
-      }
-    }
-    
-    window.onload = function() {
-      loadLocation();
-    };
-  
-    function clearLocation() {
-      localStorage.removeItem("location");
+        locationElement.innerHTML = data.locality;
+        
+        // 위치 정보를 localStorage에 저장
+        localStorage.setItem("location", data.locality);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+  function loadLocation() {
+    var location = localStorage.getItem("location");
+    if (location) {
       var locationElement = document.getElementById("location");
-      locationElement.innerHTML = "";
+      locationElement.innerHTML = location;
     }
-  </script>
-{% endblock content %} 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  }
+  
+  window.onload = function() {
+    loadLocation();
+  };
+
+  function clearLocation() {
+    localStorage.removeItem("location");
+    var locationElement = document.getElementById("location");
+    locationElement.innerHTML = "";
+  }
+</script>  
+
 <script>
   $(window).scroll(function() {
     var headerHeight = $('#header1').outerHeight();
@@ -413,4 +298,6 @@
       $('#header1').show();
     }
   });
-</script>  
+</script>
+{% endblock script %}  
+{% endblock content %} 
