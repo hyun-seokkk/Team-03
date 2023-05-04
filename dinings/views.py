@@ -164,7 +164,7 @@ def dining_delete(request, dining_pk):
 
 def search(request):
     query = request.GET.get('query')
-    dinings = Dining.objects.filter(title__icontains=query)
+    dinings = Dining.objects.filter(Q(title__icontains=query) | Q(tags__name__icontains=query))
     context = {'dinings': dinings}
     return render(request, 'dinings/search.html', context)
 
