@@ -53,19 +53,7 @@
           </form>
         </div>
       </div>
-      <!-- 자기소개 -->
-      <div class="d-flex align-items-center border-bottom pb-3">
-        <div class="col-4">
-          <b>자기소개</b>
-        </div>
-        <div class="col-8 mt-3">
-          <form action="{% url 'accounts:update' %}" method="post">
-            {% csrf_token %} 
-            <input type="text" class="form-control" name="introduce" id="introduce" placeholder="자기소개를 입력하세요." style="width:24rem;">
-            <p class="text-center mt-3"><span id="count">0</span> 단어</p>
-          </form>
-        </div>
-      </div>
+
       <!-- 이메일 -->
       <div class="d-flex align-items-center border-bottom pb-3">
         <div class="col-4">
@@ -139,31 +127,4 @@
   }
 </script>
 
-<script>
-  const inputField = document.getElementById("username");
-  const warningText = document.getElementById("warning-text");
-
-  inputField.addEventListener("blur", function() {
-    if (this.value === "") {
-      warningText.innerHTML = '<span class="text-danger">영문 또는 숫자 4~10자,한글 포함 2~10자로 입력해주세요.</span>';
-    } else {
-      warningText.innerHTML = '다이닝코드에서 회원정보로 등록하실 닉네임을 입력해주세요.(영문 또는 숫자 4~10자,한글 포함 시 2~10자)';
-    }
-  });
-</script>
-
-<script>
-  const inputField = document.getElementById("introduce");
-  const wordCount = document.getElementById("count");
-
-  inputField.addEventListener("input", function() {
-    const wordArr = this.value.trim().split(/\s+/);
-    const wordCountValue = wordArr[0] ? wordArr.length : 0;
-    wordCount.innerHTML = `${wordCountValue} 단어`;
-
-    if (this.value.length > 25) {
-      this.value = this.value.substring(0, 25);
-    }
-  });
-</script>
 {% endblock script %}
