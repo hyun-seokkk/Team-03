@@ -13,30 +13,16 @@
         </div>
         <div class="col-8">
           <div class="d-flex align-items-end">
+            
           {% if user.profile_image %}
-          <img class="p-1 rounded-circle" src="{{ user.profile_image.url }}" alt="profile_image" style="width: 140px; height: 140px;">
+            <img class="p-1 rounded-circle" src="{{ user.profile_image.url }}" alt="profile_image" style="width: 140px; height: 140px;">
           {% else %}
-          <img class="p-1 rounded-circle" src="{% static 'img/blank-profile-image.png' %}" class="img-fluid" style="width: 140px; height: 140px;" alt="blank-profile-image">
+            <img class="p-1 rounded-circle" src="{% static 'img/blank-profile-image.png' %}" class="img-fluid" style="width: 140px; height: 140px;" alt="blank-profile-image">
           {% endif %}
-          <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="form-group">
-              <div class="custom-file">
-                <input type="file" class="custom-file-input" id="profile_image" name="profile_image" style="display:none;">
-                <label for="profile_image" class="custom-file-label btn btn-primary">
-                  파일 선택하기
-                </label>
-              </div>
-            </div>
-            <button type="submit" class="btn btn-primary" >업로드</button>
-          </form>
+            <form action=""></form>
           </div>
-          <p class="mt-3">다이닝코드의 회원 프로필 사진으로 사용될 이미지를 등록해 주세요.</p>
-          {% if request.method == "POST" %}
-            {% if request.FILES.profile_image %}
-              <p class="text-success">프로필 사진이 업로드되었습니다.</p>
-            {% endif %}
-          {% endif %}
+          {% comment %} <p class="mt-3">다이닝코드의 회원 프로필 사진으로 사용될 이미지를 등록해 주세요.</p> {% endcomment %}
+
         </div>
       </div>
       
@@ -126,5 +112,43 @@
     }
   }
 </script>
+<script>
+  const fileInput = document.getElementById("fileUpload");
+
+  const handleFiles = (e) => {
+    const selectedFile = [...fileInput.files];
+    const fileReader = new FileReader();
+  
+    fileReader.readAsDataURL(selectedFile[0]);
+  
+    fileReader.onload = function () {
+      document.getElementById("previewImg").src = fileReader.result;
+    };
+  };
+  
+  fileInput.addEventListener("change", handleFiles);
+</script>
 
 {% endblock script %}
+
+
+<!--  <div class="d-flex align-items-end">
+          {% if user.profile_image %}
+            <img class="p-1 rounded-circle" src="{{ user.profile_image.url }}" alt="profile_image" style="width: 140px; height: 140px;">
+          {% else %}
+            <img class="p-1 rounded-circle" src="{% static 'img/blank-profile-image.png' %}" class="img-fluid" style="width: 140px; height: 140px;" alt="blank-profile-image">
+          {% endif %}
+            <form method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-group">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="profile_image" name="profile_image" style="display:none;" onchange="handleFiles(this.files)">
+                  <label for="profile_image" class="custom-file-label btn btn-primary" id="profile_image_label">
+                    파일 선택하기
+                  </label>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary" >업로드</button>
+            </form>
+          </div>
+-->

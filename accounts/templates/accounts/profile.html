@@ -9,12 +9,11 @@
       <h6 class="my-4">다이닝코드의 많은 회원님들을 만나보세요.</h6>
 
       <div class="d-flex justify-content-center">
-        <img
-          class="p-1 rounded-circle"
-          style="width: 200px"
-          src="{{ user.profile_image.url }}"
-          alt="profile_image"
-        />
+        {% if user.profile_image %}
+        <img class="p-1 rounded-circle" src="{{ user.profile_image.url }}" alt="profile_image" style="width:200px">
+      {% else %}
+        <img class="p-1 rounded-circle" src="{% static 'img/blank-profile-image.png' %}" class="img-fluid" style="width: 70px; height: 70px;" alt="blank-profile-image" style="width:200px">
+      {% endif %}
       </div>
 
       <form action="{% url 'accounts:follow' person.pk %}" method="post">
