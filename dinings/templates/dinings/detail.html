@@ -174,9 +174,17 @@
               <div class='d-flex justify-content-between'>
                 <p>{{menu.name}}</p>
                 <p>{{menu.price}}</p>
-            </div>
+                {% if request.user.is_superuser %}
+                  <form action="{% url 'dinings:menu_delete' dining.pk menu.pk %}" methos="POST">
+                    {% csrf_token %}
+                    <input type="submit" value="삭제">
+                  </form>
+                {% endif %}
+              </div>
             {% endfor %}
-            <button class="btn btn-primary menu-add">추가</button>
+            {% if request.user.is_superuser %}
+              <button class="btn btn-primary menu-add">추가</button>
+            {% endif %}
             <div class="menu-form" style="display:none;">
               <form id='menu-form' data-dining-id="{{dining.pk}}">
                 {% csrf_token %}
@@ -298,7 +306,7 @@
                   <div class="d-flex justify-content-between gap-2">
                     <div class="d-flex gap-2">
                       <p>{{ review.user.username }}</p>
-                      <p>작성개수{{ review.user.review_set.all|length }},공감개수{{ review.like_users.all|length }}</p>
+                      <p>작성개수{{ review.user.review_set.all|length }},공감개수{{ review.user.like_reviews.all|length }}</p>
                     </div>
                     {% if request.user == review.user %}
                       <form action="{% url 'dinings:review_delete' dining.pk review.pk %}" method="POST">

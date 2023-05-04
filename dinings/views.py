@@ -45,17 +45,20 @@ def detail(request, pk):
 
 
 def dining_create(request):
-    if request.method == 'POST':
-        form = DiningForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('dinings:index')
+    if request.user.is_superuser:
+        if request.method == 'POST':
+            form = DiningForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                return redirect('dinings:index')
 
+        else:
+            form = DiningForm()
+        context = {
+            'form': form,
+        }
     else:
-        form = DiningForm()
-    context = {
-        'form': form,
-    }
+        return redirect('dinings:index')
     return render(request, 'dinings/dining_create.html', context)
 
 
@@ -132,13 +135,16 @@ def review_update(request, dining_pk, review_pk):
 @login_required
 def dining_update(request, dining_pk):
     dining = Dining.objects.get(pk=dining_pk)
-    if request.method == 'POST':
-        form = DiningForm(request.POST, instance=dining)
-        if form.is_valid():
-            form.save()
-            return redirect('dining:detail', dining_pk)
+    if request.user.is_superuser:
+        if request.method == 'POST':
+            form = DiningForm(request.POST, instance=dining)
+            if form.is_valid():
+                form.save()
+                return redirect('dinings:detail', dining_pk)
+        else:
+            form = DiningForm(instance=dining)
     else:
-        form = DiningForm(instance=dining)
+        return redirect('dinings:detail', dining_pk)
     context = {
         'form': form,
         'dining': dining
@@ -147,9 +153,12 @@ def dining_update(request, dining_pk):
 
 
 @login_required
-def dining_delete(requset, dining_pk):
+def dining_delete(request, dining_pk):
     dining = Dining.objects.get(pk=dining_pk)
-    dining.delete()
+    if request.user.is_superuser:
+        dining.delete()
+    else:
+        return redirect('dinings:detail', dining_pk)
     return redirect('dinings:index')
 
 
@@ -165,17 +174,20 @@ def menu_create(request, dining_pk):
     dining = Dining.objects.get(pk=dining_pk)
     menu_form = MenuForm(request.POST)
 
-    if menu_form.is_valid():
-        menu = menu_form.save(commit=False)
-        menu.dining = dining
-        menu.save()
-        name = menu.name
-        price = menu.price
-        context = {
-            'name': name,
-            'price': price
-        }
-        return JsonResponse(context)
+    if request.user.is_superuser:
+        if menu_form.is_valid():
+            menu = menu_form.save(commit=False)
+            menu.dining = dining
+            menu.save()
+            name = menu.name
+            price = menu.price
+            context = {
+                'name': name,
+                'price': price
+            }
+            return JsonResponse(context)
+    else:
+        return redirect('dinings:detail', dining_pk)
 
     context = {
         'dining': dining,
@@ -219,4 +231,12 @@ def review_like(request, dining_pk, review_pk):
         review.like_users.remove(request.user)
     else:
         review.like_users.add(request.user)
+    return redirect('dinings:detail', dining_pk)
+
+
+@login_required
+def menu_delete(request, dining_pk, menu_pk):
+    menu = Menu.objects.get(pk=menu_pk)
+    if request.user.is_superuser:
+        menu.delete()
     return redirect('dinings:detail', dining_pk)

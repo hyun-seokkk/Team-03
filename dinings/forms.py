@@ -1,5 +1,6 @@
 from django import forms
 from .models import Dining, Review, Menu
+from taggit.forms import TagField
 
 
 class DiningForm(forms.ModelForm):
