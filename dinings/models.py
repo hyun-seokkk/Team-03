@@ -28,7 +28,6 @@ class Dining(models.Model):
     title = models.CharField(max_length=50)
     content = models.TextField(null=True)
 
-    # 이미지는 5개까지 업로드 가능하게
     image1 = models.ImageField(blank=True, upload_to=dining_img_path)
     image2 = models.ImageField(blank=True, upload_to=dining_img_path)
     image3 = models.ImageField(blank=True, upload_to=dining_img_path)
@@ -52,7 +51,6 @@ class Review(models.Model):
 
     content = models.TextField(null=True)
 
-    # 이미지는 5개까지 업로드 가능하게
     image1 = models.ImageField(blank=True, upload_to=review_img_path)
     image2 = models.ImageField(blank=True, upload_to=review_img_path)
     image3 = models.ImageField(blank=True, upload_to=review_img_path)
