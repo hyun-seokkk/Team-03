@@ -22,72 +22,42 @@
       <div class="col-9">
         <!-- 1번 상자 -->
         <div class="card container mb-3">
-          <div class="row mt-2">
-            <div class="col-6 pe-0">
+          <div class="row mt-2 p-0 m-0">
+            <div class="col-6 col-md-6 p-0 m-0">
               {% if dining.image1 %}
-              <img src="{{ dining.image1.url }}" alt="..." class="img-fluid" style="height:260px; width:340px">
+              <img src="{{ dining.image1.url }}" alt="..." class="img-fluid " style="min-width:14rem; width:100%; min-height:14rem; height:100%;"  >
               {% else %}
-              <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid" style="height:260px; width:340px">
+              <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:14rem; width:100%; min-height:14rem; height:100%;">
               {% endif %}
-              <div class="row row-cols-2">
-                <div class="col pe-0">
-                  {% if dining.image2 %}
-                  <img src="{{ dining.image2.url }}" alt="..." class="img-fluid" style="height:130px; width:170px">
-                  {% else %}
-                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid" style="height:130px; width:170px">
-                  {% endif %}
-                </div>
-                <div class="col ps-0">
-                  {% if dining.image3 %}
-                  <img src="{{ dining.image3.url }}" alt="..." class="img-fluid" style="height:130px; width:170px">
-                  {% else %}
-                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid" style="height:130px; width:170px">
-                  {% endif %}
-                </div>
-              </div>
             </div>
-            <div class="container col-6 ps-0">
-              <div class="row row-cols-2">
-                <div class="col pe-0">
-                  {% if dining.image1 %}
-                  <img src="{{ dining.image1.url }}" alt="..." class="img-fluid" style="height:130px; width:170px">
-                  {% else %}
-                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid" style="height:130px; width:170px">
-                  {% endif %}
-                </div>
-                <div class="col ps-0">
+            <div class="col col-md-6 p-0 m-0">
+              <div class="row">
+                <div class="col-6 pe-0">
                   {% if dining.image2 %}
-                  <img src="{{ dining.image2.url }}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  <img src="{{ dining.image2.url }}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;" >
                   {% else %}
-                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;">
                   {% endif %}
                 </div>
-                <div class="col pe-0">
+                <div class="col-6 ps-0">
                   {% if dining.image3 %}
-                  <img src="{{ dining.image3.url }}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  <img src="{{ dining.image3.url }}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;">
                   {% else %}
-                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;">
                   {% endif %}
                 </div>
-                <div class="col ps-0">
-                  {% if dining.image1 %}
-                  <img src="{{ dining.image1.url }}" alt="..." class="img-fluid" style="height:130px; width:170px">
-                  {% else %}
-                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid" style="height:130px; width:170px">
-                  {% endif %}
-                </div>
-                <div class="col pe-0">
+                <div class="col-6 pe-0">
                   {% if dining.image4 %}
-                  <img src="{{ dining.image4.url }}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  <img src="{{ dining.image4.url }}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;" >
                   {% else %}
-                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;">
                   {% endif %}
                 </div>
-                <div class="col ps-0">
+                <div class="col-6 ps-0">
                   {% if dining.image5 %}
-                  <img src="{{ dining.image5.url }}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  <img src="{{ dining.image5.url }}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;">
                   {% else %}
-                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;">
                   {% endif %}
                 </div>
               </div>
