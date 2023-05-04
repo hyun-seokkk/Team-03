@@ -136,7 +136,7 @@
               sell
               </span>
             {% for tag in dining.tags.all %}
-              <p href="#">{{ tag.name }}</p>
+              <a href="#" class="search-tag" data-tag="{{ tag.name }}">{{ tag.name }}</a>
             {% endfor %}
           </div>
           <!-- 추가 하고싶으면 하면 될듯함-->
