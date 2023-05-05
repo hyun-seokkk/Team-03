@@ -60,15 +60,18 @@ def detail(request, pk):
     }
     return render(request, 'dinings/detail.html', context)
 
-
 def dining_create(request):
     if request.user.is_superuser:
         if request.method == 'POST':
             form = DiningForm(request.POST, request.FILES)
             if form.is_valid():
-                form.save()
+                dining = form.save(commit=False)
+                dining.address_postcode = request.POST['address_postcode']
+                dining.address_address = request.POST['address_address']
+                dining.address_extra = request.POST['address_extra']
+                dining.address_detail = request.POST['address_detail']
+                dining.save()
                 return redirect('dinings:index')
-
         else:
             form = DiningForm()
         context = {
@@ -77,6 +80,28 @@ def dining_create(request):
     else:
         return redirect('dinings:index')
     return render(request, 'dinings/dining_create.html', context)
+
+# def dining_create(request):
+#     if request.user.is_superuser:
+#         if request.method == 'POST':
+#             form = DiningForm(request.POST, request.FILES)
+#             address_postcode = request.POST['address_postcode']
+#             address_address = request.POST['address_address']
+#             address_extra = request.POST['address_extra']
+#             address_detail = request.POST['address_detail']
+#             adress = Dining(address_postcode=address_postcode,address_address=address_address,address_extra=address_extra, address_detail=address_detail)
+#             if form.is_valid():
+#                 form.save()
+#                 adress.save()
+#                 return redirect('dinings:index')
+#         else:
+#             form = DiningForm()
+#         context = {
+#             'form': form,
+#         }
+#     else:
+#         return redirect('dinings:index')
+#     return render(request, 'dinings/dining_create.html', context)
 
 
 @login_required

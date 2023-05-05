@@ -127,11 +127,17 @@
         <input type="hidden" name="latitude" id="latitude">
         <input type="hidden" name="longitude" id="longitude">
       </form>
-      <button type="button" class="btn btn-primary" onclick="clearLocation()">다른 지역 선택</button>
+      <button type="button" class="btn btn-primary" onclick="searchLocation()">다른 지역 선택</button>
       <button class="btn btn-success" onclick="getLocation()">현 위치로 설정</button>
       <form action="{% url 'dinings:showmap' %}" method="POST">
         {% csrf_token %}
         <button class="btn btn-secondary" onclick="getLocation()">자세히 보기</button>
+      </form>
+    </div>
+    <div style="margin-top: 20px;">
+      <form onsubmit="searchLocation(event)">
+        <input type="text" id="search" placeholder="주소 검색">
+        <button type="submit" class="btn btn-primary">검색</button>
       </form>
     </div>
 </div>
@@ -280,11 +286,12 @@
     loadLocation();
   };
 
-  function clearLocation() {
+function clearLocation() {
     localStorage.removeItem("location");
     var locationElement = document.getElementById("location");
     locationElement.innerHTML = "";
-  }
+  } 
 </script>  
+
 {% endblock script %}  
 {% endblock content %} 

@@ -117,10 +117,13 @@
           <div class="d-flex gap-2">
             <span class="icon_size material-symbols-rounded">
               location_on
-              </span>
-            <a href="#">{{ dining.address_mc_do}}</a>
+              </span>         
+            <p>{{dining.address_address}}</p>
+            <p>{{dining.address_detail}}</p>
+            <p>{{dining.address_extra}}</p>   
+            {% comment %} <a href="#">{{ dining.address_mc_do}}</a>
             <a href="#">{{ dining.address_city}}</a>
-            <a href="#">{{ dining.address_dong}}</a>
+            <a href="#">{{ dining.address_dong}}</a> {% endcomment %}
             <p>{{ dining.address_detail }}</p>
           </div>
           <div class="d-flex gap-2">
@@ -144,8 +147,10 @@
               chat
               </span>
             <a href="">폐업신고</a>
-            <a href="">정보수정 제안</a>
-          </div>
+            <a href="">정보수정 제안</a>   
+          </div>            
+          <br>
+
         </div>
 
         <!-- 3번 상자 -->

@@ -35,10 +35,14 @@ class Dining(models.Model):
     image5 = models.ImageField(blank=True, upload_to=dining_img_path)
 
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="like_dinings")
-    address_mc_do = models.CharField(max_length=20)
-    address_city = models.CharField(max_length=20)
-    address_dong = models.CharField(max_length=20)
+    # address_mc_do = models.CharField(max_length=20)
+    # address_city = models.CharField(max_length=20)
+    # address_dong = models.CharField(max_length=20)
+    # address_detail = models.CharField(max_length=20)
+    address_postcode = models.CharField(max_length=20)
+    address_address = models.CharField(max_length=20)
     address_detail = models.CharField(max_length=20)
+    address_extra = models.CharField(max_length=20)
     opening_hours = models.CharField(max_length=20)
     phone_number = models.CharField(max_length=20, blank=True)
     
