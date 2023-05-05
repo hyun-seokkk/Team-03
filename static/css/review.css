@@ -14,15 +14,6 @@
   overflow: hidden;
 }
 
-/* .star-check-1 .star-check-2 .star-check-3 .star-check-4 .star-check-5 .star-check-6 .star-check-7 .star-check-8 .star-check-9 .star-check-10{
-  position: absolute;
-  top: 0;
-  left: 0;
-  white-space: nowrap;
-  height: 40px;
-  overflow: hidden;
-} */
-
 .star-check-0 {
   width: 0%;
 }
@@ -69,4 +60,8 @@
 
 .clickable-star {
   display: inline-block;
+}
+
+.detail-rating {
+
 }

@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 from taggit.managers import TaggableManager
-from taggit.models import TaggedItemBase
+
 
 # Create your models here.
 def dining_img_path(instance, filename):
@@ -12,16 +12,16 @@ def review_img_path(instance, filename):
     return f'images/review/{instance.dining}/{instance.user.username}/{filename}'
 
 
-class PurposeTaggedItem(TaggedItemBase):
-    content_object = models.ForeignKey('Review', on_delete=models.CASCADE, related_name='purpose_tagged_items')
+class PurposeTag(models.Model):
+    tag = models.CharField(max_length=20)
 
 
-class AtmosphereTaggedItem(TaggedItemBase):
-    content_object = models.ForeignKey('Review', on_delete=models.CASCADE, related_name='atmosphere_tagged_items')
+class AtmosphereTag(models.Model):
+    tag = models.CharField(max_length=20)
 
 
-class FacilityaggedItem(TaggedItemBase):
-    content_object = models.ForeignKey('Review', on_delete=models.CASCADE, related_name='facility_tagged_items')
+class FacilityTag(models.Model):
+    tag = models.CharField(max_length=20)
 
 
 class Dining(models.Model):
@@ -82,10 +82,10 @@ class Review(models.Model):
         return '★' * int(rounded_rating) + '☆' * (rounded_rating % 1 == 0.5)
     
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="like_reviews")
-    purpose_tags = TaggableManager(blank=True, through=PurposeTaggedItem, related_name='purpose_tags')
-    atmosphere_tags = TaggableManager(blank=True, through=AtmosphereTaggedItem, related_name='atmosphere_tags')
-    facility_tags = TaggableManager(blank=True, through=FacilityaggedItem, related_name='facility_tags')
-
+    purpose_tags = models.ManyToManyField(PurposeTag, related_name='purpose_reviews')
+    atmosphere_tags = models.ManyToManyField(AtmosphereTag, related_name='atmosphere_reviews')
+    facility_tags = models.ManyToManyField(FacilityTag, related_name='facility_reviews')
+    
 
 class Menu(models.Model):
     dining = models.ForeignKey(Dining, on_delete=models.CASCADE)
