@@ -43,26 +43,26 @@ class DiningForm(forms.ModelForm):
         label_suffix='',
         widget=forms.ClearableFileInput(attrs={'class': 'form-control'})
     )
-    address_mc_do = forms.CharField(
-        label='주소/행정구역',
-        label_suffix='', 
-        widget=forms.TextInput(attrs={'class': 'form-control'})
-    )
-    address_city = forms.CharField(
-        label='시',
-        label_suffix='', 
-        widget=forms.TextInput(attrs={'class': 'form-control'})
-    )
-    address_dong = forms.CharField(
-        label='동/읍/면',
-        label_suffix='', 
-        widget=forms.TextInput(attrs={'class': 'form-control'})
-    )
-    address_detail = forms.CharField(
-        label='상세 주소',
-        label_suffix='', 
-        widget=forms.TextInput(attrs={'class': 'form-control'})
-    )
+    # address_mc_do = forms.CharField(
+    #     label='주소/행정구역',
+    #     label_suffix='', 
+    #     widget=forms.TextInput(attrs={'class': 'form-control'})
+    # )
+    # address_city = forms.CharField(
+    #     label='시',
+    #     label_suffix='', 
+    #     widget=forms.TextInput(attrs={'class': 'form-control'})
+    # )
+    # address_dong = forms.CharField(
+    #     label='동/읍/면',
+    #     label_suffix='', 
+    #     widget=forms.TextInput(attrs={'class': 'form-control'})
+    # )
+    # address_detail = forms.CharField(
+    #     label='상세 주소',
+    #     label_suffix='', 
+    #     widget=forms.TextInput(attrs={'class': 'form-control'})
+    # )
     opening_hours = forms.CharField(
         label='영업 시간',
         label_suffix='', 
