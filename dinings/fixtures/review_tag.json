@@ -1,0 +1,303 @@
+[
+{
+    "model": "dinings.purposetag",
+    "pk": 1,
+    "fields": {
+        "tag": "배달"
+    }
+},
+{
+    "model": "dinings.purposetag",
+    "pk": 2,
+    "fields": {
+        "tag": "아이동반"
+    }
+},
+{
+    "model": "dinings.purposetag",
+    "pk": 3,
+    "fields": {
+        "tag": "다이어트식단"
+    }
+},
+{
+    "model": "dinings.purposetag",
+    "pk": 4,
+    "fields": {
+        "tag": "실버푸드"
+    }
+},
+{
+    "model": "dinings.purposetag",
+    "pk": 5,
+    "fields": {
+        "tag": "아침식사"
+    }
+},
+{
+    "model": "dinings.purposetag",
+    "pk": 6,
+    "fields": {
+        "tag": "점심식사"
+    }
+},
+{
+    "model": "dinings.purposetag",
+    "pk": 7,
+    "fields": {
+        "tag": "저녁식사"
+    }
+},
+{
+    "model": "dinings.purposetag",
+    "pk": 8,
+    "fields": {
+        "tag": "식사모임"
+    }
+},
+{
+    "model": "dinings.purposetag",
+    "pk": 9,
+    "fields": {
+        "tag": "술모임"
+    }
+},
+{
+    "model": "dinings.purposetag",
+    "pk": 10,
+    "fields": {
+        "tag": "차모임"
+    }
+},
+{
+    "model": "dinings.purposetag",
+    "pk": 11,
+    "fields": {
+        "tag": "혼카페"
+    }
+},
+{
+    "model": "dinings.purposetag",
+    "pk": 12,
+    "fields": {
+        "tag": "혼밥"
+    }
+},
+{
+    "model": "dinings.purposetag",
+    "pk": 13,
+    "fields": {
+        "tag": "혼술"
+    }
+},
+{
+    "model": "dinings.purposetag",
+    "pk": 14,
+    "fields": {
+        "tag": "접대"
+    }
+},
+{
+    "model": "dinings.purposetag",
+    "pk": 15,
+    "fields": {
+        "tag": "회식"
+    }
+},
+{
+    "model": "dinings.purposetag",
+    "pk": 16,
+    "fields": {
+        "tag": "데이트"
+    }
+},
+{
+    "model": "dinings.purposetag",
+    "pk": 17,
+    "fields": {
+        "tag": "기념일"
+    }
+},
+{
+    "model": "dinings.purposetag",
+    "pk": 18,
+    "fields": {
+        "tag": "가족외식"
+    }
+},
+{
+    "model": "dinings.purposetag",
+    "pk": 19,
+    "fields": {
+        "tag": "간식"
+    }
+},
+{
+    "model": "dinings.atmospheretag",
+    "pk": 1,
+    "fields": {
+        "tag": "숨은맛집"
+    }
+},
+{
+    "model": "dinings.atmospheretag",
+    "pk": 2,
+    "fields": {
+        "tag": "서민적인"
+    }
+},
+{
+    "model": "dinings.atmospheretag",
+    "pk": 3,
+    "fields": {
+        "tag": "캐주얼한"
+    }
+},
+{
+    "model": "dinings.atmospheretag",
+    "pk": 4,
+    "fields": {
+        "tag": "고급스러운"
+    }
+},
+{
+    "model": "dinings.atmospheretag",
+    "pk": 5,
+    "fields": {
+        "tag": "격식있는"
+    }
+},
+{
+    "model": "dinings.atmospheretag",
+    "pk": 6,
+    "fields": {
+        "tag": "가성비좋은"
+    }
+},
+{
+    "model": "dinings.atmospheretag",
+    "pk": 7,
+    "fields": {
+        "tag": "푸짐한"
+    }
+},
+{
+    "model": "dinings.atmospheretag",
+    "pk": 8,
+    "fields": {
+        "tag": "조용한"
+    }
+},
+{
+    "model": "dinings.atmospheretag",
+    "pk": 9,
+    "fields": {
+        "tag": "시끌벅적한"
+    }
+},
+{
+    "model": "dinings.atmospheretag",
+    "pk": 10,
+    "fields": {
+        "tag": "예쁜"
+    }
+},
+{
+    "model": "dinings.atmospheretag",
+    "pk": 11,
+    "fields": {
+        "tag": "깔끔한"
+    }
+},
+{
+    "model": "dinings.atmospheretag",
+    "pk": 12,
+    "fields": {
+        "tag": "이국적/이색적"
+    }
+},
+{
+    "model": "dinings.atmospheretag",
+    "pk": 13,
+    "fields": {
+        "tag": "경관/야경이좋은"
+    }
+},
+{
+    "model": "dinings.atmospheretag",
+    "pk": 14,
+    "fields": {
+        "tag": "지역주민이찾는"
+    }
+},
+{
+    "model": "dinings.facilitytag",
+    "pk": 1,
+    "fields": {
+        "tag": "무료주차"
+    }
+},
+{
+    "model": "dinings.facilitytag",
+    "pk": 2,
+    "fields": {
+        "tag": "발렛주차"
+    }
+},
+{
+    "model": "dinings.facilitytag",
+    "pk": 3,
+    "fields": {
+        "tag": "주차불가"
+    }
+},
+{
+    "model": "dinings.facilitytag",
+    "pk": 4,
+    "fields": {
+        "tag": "개별룸"
+    }
+},
+{
+    "model": "dinings.facilitytag",
+    "pk": 5,
+    "fields": {
+        "tag": "대형룸"
+    }
+},
+{
+    "model": "dinings.facilitytag",
+    "pk": 6,
+    "fields": {
+        "tag": "24시간영업"
+    }
+},
+{
+    "model": "dinings.facilitytag",
+    "pk": 7,
+    "fields": {
+        "tag": "야외좌석(테라스)"
+    }
+},
+{
+    "model": "dinings.facilitytag",
+    "pk": 8,
+    "fields": {
+        "tag": "놀이방"
+    }
+},
+{
+    "model": "dinings.facilitytag",
+    "pk": 9,
+    "fields": {
+        "tag": "애완동물동반"
+    }
+},
+{
+    "model": "dinings.facilitytag",
+    "pk": 10,
+    "fields": {
+        "tag": "콜키지무료"
+    }
+}
+]
