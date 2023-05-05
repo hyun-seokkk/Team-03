@@ -65,10 +65,15 @@ def dining_create(request):
     if request.user.is_superuser:
         if request.method == 'POST':
             form = DiningForm(request.POST, request.FILES)
+            address_postcode = request.POST['address_postcode']
+            address_address = request.POST['address_address']
+            address_extra = request.POST['address_extra']
+            address_detail = request.POST['address_detail']
+            adress = Dining(address_postcode=address_postcode,address_address=address_address,address_extra=address_extra, address_detail=address_detail)
             if form.is_valid():
                 form.save()
+                adress.save()
                 return redirect('dinings:index')
-
         else:
             form = DiningForm()
         context = {
