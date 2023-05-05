@@ -14,7 +14,6 @@ def index(request):
 
 
 def signup(request):
-    #로그인 돼있으면 메인페이지로
     if request.user.is_authenticated:
         return redirect('dinings:index')
 
@@ -33,7 +32,6 @@ def signup(request):
 
 
 def login(request):
-    #로그인 돼있으면 메인페이지로
     if request.user.is_authenticated:
         return redirect('dinings:index')
     
@@ -114,4 +112,3 @@ def follow(request, user_pk):
     else:
         person.followers.add(request.user)
     return redirect('accounts:profile', person.username)
-

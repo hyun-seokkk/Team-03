@@ -4,16 +4,33 @@ from .forms import DiningForm, ReviewForm, MenuForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import JsonResponse
+import random
 
 # Create your views here.
 
 
 def index(request):
     dinings = Dining.objects.order_by("-pk")
+    tags = list(set(tag for dining in dinings for tag in dining.tags.all()))
+    random_tags = random.sample(tags, min(len(tags), 10))
     context = {
         'dinings': dinings,
+        'tags': random_tags,
     }
     return render(request, 'dinings/index.html', context)
+
+
+# def index(request):
+#     dinings = Dining.objects.order_by("-pk")
+#     tags = []
+#     for dining in dinings:
+#         tags += dining.tags.all().distinct()
+#     context = {
+#         'dinings': dinings,
+#         'tags': tags,
+#     }
+#     return render(request, 'dinings/index.html', context)
+
 
 def showmap(request):
     return render(request, 'dinings/showmap.html')
@@ -43,20 +60,48 @@ def detail(request, pk):
     }
     return render(request, 'dinings/detail.html', context)
 
-
 def dining_create(request):
-    if request.method == 'POST':
-        form = DiningForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('dinings:index')
-
+    if request.user.is_superuser:
+        if request.method == 'POST':
+            form = DiningForm(request.POST, request.FILES)
+            if form.is_valid():
+                dining = form.save(commit=False)
+                dining.address_postcode = request.POST['address_postcode']
+                dining.address_address = request.POST['address_address']
+                dining.address_extra = request.POST['address_extra']
+                dining.address_detail = request.POST['address_detail']
+                dining.save()
+                return redirect('dinings:index')
+        else:
+            form = DiningForm()
+        context = {
+            'form': form,
+        }
     else:
-        form = DiningForm()
-    context = {
-        'form': form,
-    }
+        return redirect('dinings:index')
     return render(request, 'dinings/dining_create.html', context)
+
+# def dining_create(request):
+#     if request.user.is_superuser:
+#         if request.method == 'POST':
+#             form = DiningForm(request.POST, request.FILES)
+#             address_postcode = request.POST['address_postcode']
+#             address_address = request.POST['address_address']
+#             address_extra = request.POST['address_extra']
+#             address_detail = request.POST['address_detail']
+#             adress = Dining(address_postcode=address_postcode,address_address=address_address,address_extra=address_extra, address_detail=address_detail)
+#             if form.is_valid():
+#                 form.save()
+#                 adress.save()
+#                 return redirect('dinings:index')
+#         else:
+#             form = DiningForm()
+#         context = {
+#             'form': form,
+#         }
+#     else:
+#         return redirect('dinings:index')
+#     return render(request, 'dinings/dining_create.html', context)
 
 
 @login_required
@@ -141,13 +186,16 @@ def review_update(request, dining_pk, review_pk):
 @login_required
 def dining_update(request, dining_pk):
     dining = Dining.objects.get(pk=dining_pk)
-    if request.method == 'POST':
-        form = DiningForm(request.POST, instance=dining)
-        if form.is_valid():
-            form.save()
-            return redirect('dinings:detail', dining_pk)
+    if request.user.is_superuser:
+        if request.method == 'POST':
+            form = DiningForm(request.POST, instance=dining)
+            if form.is_valid():
+                form.save()
+                return redirect('dinings:detail', dining_pk)
+        else:
+            form = DiningForm(instance=dining)
     else:
-        form = DiningForm(instance=dining)
+        return redirect('dinings:detail', dining_pk)
     context = {
         'form': form,
         'dining': dining
@@ -156,16 +204,27 @@ def dining_update(request, dining_pk):
 
 
 @login_required
-def dining_delete(requset, dining_pk):
+def dining_delete(request, dining_pk):
     dining = Dining.objects.get(pk=dining_pk)
-    dining.delete()
+    if request.user.is_superuser:
+        dining.delete()
+    else:
+        return redirect('dinings:detail', dining_pk)
     return redirect('dinings:index')
 
 
 def search(request):
     query = request.GET.get('query')
-    dinings = Dining.objects.filter(title__icontains=query)
-    context = {'dinings': dinings}
+    dinings = Dining.objects.filter(Q(title__icontains=query) | Q(
+        tags__name__icontains=query)).distinct()
+    dining_reviews = []
+    for dining in dinings:
+        review = dining.review_set.order_by('pk').first()
+        if review:
+            dining_reviews.append(review)
+    context = {'dinings': dinings,
+               'reviews': dining_reviews
+               }
     return render(request, 'dinings/search.html', context)
 
 
@@ -174,17 +233,20 @@ def menu_create(request, dining_pk):
     dining = Dining.objects.get(pk=dining_pk)
     menu_form = MenuForm(request.POST)
 
-    if menu_form.is_valid():
-        menu = menu_form.save(commit=False)
-        menu.dining = dining
-        menu.save()
-        name = menu.name
-        price = menu.price
-        context = {
-            'name': name,
-            'price': price
-        }
-        return JsonResponse(context)
+    if request.user.is_superuser:
+        if menu_form.is_valid():
+            menu = menu_form.save(commit=False)
+            menu.dining = dining
+            menu.save()
+            name = menu.name
+            price = menu.price
+            context = {
+                'name': name,
+                'price': price
+            }
+            return JsonResponse(context)
+    else:
+        return redirect('dinings:detail', dining_pk)
 
     context = {
         'dining': dining,
@@ -203,7 +265,6 @@ def likes(request, dining_pk):
     else:
         dining.like_users.add(request.user)
         is_liked = True
-
 
     context = {
         'is_liked': is_liked,
@@ -228,4 +289,12 @@ def review_like(request, dining_pk, review_pk):
         review.like_users.remove(request.user)
     else:
         review.like_users.add(request.user)
+    return redirect('dinings:detail', dining_pk)
+
+
+@login_required
+def menu_delete(request, dining_pk, menu_pk):
+    menu = Menu.objects.get(pk=menu_pk)
+    if request.user.is_superuser:
+        menu.delete()
     return redirect('dinings:detail', dining_pk)

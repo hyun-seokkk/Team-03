@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block content %}
-<div class="container text-nowrap">
+<div class="container ">
   <div class="row">
     
       <!-- 왼쪽 사이드바 < 지도 > -->
@@ -17,77 +16,46 @@
         </div>
       </div>
 
-
       <!-- 오른쪽 상세 페이지 -->
       <div class="col-9">
         <!-- 1번 상자 -->
         <div class="card container mb-3">
-          <div class="row mt-2">
-            <div class="col-6 pe-0">
+          <div class="row mt-2 p-0 m-0">
+            <div class="col-6 col-md-6 p-0 m-0">
               {% if dining.image1 %}
-              <img src="{{ dining.image1.url }}" alt="..." class="img-fluid" style="height:260px; width:340px">
+              <img src="{{ dining.image1.url }}" alt="..." class="img-fluid " style="min-width:14rem; width:100%; min-height:14rem; height:100%;"  >
               {% else %}
-              <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid" style="height:260px; width:340px">
+              <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:14rem; width:100%; min-height:14rem; height:100%;">
               {% endif %}
-              <div class="row row-cols-2">
-                <div class="col pe-0">
-                  {% if dining.image2 %}
-                  <img src="{{ dining.image2.url }}" alt="..." class="img-fluid" style="height:130px; width:170px">
-                  {% else %}
-                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid" style="height:130px; width:170px">
-                  {% endif %}
-                </div>
-                <div class="col ps-0">
-                  {% if dining.image3 %}
-                  <img src="{{ dining.image3.url }}" alt="..." class="img-fluid" style="height:130px; width:170px">
-                  {% else %}
-                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid" style="height:130px; width:170px">
-                  {% endif %}
-                </div>
-              </div>
             </div>
-            <div class="container col-6 ps-0">
-              <div class="row row-cols-2">
-                <div class="col pe-0">
-                  {% if dining.image1 %}
-                  <img src="{{ dining.image1.url }}" alt="..." class="img-fluid" style="height:130px; width:170px">
-                  {% else %}
-                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid" style="height:130px; width:170px">
-                  {% endif %}
-                </div>
-                <div class="col ps-0">
+            <div class="col col-md-6 p-0 m-0">
+              <div class="row">
+                <div class="col-6 pe-0">
                   {% if dining.image2 %}
-                  <img src="{{ dining.image2.url }}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  <img src="{{ dining.image2.url }}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;" >
                   {% else %}
-                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;">
                   {% endif %}
                 </div>
-                <div class="col pe-0">
+                <div class="col-6 ps-0">
                   {% if dining.image3 %}
-                  <img src="{{ dining.image3.url }}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  <img src="{{ dining.image3.url }}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;">
                   {% else %}
-                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;">
                   {% endif %}
                 </div>
-                <div class="col ps-0">
-                  {% if dining.image1 %}
-                  <img src="{{ dining.image1.url }}" alt="..." class="img-fluid" style="height:130px; width:170px">
-                  {% else %}
-                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid" style="height:130px; width:170px">
-                  {% endif %}
-                </div>
-                <div class="col pe-0">
+                <div class="col-6 pe-0">
                   {% if dining.image4 %}
-                  <img src="{{ dining.image4.url }}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  <img src="{{ dining.image4.url }}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;" >
                   {% else %}
-                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;">
                   {% endif %}
                 </div>
-                <div class="col ps-0">
+                <div class="col-6 ps-0">
                   {% if dining.image5 %}
-                  <img src="{{ dining.image5.url }}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  <img src="{{ dining.image5.url }}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;">
                   {% else %}
-                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid" style="height:130px; width:170px">
+                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;">
                   {% endif %}
                 </div>
               </div>
@@ -149,10 +117,13 @@
           <div class="d-flex gap-2">
             <span class="icon_size material-symbols-rounded">
               location_on
-              </span>
-            <a href="#">{{ dining.address_mc_do}}</a>
+              </span>         
+            <p>{{dining.address_address}}</p>
+            <p>{{dining.address_detail}}</p>
+            <p>{{dining.address_extra}}</p>   
+            {% comment %} <a href="#">{{ dining.address_mc_do}}</a>
             <a href="#">{{ dining.address_city}}</a>
-            <a href="#">{{ dining.address_dong}}</a>
+            <a href="#">{{ dining.address_dong}}</a> {% endcomment %}
             <p>{{ dining.address_detail }}</p>
           </div>
           <div class="d-flex gap-2">
@@ -166,30 +137,24 @@
               sell
               </span>
             {% for tag in dining.tags.all %}
-              <p href="#">{{ tag.name }}</p>
+              <a href="#" class="search-tag" data-tag="{{ tag.name }}">{{ tag.name }}</a>
             {% endfor %}
           </div>
-          <!-- 추가 하고싶으면 하면 될듯함-->
-          <div class="d-flex gap-2">
-            <span class="icon_size material-symbols-rounded">
-              add_circle
-              </span>
-            {% for tag in dining.tags.all %}
-              <p href="#">{{ tag.name }}</p>
-            {% endfor %}
-          </div>
+          
           <!-- 모달 넣기 -->
           <div class="d-flex gap-2">
             <span class="icon_size material-symbols-rounded">
               chat
               </span>
             <a href="">폐업신고</a>
-            <a href="">정보수정 제안</a>
-          </div>
+            <a href="">정보수정 제안</a>   
+          </div>            
+          <br>
+
         </div>
 
         <!-- 3번 상자 -->
-        <div class="container card mb-3">
+        <div class="container card mb-3 pt-3">
           <h2>영업시간</h2>
           <div class="d-flex justify-content-between">
             <!-- 요일 추가 -->
@@ -204,9 +169,17 @@
               <div class='d-flex justify-content-between'>
                 <p>{{menu.name}}</p>
                 <p>{{menu.price}}</p>
-            </div>
+                {% if request.user.is_superuser %}
+                  <form action="{% url 'dinings:menu_delete' dining.pk menu.pk %}" methos="POST">
+                    {% csrf_token %}
+                    <input type="submit" value="삭제">
+                  </form>
+                {% endif %}
+              </div>
             {% endfor %}
-            <button class="btn btn-primary menu-add">추가</button>
+            {% if request.user.is_superuser %}
+              <button class="btn btn-primary menu-add">추가</button>
+            {% endif %}
             <div class="menu-form" style="display:none;">
               <form id='menu-form' data-dining-id="{{dining.pk}}">
                 {% csrf_token %}
@@ -214,15 +187,6 @@
                 <input type="submit" value="입력">
               </form>
             </div>
-          </div>
-          <hr>
-          <h2>맛집태그</h2>
-          
-          <div class="d-flex gap-3">
-            <!-- 태그 수 많을 수록 텍스트 크기 커지게 -->
-            {% for tag in dining.tags.all %}
-            <p>{{ tag.name }}</p>
-            {% endfor %}
           </div>
           <hr>
           <h2>맛집태그</h2>
@@ -249,36 +213,37 @@
                 <p>가격</p>
                 <p>서비스</p>
               </div>
-              <div class="sm_tag row ">
-                <div class="d-flex gap-5">
-                  <p>방문목적</p>
-                  <div class="d-flex gap-3">
+              <div class="sm_tag ">
+                <div class="d-flex">
+                  <p class="me-4">방문목적</p>
+                  <div>
                     {% for tag in dining.tags.all %}
-                    <p class="border rounded-pill px-2"style="background-color: rgb(227, 227, 227);">{{ tag.name }}</p>
+                    <p class="border rounded-pill px-2 d-inline-block" style="background-color: rgb(227, 227, 227);">{{ tag.name }}</p>
+                    {% if forloop.counter|divisibleby:5 and not forloop.last %}<br>{% endif %}
                     {% endfor %}
                   </div>
                 </div>
-                <div class="d-flex gap-5">
-                  <p>분위기</p>
-                  <div class="d-flex gap-3">
+                <div class="d-flex">
+                  <p style="margin-right:35px">분위기</p>
+                  <div>
                     {% for tag in dining.tags.all %}
-                    <p class="border rounded-pill px-2"style="background-color: rgb(227, 227, 227);">{{ tag.name }}</p>
+                    <p class="border rounded-pill px-2 d-inline-block" style="background-color: rgb(227, 227, 227);">{{ tag.name }}</p>
+                    {% if forloop.counter|divisibleby:5 and not forloop.last %}<br>{% endif %}
                     {% endfor %}
                   </div>
                 </div>
-                <div class="d-flex gap-5">
-                  <p>편의시설</p>
-                  <div class="d-flex gap-3">
-                    {% for tag in dining.tags.all %}
-                    <p class="border rounded-pill px-2"style="background-color: rgb(227, 227, 227);">{{ tag.name }}</p>
+                <div class="d-flex">
+                  <p class="me-4">편의시설</p>
+                  <div>
+                    {% for tag in dining.purpose_tags.all %}
+                    <p class="border rounded-pill px-2 d-inline-block" style="background-color: rgb(227, 227, 227);">{{ tag.name }}</p>
+                    {% if forloop.counter|divisibleby:5 and not forloop.last %}<br>{% endif %}
                     {% endfor %}
                   </div>
                 </div>
               </div>
-
-
             </div>
-            <div class="col-4">
+            <div class="col-4 mt-5">
               <div class="d-flex">
                 <p>매우만족(5)</p>
                 <div class="progress">
@@ -309,15 +274,13 @@
                   <div class="progress-bar" role="progressbar" style="width: 80%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">20</div>
                 </div>
               </div>
-            </div>
+            </div> 
           </div>
           <hr>
 
-          
-
           {% for review in reviews %}
-            <div class="container card ">
-              <div class="d-flex ">
+            <div class="container card my-2 ">
+              <div class="d-flex p-2">
                 <!-- 프로필 사진 추가-->
                 {% if review.user.profile_image %}
                   <img class="p-1 rounded-circle" src="{{ review.user.profile_image.url }}" alt="profile_image">
@@ -328,7 +291,9 @@
                   <div class="d-flex justify-content-between gap-2">
                     <div class="d-flex gap-2">
                       <p>{{ review.user.username }}</p>
-                      <p>작성개수{{ review.user.review_set.all|length }},공감개수{{ review.like_users.all|length }}</p>
+
+                      <p>작성개수 {{ review.user.review_set.all|length }} , 공감개수 {{ review.like_users.all|length }}</p>
+
                     </div>
                     {% if request.user == review.user %}
                       <form action="{% url 'dinings:review_delete' dining.pk review.pk %}" method="POST">
@@ -348,10 +313,26 @@
                 <p>서비스 {{ review.star_rating_kind }}</p>
               </div>
               <!-- 댓글은 wrap 사용-->
-              <div class="text-wrap">
+              <div class="text-wrap my-3">
                 {{ review.content }}
               </div>
-              <img src="" alt="#">
+              <div class="d-flex gap-1 my-2" style="height:4rem" >
+                {% if review.image1 %}
+                <img src="{{ review.image1.url }}" alt="#" style=" width:20%; height:100%;">
+                {% endif %}
+                {% if review.image2 %}
+                <img src="{{ review.image2.url }}" alt="#" style=" width:20%; height:100%;">
+                {% endif %}
+                {% if review.image3 %}
+                <img src="{{ review.image3.url }}" alt="#" style=" width:20%; height:100%;">
+                {% endif %}
+                {% if review.image4 %}
+                <img src="{{ review.image4.url }}" alt="#" style=" width:20%; height:100%;">
+                {% endif %}
+                {% if review.image5 %}
+                <img src="{{ review.image5.url }}" alt="#" style=" width:20%; height:100%;">
+                {% endif %}
+              </div>
               <div class="d-flex gap-2 sm_tag">
                 {% for tag in dining.tags.all %}
                 <p class="border rounded-pill px-2"style="background-color: rgb(227, 227, 227);">{{ tag.name }}</p>
@@ -365,14 +346,11 @@
           {% empty %}
             <p>아직 리뷰가 없습니다.</p>
           {% endfor %}
-
         </div>
       </div>
-
   </div>
 </div>
 {% endblock content %}
-
 {% block script %}
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="{% static 'js/detail.js' %}"></script>

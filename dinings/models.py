@@ -28,7 +28,6 @@ class Dining(models.Model):
     title = models.CharField(max_length=50)
     content = models.TextField(null=True)
 
-    # 이미지는 5개까지 업로드 가능하게
     image1 = models.ImageField(blank=True, upload_to=dining_img_path)
     image2 = models.ImageField(blank=True, upload_to=dining_img_path)
     image3 = models.ImageField(blank=True, upload_to=dining_img_path)
@@ -36,10 +35,14 @@ class Dining(models.Model):
     image5 = models.ImageField(blank=True, upload_to=dining_img_path)
 
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="like_dinings")
-    address_mc_do = models.CharField(max_length=20)
-    address_city = models.CharField(max_length=20)
-    address_dong = models.CharField(max_length=20)
+    # address_mc_do = models.CharField(max_length=20)
+    # address_city = models.CharField(max_length=20)
+    # address_dong = models.CharField(max_length=20)
+    # address_detail = models.CharField(max_length=20)
+    address_postcode = models.CharField(max_length=20)
+    address_address = models.CharField(max_length=20)
     address_detail = models.CharField(max_length=20)
+    address_extra = models.CharField(max_length=20)
     opening_hours = models.CharField(max_length=20)
     phone_number = models.CharField(max_length=20, blank=True)
     
@@ -49,10 +52,8 @@ class Dining(models.Model):
 class Review(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     dining = models.ForeignKey(Dining, on_delete=models.CASCADE)
-
     content = models.TextField(null=True)
 
-    # 이미지는 5개까지 업로드 가능하게
     image1 = models.ImageField(blank=True, upload_to=review_img_path)
     image2 = models.ImageField(blank=True, upload_to=review_img_path)
     image3 = models.ImageField(blank=True, upload_to=review_img_path)

@@ -44,26 +44,26 @@ class DiningForm(forms.ModelForm):
         label_suffix='',
         widget=forms.ClearableFileInput(attrs={'class': 'form-control'})
     )
-    address_mc_do = forms.CharField(
-        label='주소/행정구역',
-        label_suffix='', 
-        widget=forms.TextInput(attrs={'class': 'form-control'})
-    )
-    address_city = forms.CharField(
-        label='시',
-        label_suffix='', 
-        widget=forms.TextInput(attrs={'class': 'form-control'})
-    )
-    address_dong = forms.CharField(
-        label='동/읍/면',
-        label_suffix='', 
-        widget=forms.TextInput(attrs={'class': 'form-control'})
-    )
-    address_detail = forms.CharField(
-        label='상세 주소',
-        label_suffix='', 
-        widget=forms.TextInput(attrs={'class': 'form-control'})
-    )
+    # address_mc_do = forms.CharField(
+    #     label='주소/행정구역',
+    #     label_suffix='', 
+    #     widget=forms.TextInput(attrs={'class': 'form-control'})
+    # )
+    # address_city = forms.CharField(
+    #     label='시',
+    #     label_suffix='', 
+    #     widget=forms.TextInput(attrs={'class': 'form-control'})
+    # )
+    # address_dong = forms.CharField(
+    #     label='동/읍/면',
+    #     label_suffix='', 
+    #     widget=forms.TextInput(attrs={'class': 'form-control'})
+    # )
+    # address_detail = forms.CharField(
+    #     label='상세 주소',
+    #     label_suffix='', 
+    #     widget=forms.TextInput(attrs={'class': 'form-control'})
+    # )
     opening_hours = forms.CharField(
         label='영업 시간',
         label_suffix='', 
@@ -83,10 +83,8 @@ class DiningForm(forms.ModelForm):
     
     class Meta:
         model = Dining
-        fields = ['title', 'content', 'image1', 'image2', 'image3', 'image4', 'image5', 
-              'address_mc_do', 'address_city', 'address_dong', 'address_detail', 
-              'opening_hours', 'phone_number', 'tags']
-        exclude = ['like_users', 'menu_tags', 'price_tags']
+        fields = ['title', 'content', 'image1', 'image2', 'image3', 'image4', 'image5',  'opening_hours', 'phone_number', 'tags']
+        exclude = ['like_users', 'menu_tags', 'price_tags','address_mc_do', 'address_city', 'address_dong', 'address_detail', ]
 
 
 class ReviewForm(forms.ModelForm):

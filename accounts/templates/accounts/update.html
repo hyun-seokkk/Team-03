@@ -13,30 +13,16 @@
         </div>
         <div class="col-8">
           <div class="d-flex align-items-end">
+            
           {% if user.profile_image %}
-          <img class="p-1 rounded-circle" src="{{ user.profile_image.url }}" alt="profile_image" style="width: 140px; height: 140px;">
+            <img class="p-1 rounded-circle" src="{{ user.profile_image.url }}" alt="profile_image" style="width: 140px; height: 140px;">
           {% else %}
-          <img class="p-1 rounded-circle" src="{% static 'img/blank-profile-image.png' %}" class="img-fluid" style="width: 140px; height: 140px;" alt="blank-profile-image">
+            <img class="p-1 rounded-circle" src="{% static 'img/blank-profile-image.png' %}" class="img-fluid" style="width: 140px; height: 140px;" alt="blank-profile-image">
           {% endif %}
-          <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="form-group">
-              <div class="custom-file">
-                <input type="file" class="custom-file-input" id="profile_image" name="profile_image" style="display:none;">
-                <label for="profile_image" class="custom-file-label btn btn-primary">
-                  파일 선택하기
-                </label>
-              </div>
-            </div>
-            <button type="submit" class="btn btn-primary" >업로드</button>
-          </form>
+            <form action=""></form>
           </div>
-          <p class="mt-3">다이닝코드의 회원 프로필 사진으로 사용될 이미지를 등록해 주세요.</p>
-          {% if request.method == "POST" %}
-            {% if request.FILES.profile_image %}
-              <p class="text-success">프로필 사진이 업로드되었습니다.</p>
-            {% endif %}
-          {% endif %}
+          {% comment %} <p class="mt-3">다이닝코드의 회원 프로필 사진으로 사용될 이미지를 등록해 주세요.</p> {% endcomment %}
+
         </div>
       </div>
       
@@ -53,19 +39,7 @@
           </form>
         </div>
       </div>
-      <!-- 자기소개 -->
-      <div class="d-flex align-items-center border-bottom pb-3">
-        <div class="col-4">
-          <b>자기소개</b>
-        </div>
-        <div class="col-8 mt-3">
-          <form action="{% url 'accounts:update' %}" method="post">
-            {% csrf_token %} 
-            <input type="text" class="form-control" name="introduce" id="introduce" placeholder="자기소개를 입력하세요." style="width:24rem;">
-            <p class="text-center mt-3"><span id="count">0</span> 단어</p>
-          </form>
-        </div>
-      </div>
+
       <!-- 이메일 -->
       <div class="d-flex align-items-center border-bottom pb-3">
         <div class="col-4">
@@ -120,12 +94,8 @@
 </div>
   <!-- 변경사항 입력 폼 요소들 추가 -->
   <div class="text-center my-5">
-    <button type="submit" class="border bg-info text-white" style="padding: 1.2rem 10rem">변경사항저장</button>
-  </div>
-
-
-
-
+    <button type="submit" class="border bg-info text-white" style="padding: 1.2rem 10rem">변경사항 저장</button>
+  </div>  
 {% endblock content %}
 
 {% block script %}
@@ -138,32 +108,40 @@
     }
   }
 </script>
-
 <script>
-  const inputField = document.getElementById("username");
-  const warningText = document.getElementById("warning-text");
+  const fileInput = document.getElementById("fileUpload");
 
-  inputField.addEventListener("blur", function() {
-    if (this.value === "") {
-      warningText.innerHTML = '<span class="text-danger">영문 또는 숫자 4~10자,한글 포함 2~10자로 입력해주세요.</span>';
-    } else {
-      warningText.innerHTML = '다이닝코드에서 회원정보로 등록하실 닉네임을 입력해주세요.(영문 또는 숫자 4~10자,한글 포함 시 2~10자)';
-    }
-  });
-</script>
-
-<script>
-  const inputField = document.getElementById("introduce");
-  const wordCount = document.getElementById("count");
-
-  inputField.addEventListener("input", function() {
-    const wordArr = this.value.trim().split(/\s+/);
-    const wordCountValue = wordArr[0] ? wordArr.length : 0;
-    wordCount.innerHTML = `${wordCountValue} 단어`;
-
-    if (this.value.length > 25) {
-      this.value = this.value.substring(0, 25);
-    }
-  });
+  const handleFiles = (e) => {
+    const selectedFile = [...fileInput.files];
+    const fileReader = new FileReader();
+  
+    fileReader.readAsDataURL(selectedFile[0]);
+  
+    fileReader.onload = function () {
+      document.getElementById("previewImg").src = fileReader.result;
+    };
+  };
+  
+  fileInput.addEventListener("change", handleFiles);
 </script>
 {% endblock script %}
+<!--  <div class="d-flex align-items-end">
+          {% if user.profile_image %}
+            <img class="p-1 rounded-circle" src="{{ user.profile_image.url }}" alt="profile_image" style="width: 140px; height: 140px;">
+          {% else %}
+            <img class="p-1 rounded-circle" src="{% static 'img/blank-profile-image.png' %}" class="img-fluid" style="width: 140px; height: 140px;" alt="blank-profile-image">
+          {% endif %}
+            <form method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-group">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="profile_image" name="profile_image" style="display:none;" onchange="handleFiles(this.files)">
+                  <label for="profile_image" class="custom-file-label btn btn-primary" id="profile_image_label">
+                    파일 선택하기
+                  </label>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary" >업로드</button>
+            </form>
+          </div>
+-->
