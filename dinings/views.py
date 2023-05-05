@@ -45,10 +45,29 @@ def detail(request, pk):
     sum = 0
     avg = 0
 
+    #만족도 담을 딕셔너리
+    satisfaction = {
+        '매우만족': 0,
+        '만족': 0,
+        '보통': 0,
+        '불만': 0,
+        '매우불만': 0,
+    }
+
     # zero division error 때문에 조건문 추가
     if reviews:
         for review in reviews:
             sum += review.rating
+            if review.rating > 4:
+                satisfaction['매우만족'] += 1
+            elif review.rating > 3:
+                satisfaction['만족'] += 1
+            elif review.rating > 2:
+                satisfaction['보통'] += 1
+            elif review.rating > 1:
+                satisfaction['불만'] += 1
+            else:
+                satisfaction['매우불만'] += 1
         # 총 평점을 나타내기 위해 avg 변수에 평균 할당
         avg = round(sum / len(reviews), 1)
     context = {
@@ -57,6 +76,7 @@ def detail(request, pk):
         'avg': avg,
         'menus': menus,
         'menu_form': menu_form,
+        'satisfaction': satisfaction,
     }
     return render(request, 'dinings/detail.html', context)
 

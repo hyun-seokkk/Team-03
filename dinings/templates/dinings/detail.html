@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load customs %}
 {% block content %}
 <div class="container ">
   <div class="row">
@@ -245,33 +246,33 @@
             </div>
             <div class="col-4 mt-5">
               <div class="d-flex">
-                <p>매우만족(5)</p>
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">20</div>
+                <p class="col-6">매우만족({{satisfaction|reportkey:"매우만족"}})</p>
+                <div class="progress col-6" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                  <div class="progress-bar" style="width: 0%" id="prog1"></div>
                 </div>
               </div>
               <div class="d-flex">
-                <p>만족(4)</p>
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" style="width: 80%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">20</div>
+                <p class="col-6">만족({{satisfaction|reportkey:"만족"}})</p>
+                <div class="progress col-6" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                  <div class="progress-bar" style="width: 0%" id="prog2"></div>
                 </div>
               </div>
               <div class="d-flex">
-                <p>보통(0)</p>
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" style="width: 80%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">20</div>
+                <p class="col-6">보통({{satisfaction|reportkey:"보통"}})</p>
+                <div class="progress col-6" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                  <div class="progress-bar" style="width: 0%" id="prog3"></div>
                 </div>
               </div>
               <div class="d-flex">
-                <p>불만(5)</p>
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" style="width: 80%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">20</div>
+                <p class="col-6">불만({{satisfaction|reportkey:"불만"}})</p>
+                <div class="progress col-6" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                  <div class="progress-bar" style="width: 0%" id="prog4"></div>
                 </div>
               </div>
               <div class="d-flex">
-                <p>매우 불만(5)</p>
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" style="width: 80%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">20</div>
+                <p class="col-6">매우불만({{satisfaction|reportkey:"매우불만"}})</p>
+                <div class="progress col-6" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                  <div class="progress-bar" style="width: 0%" id="prog5"></div>
                 </div>
               </div>
             </div> 
@@ -354,4 +355,25 @@
 {% block script %}
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="{% static 'js/detail.js' %}"></script>
+  <script>
+    const prog1 = document.querySelector('#prog1')
+    const prog2 = document.querySelector('#prog2')
+    const prog3 = document.querySelector('#prog3')
+    const prog4 = document.querySelector('#prog4')
+    const prog5 = document.querySelector('#prog5')
+    console.log({{reviews.all|length}})
+    
+    const prog1Ratio = {{satisfaction|reportkey:"매우만족"}} / {{reviews.all|length}} * 100
+    const prog2Ratio = {{satisfaction|reportkey:"만족"}} / {{reviews.all|length}} * 100
+    const prog3Ratio = {{satisfaction|reportkey:"보통"}} / {{reviews.all|length}} * 100
+    const prog4Ratio = {{satisfaction|reportkey:"불만"}} / {{reviews.all|length}} * 100
+    const prog5Ratio = {{satisfaction|reportkey:"매우불만"}} / {{reviews.all|length}} * 100
+    console.log(prog2Ratio, prog3Ratio, prog4Ratio)
+
+    prog1.setAttribute('style', `width: ${prog1Ratio}%;`)
+    prog2.setAttribute('style', `width: ${prog2Ratio}%;`)
+    prog3.setAttribute('style', `width: ${prog3Ratio}%;`)
+    prog4.setAttribute('style', `width: ${prog4Ratio}%;`)
+    prog5.setAttribute('style', `width: ${prog5Ratio}%;`)
+  </script>
 {% endblock script %}
