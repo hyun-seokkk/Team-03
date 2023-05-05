@@ -4,16 +4,33 @@ from .forms import DiningForm, ReviewForm, MenuForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import JsonResponse
+import random
 
 # Create your views here.
 
 
 def index(request):
     dinings = Dining.objects.order_by("-pk")
+    tags = list(set(tag for dining in dinings for tag in dining.tags.all()))
+    random_tags = random.sample(tags, min(len(tags), 10))
     context = {
         'dinings': dinings,
+        'tags': random_tags,
     }
     return render(request, 'dinings/index.html', context)
+
+
+# def index(request):
+#     dinings = Dining.objects.order_by("-pk")
+#     tags = []
+#     for dining in dinings:
+#         tags += dining.tags.all().distinct()
+#     context = {
+#         'dinings': dinings,
+#         'tags': tags,
+#     }
+#     return render(request, 'dinings/index.html', context)
+
 
 def showmap(request):
     return render(request, 'dinings/showmap.html')
@@ -164,8 +181,16 @@ def dining_delete(request, dining_pk):
 
 def search(request):
     query = request.GET.get('query')
-    dinings = Dining.objects.filter(Q(title__icontains=query) | Q(tags__name__icontains=query))
-    context = {'dinings': dinings}
+    dinings = Dining.objects.filter(Q(title__icontains=query) | Q(
+        tags__name__icontains=query)).distinct()
+    dining_reviews = []
+    for dining in dinings:
+        review = dining.review_set.order_by('pk').first()
+        if review:
+            dining_reviews.append(review)
+    context = {'dinings': dinings,
+               'reviews': dining_reviews
+               }
     return render(request, 'dinings/search.html', context)
 
 
@@ -206,7 +231,6 @@ def likes(request, dining_pk):
     else:
         dining.like_users.add(request.user)
         is_liked = True
-
 
     context = {
         'is_liked': is_liked,

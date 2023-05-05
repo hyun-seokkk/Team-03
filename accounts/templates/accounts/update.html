@@ -94,12 +94,8 @@
 </div>
   <!-- 변경사항 입력 폼 요소들 추가 -->
   <div class="text-center my-5">
-    <button type="submit" class="border bg-info text-white" style="padding: 1.2rem 10rem">변경사항저장</button>
-  </div>
-
-
-
-
+    <button type="submit" class="border bg-info text-white" style="padding: 1.2rem 10rem">변경사항 저장</button>
+  </div>  
 {% endblock content %}
 
 {% block script %}
@@ -128,10 +124,7 @@
   
   fileInput.addEventListener("change", handleFiles);
 </script>
-
 {% endblock script %}
-
-
 <!--  <div class="d-flex align-items-end">
           {% if user.profile_image %}
             <img class="p-1 rounded-circle" src="{{ user.profile_image.url }}" alt="profile_image" style="width: 140px; height: 140px;">

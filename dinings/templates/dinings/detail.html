@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block content %}
 <div class="container ">
   <div class="row">
@@ -16,7 +15,6 @@
           <p>맛집더보기</p>
         </div>
       </div>
-
 
       <!-- 오른쪽 상세 페이지 -->
       <div class="col-9">
@@ -275,7 +273,6 @@
           </div>
           <hr>
 
-
           {% for review in reviews %}
             <div class="container card my-2 ">
               <div class="d-flex p-2">
@@ -349,9 +346,7 @@
   </div>
 </div>
 {% endblock content %}
-
 {% block script %}
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="{% static 'js/detail.js' %}"></script>
-
 {% endblock script %}

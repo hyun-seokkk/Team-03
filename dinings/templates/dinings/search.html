@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block style %}
 #container {
   justify-content: center;
@@ -22,6 +23,7 @@
 #container > .card:nth-child(2) {
   display: flex;
 }
+
 .tag {
   background-color: #f2f2f2;
   padding: 5px;
@@ -29,101 +31,111 @@
   margin-right: 5px;
 }
 {% endblock style %}
-
 {% block content %}
-    <h5
-      class="my-3 mx-auto text-center"
-      style="font-family: 'Chosunilbo_myungjo', serif; max-width: 800px"
-    >
-      "{{ request.GET.query }}"에 관한 맛집 검색 결과입니다.
-    </h5>
+<h5
+  class="my-3 mx-auto text-center"
+  style="font-family: 'Chosunilbo_myungjo', serif; max-width: 800px"
+>
+  {% if dinings %} "{{ request.GET.query }}"에 관한 맛집 검색 결과입니다. {%
+  else %} 검색 결과가 없습니다. {% endif %}
+</h5>
 
-    <div id="container" style="font-family: 'NanumBarunGothic'">
-      <div class="card my-2">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">
-            <a href="#">이용자층</a>
-          </li>
-          <li class="list-group-item">
-            <a href="#">카테고리</a>
-          </li>
-          <li class="list-group-item">
-            <a href="#">지역</a>
-          </li>
-        </ul>
-      </div>
+<div id="container" style="font-family: 'NanumBarunGothic'">
+  <div class="card my-2">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <a href="#">이용자층</a>
+      </li>
+      <li class="list-group-item">
+        <a href="#">카테고리</a>
+      </li>
+      <li class="list-group-item">
+        <a href="#">지역</a>
+      </li>
+    </ul>
+  </div>
 
-      <div class="card my-2 p-2">
-        {% for dining in dinings %}
-        <div class="card" style="border: 0px">
-          <a href="{% url 'dinings:detail' dining.pk %}">
-            <div
-              class="card m-2"
-              style="border: 0px; display: flex; flex-direction: row"
-              id="text"
-            >
-              <div
-                class="card"
-                style="width: 250px; height: 250px; border: 0px"
-              >
-                <img
-                  src="{{ dining.image1.url }}"
-                  class="img-fluid rounded-start"
-                  alt="{{ dining.title }}"
-                  style="border-radius: 7px; width: 250px; height: 250px"
-                />
-              </div>
-              <div
-                class="card p-3"
-                style="
-                  width: 550px;
-                  height: 250px;
-                  border: 0px;
-                  justify-content: space-evenly;
-                "
-              >
-                <div class="card-title" style="font-size: 30px">
-                  {{ dining.title }}
-                </div>
-                <div class="card-text">
-                  {% for tag in dining.tags.all %}
-                  <span
-                    class="border rounded-pill px-2"
-                    style="
-                      background-color: rgb(227, 227, 227);
-                      font-size: 18px;
-                    "
-                    >#{{ tag.name }}</span
-                  >
-                  {% endfor %}
-                </div>
-                <div style="font-size: 20px">
-                  <span class="card-text"
-                    >별점 {{ reviews.half_star_rating }}</span
-                  >
-                  <span class="mx-2">|</span>
-                  <span class="card-text">
-                    <span class="bi bi-heart-fill text-danger"></span>
-                    <span>({{ dining.like_users.all|length }})</span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </a>
-          <div style="font-size: 20px">
-            {% if reviews %}
-            <p class="card-text" style="text-align: center">
-              {{ reviews.first.content }} 첫 댓글
-            </p>
+  <div class="card my-2 p-2">
+    {% for dining in dinings %}
+    <div class="card" style="border: 0px">
+      <a href="{% url 'dinings:detail' dining.pk %}">
+        <div
+          class="card m-2"
+          style="border: 0px; display: flex; flex-direction: row"
+          id="text"
+        >
+          <div
+            class="card"
+            style="width: 250px; height: 250px; border: 0px"
+          >
+            {% if dining.image1 %}
+            <img
+              src="{{ dining.image1.url }}"
+              class="img-fluid rounded-start"
+              alt="{{ dining.title }}"
+              style="border-radius: 7px; width: 250px; height: 250px"
+            />
             {% else %}
-            <p class="card-text" style="text-align: center">댓글이 없습니다</p>
+            <img
+              src="{% static 'blank_img.png' %}"
+              class="img-fluid rounded-start"
+              alt="{{ dining.title }}"
+              style="border-radius: 7px; width: 250px; height: 250px"
+            />
             {% endif %}
           </div>
-          {% if not forloop.last %}
-          <hr />
-          {% endif %}
+          <div
+            class="card p-3"
+            style="
+              width: 550px;
+              height: 250px;
+              border: 0px;
+              justify-content: space-evenly;
+            "
+          >
+            <div class="card-title" style="font-size: 30px">
+              {{ dining.title }}
+            </div>
+            <div class="card-text">
+              {% for tag in dining.tags.all %}
+              <span
+                class="border rounded-pill px-2"
+                style="
+                  background-color: rgb(227, 227, 227);
+                  font-size: 18px;
+                "
+                >#{{ tag.name }}</span
+              >
+              {% endfor %}
+            </div>
+            <div style="font-size: 20px">
+              <span class="card-text"
+                >{% for review in reviews %}
+                <span>{{ review.star_rating }} </span>
+                {% endfor %}</span
+              >
+              <span class="mx-2">|</span>
+              <span class="card-text">
+                <span class="bi bi-heart-fill text-danger"></span>
+                <span>({{ dining.like_users.all|length }})</span>
+              </span>
+            </div>
+          </div>
         </div>
-        {% endfor %}
+      </a>
+      <div style="font-size: 20px; text-align: center">
+        {% if dining.review_set.all %} 
+        {% with review=dining.review_set.all|first %}
+        <p class="card-text">{{ review.content }}</p>
+        {% endwith %} {% else %}
+        <p class="card-text">아직 리뷰가 없습니다.</p>
+        {% endif %}
       </div>
-    </div>    
+      {% if not forloop.last %}
+      <hr />
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</div>    
 {% endblock %}
