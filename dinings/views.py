@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Dining, Review, Menu
+from .models import Dining, Review, Menu, PurposeTag, AtmosphereTag, FacilityTag
 from .forms import DiningForm, ReviewForm, MenuForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
@@ -72,15 +72,24 @@ def review_create(request, dining_pk):
             review.user = request.user
             review.dining = dining
             review.rating = request.POST.get('rating')
+            review.rating_taste = request.POST.get('rating_taste')
+            review.rating_price = request.POST.get('rating_price')
+            review.rating_kind = request.POST.get('rating_kind')
             review.save()
             review_form.save_m2m()
             return redirect('dinings:detail', dining.pk)
     # 리뷰 작성 페이지
     else:
         review_form = ReviewForm()
+        purpose_tags = PurposeTag.objects.filter(pk__range=(1,19))
+        atmosphere_tags = AtmosphereTag.objects.filter(pk__range=(1, 14))
+        facility_tags = FacilityTag.objects.filter(pk__range=(1, 10))
     context = {
         'review_form': review_form,
         'dining': dining,
+        'purpose_tags': purpose_tags,
+        'atmosphere_tags': atmosphere_tags,
+        'facility_tags': facility_tags,
     }
     return render(request, 'dinings/review_create.html', context)
 
@@ -136,7 +145,7 @@ def dining_update(request, dining_pk):
         form = DiningForm(request.POST, instance=dining)
         if form.is_valid():
             form.save()
-            return redirect('dining:detail', dining_pk)
+            return redirect('dinings:detail', dining_pk)
     else:
         form = DiningForm(instance=dining)
     context = {

@@ -1,5 +1,6 @@
 from django import forms
 from .models import Dining, Review, Menu
+from taggit.forms import TagField
 
 
 class DiningForm(forms.ModelForm):
@@ -14,10 +15,10 @@ class DiningForm(forms.ModelForm):
         widget=forms.Textarea(attrs={'class': 'form-control'})
     )
     image1 = forms.ImageField(
-    required=False,
-    label='사진 1',
-    label_suffix='',
-    widget=forms.ClearableFileInput(attrs={'class': 'form-control'})
+        required=False,
+        label='사진 1',
+        label_suffix='',
+        widget=forms.ClearableFileInput(attrs={'class': 'form-control'})
     )
     image2 = forms.ImageField(
         required=False,
@@ -73,7 +74,7 @@ class DiningForm(forms.ModelForm):
         label_suffix='', 
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
-    tags = forms.CharField(
+    tags = TagField(
         label='태그',
         label_suffix='', 
         widget=forms.TextInput(attrs={'class': 'form-control'})
@@ -89,29 +90,53 @@ class DiningForm(forms.ModelForm):
 
 
 class ReviewForm(forms.ModelForm):
-    # rating = forms.FloatField(label='평점', widget=forms.NumberInput(attrs={'step': 0.5, 'min':0, 'max':5}))
-    rating_taste = forms.FloatField(label='맛', widget=forms.NumberInput(attrs={'step': 0.5, 'min':0, 'max':5}))
-    rating_price = forms.FloatField(label='가격', widget=forms.NumberInput(attrs={'step': 0.5, 'min':0, 'max':5}))
-    rating_kind = forms.FloatField(label='서비스', widget=forms.NumberInput(attrs={'step': 0.5, 'min':0, 'max':5}))
-    
-    content = forms.CharField(
-        widget = forms.Textarea(
-            attrs={
-                'style': 'width:50%',
-                'class': 'form-control',
-            }
-        )
-    )
-
     class Meta:
         model = Review
         fields = '__all__'
-        exclude = ['user', 'dining', 'like_users', 'rating',]
+        exclude = ['user', 'dining', 'like_users', 'rating', 'rating_taste', 'rating_price', 'rating_kind', 'purpose_tags', 'atmosphere_tags', 'facility_tags',]
         labels = {
             'content':'방문 후기',
             'purpose_tags':'방문목적',
             'atmosphere_tags':'분위기',
             'facility_tags': '편의시설',
+            'image1': '사진1',
+            'image2': '사진2',
+            'image3': '사진3',
+            'image4': '사진4',
+            'image5': '사진5',
+        }
+        widgets = {
+            'content': forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': '음식, 서비스, 분위기, 위생상태 등의 방문 경험을 적어주세요.',
+                }
+            ),
+            'image1': forms.FileInput(
+                attrs={
+                    'class': 'form-control'
+                }
+            ),
+            'image2': forms.FileInput(
+                attrs={
+                    'class': 'form-control'
+                }
+            ),
+            'image3': forms.FileInput(
+                attrs={
+                    'class': 'form-control'
+                }
+            ),
+            'image4': forms.FileInput(
+                attrs={
+                    'class': 'form-control'
+                }
+            ),
+            'image5': forms.FileInput(
+                attrs={
+                    'class': 'form-control'
+                }
+            ),
         }
 
 
