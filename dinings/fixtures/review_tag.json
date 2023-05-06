@@ -3,301 +3,301 @@
     "model": "dinings.purposetag",
     "pk": 1,
     "fields": {
-        "tag": "¹è´Ş"
+        "tag": "ë°°ë‹¬"
     }
 },
 {
     "model": "dinings.purposetag",
     "pk": 2,
     "fields": {
-        "tag": "¾ÆÀÌµ¿¹İ"
+        "tag": "ì•„ì´ë™ë°˜"
     }
 },
 {
     "model": "dinings.purposetag",
     "pk": 3,
     "fields": {
-        "tag": "´ÙÀÌ¾îÆ®½Ä´Ü"
+        "tag": "ë‹¤ì´ì–´íŠ¸ì‹ë‹¨"
     }
 },
 {
     "model": "dinings.purposetag",
     "pk": 4,
     "fields": {
-        "tag": "½Ç¹öÇªµå"
+        "tag": "ì‹¤ë²„í‘¸ë“œ"
     }
 },
 {
     "model": "dinings.purposetag",
     "pk": 5,
     "fields": {
-        "tag": "¾ÆÄ§½Ä»ç"
+        "tag": "ì•„ì¹¨ì‹ì‚¬"
     }
 },
 {
     "model": "dinings.purposetag",
     "pk": 6,
     "fields": {
-        "tag": "Á¡½É½Ä»ç"
+        "tag": "ì ì‹¬ì‹ì‚¬"
     }
 },
 {
     "model": "dinings.purposetag",
     "pk": 7,
     "fields": {
-        "tag": "Àú³á½Ä»ç"
+        "tag": "ì €ë…ì‹ì‚¬"
     }
 },
 {
     "model": "dinings.purposetag",
     "pk": 8,
     "fields": {
-        "tag": "½Ä»ç¸ğÀÓ"
+        "tag": "ì‹ì‚¬ëª¨ì„"
     }
 },
 {
     "model": "dinings.purposetag",
     "pk": 9,
     "fields": {
-        "tag": "¼ú¸ğÀÓ"
+        "tag": "ìˆ ëª¨ì„"
     }
 },
 {
     "model": "dinings.purposetag",
     "pk": 10,
     "fields": {
-        "tag": "Â÷¸ğÀÓ"
+        "tag": "ì°¨ëª¨ì„"
     }
 },
 {
     "model": "dinings.purposetag",
     "pk": 11,
     "fields": {
-        "tag": "È¥Ä«Æä"
+        "tag": "í˜¼ì¹´í˜"
     }
 },
 {
     "model": "dinings.purposetag",
     "pk": 12,
     "fields": {
-        "tag": "È¥¹ä"
+        "tag": "í˜¼ë°¥"
     }
 },
 {
     "model": "dinings.purposetag",
     "pk": 13,
     "fields": {
-        "tag": "È¥¼ú"
+        "tag": "í˜¼ìˆ "
     }
 },
 {
     "model": "dinings.purposetag",
     "pk": 14,
     "fields": {
-        "tag": "Á¢´ë"
+        "tag": "ì ‘ëŒ€"
     }
 },
 {
     "model": "dinings.purposetag",
     "pk": 15,
     "fields": {
-        "tag": "È¸½Ä"
+        "tag": "íšŒì‹"
     }
 },
 {
     "model": "dinings.purposetag",
     "pk": 16,
     "fields": {
-        "tag": "µ¥ÀÌÆ®"
+        "tag": "ë°ì´íŠ¸"
     }
 },
 {
     "model": "dinings.purposetag",
     "pk": 17,
     "fields": {
-        "tag": "±â³äÀÏ"
+        "tag": "ê¸°ë…ì¼"
     }
 },
 {
     "model": "dinings.purposetag",
     "pk": 18,
     "fields": {
-        "tag": "°¡Á·¿Ü½Ä"
+        "tag": "ê°€ì¡±ì™¸ì‹"
     }
 },
 {
     "model": "dinings.purposetag",
     "pk": 19,
     "fields": {
-        "tag": "°£½Ä"
+        "tag": "ê°„ì‹"
     }
 },
 {
     "model": "dinings.atmospheretag",
     "pk": 1,
     "fields": {
-        "tag": "¼ûÀº¸ÀÁı"
+        "tag": "ìˆ¨ì€ë§›ì§‘"
     }
 },
 {
     "model": "dinings.atmospheretag",
     "pk": 2,
     "fields": {
-        "tag": "¼­¹ÎÀûÀÎ"
+        "tag": "ì„œë¯¼ì ì¸"
     }
 },
 {
     "model": "dinings.atmospheretag",
     "pk": 3,
     "fields": {
-        "tag": "Ä³ÁÖ¾óÇÑ"
+        "tag": "ìºì£¼ì–¼í•œ"
     }
 },
 {
     "model": "dinings.atmospheretag",
     "pk": 4,
     "fields": {
-        "tag": "°í±Ş½º·¯¿î"
+        "tag": "ê³ ê¸‰ìŠ¤ëŸ¬ìš´"
     }
 },
 {
     "model": "dinings.atmospheretag",
     "pk": 5,
     "fields": {
-        "tag": "°İ½ÄÀÖ´Â"
+        "tag": "ê²©ì‹ìˆëŠ”"
     }
 },
 {
     "model": "dinings.atmospheretag",
     "pk": 6,
     "fields": {
-        "tag": "°¡¼ººñÁÁÀº"
+        "tag": "ê°€ì„±ë¹„ì¢‹ì€"
     }
 },
 {
     "model": "dinings.atmospheretag",
     "pk": 7,
     "fields": {
-        "tag": "ÇªÁüÇÑ"
+        "tag": "í‘¸ì§í•œ"
     }
 },
 {
     "model": "dinings.atmospheretag",
     "pk": 8,
     "fields": {
-        "tag": "Á¶¿ëÇÑ"
+        "tag": "ì¡°ìš©í•œ"
     }
 },
 {
     "model": "dinings.atmospheretag",
     "pk": 9,
     "fields": {
-        "tag": "½Ã²ø¹÷ÀûÇÑ"
+        "tag": "ì‹œëŒë²…ì í•œ"
     }
 },
 {
     "model": "dinings.atmospheretag",
     "pk": 10,
     "fields": {
-        "tag": "¿¹»Û"
+        "tag": "ì˜ˆìœ"
     }
 },
 {
     "model": "dinings.atmospheretag",
     "pk": 11,
     "fields": {
-        "tag": "±ò²ûÇÑ"
+        "tag": "ê¹”ë”í•œ"
     }
 },
 {
     "model": "dinings.atmospheretag",
     "pk": 12,
     "fields": {
-        "tag": "ÀÌ±¹Àû/ÀÌ»öÀû"
+        "tag": "ì´êµ­ì /ì´ìƒ‰ì "
     }
 },
 {
     "model": "dinings.atmospheretag",
     "pk": 13,
     "fields": {
-        "tag": "°æ°ü/¾ß°æÀÌÁÁÀº"
+        "tag": "ê²½ê´€/ì•¼ê²½ì´ì¢‹ì€"
     }
 },
 {
     "model": "dinings.atmospheretag",
     "pk": 14,
     "fields": {
-        "tag": "Áö¿ªÁÖ¹ÎÀÌÃ£´Â"
+        "tag": "ì§€ì—­ì£¼ë¯¼ì´ì°¾ëŠ”"
     }
 },
 {
     "model": "dinings.facilitytag",
     "pk": 1,
     "fields": {
-        "tag": "¹«·áÁÖÂ÷"
+        "tag": "ë¬´ë£Œì£¼ì°¨"
     }
 },
 {
     "model": "dinings.facilitytag",
     "pk": 2,
     "fields": {
-        "tag": "¹ß·¿ÁÖÂ÷"
+        "tag": "ë°œë ›ì£¼ì°¨"
     }
 },
 {
     "model": "dinings.facilitytag",
     "pk": 3,
     "fields": {
-        "tag": "ÁÖÂ÷ºÒ°¡"
+        "tag": "ì£¼ì°¨ë¶ˆê°€"
     }
 },
 {
     "model": "dinings.facilitytag",
     "pk": 4,
     "fields": {
-        "tag": "°³º°·ë"
+        "tag": "ê°œë³„ë£¸"
     }
 },
 {
     "model": "dinings.facilitytag",
     "pk": 5,
     "fields": {
-        "tag": "´ëÇü·ë"
+        "tag": "ëŒ€í˜•ë£¸"
     }
 },
 {
     "model": "dinings.facilitytag",
     "pk": 6,
     "fields": {
-        "tag": "24½Ã°£¿µ¾÷"
+        "tag": "24ì‹œê°„ì˜ì—…"
     }
 },
 {
     "model": "dinings.facilitytag",
     "pk": 7,
     "fields": {
-        "tag": "¾ß¿ÜÁÂ¼®(Å×¶ó½º)"
+        "tag": "ì•¼ì™¸ì¢Œì„(í…Œë¼ìŠ¤)"
     }
 },
 {
     "model": "dinings.facilitytag",
     "pk": 8,
     "fields": {
-        "tag": "³îÀÌ¹æ"
+        "tag": "ë†€ì´ë°©"
     }
 },
 {
     "model": "dinings.facilitytag",
     "pk": 9,
     "fields": {
-        "tag": "¾Ö¿Ïµ¿¹°µ¿¹İ"
+        "tag": "ì• ì™„ë™ë¬¼ë™ë°˜"
     }
 },
 {
     "model": "dinings.facilitytag",
     "pk": 10,
     "fields": {
-        "tag": "ÄİÅ°Áö¹«·á"
+        "tag": "ì½œí‚¤ì§€ë¬´ë£Œ"
     }
 }
 ]

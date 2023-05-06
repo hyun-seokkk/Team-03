@@ -69,7 +69,7 @@ def update(request):
             form.save()
             return redirect('dinings:index')
     else:
-        form = CustomUserChangeForm(instance=request.user)    
+        form = CustomUserChangeForm(instance=request.user)
     context = {
         'form': form,
     }
