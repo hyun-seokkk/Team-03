@@ -24,7 +24,7 @@
           <div class="row mt-2 p-0 m-0">
             <div class="col-6 col-md-6 p-0 m-0">
               {% if dining.image1 %}
-              <img src="{{ dining.image1.url }}" alt="..." class="img-fluid " style="min-width:14rem; width:100%; min-height:14rem; height:100%;"  >
+              <img src="{{ dining.image1.url }}" alt="..." class="img-fluid " style="min-width:14rem; width:100%; min-height:14rem; height:7rem;"  >
               {% else %}
               <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:14rem; width:100%; min-height:14rem; height:100%;">
               {% endif %}
@@ -33,28 +33,28 @@
               <div class="row">
                 <div class="col-6 pe-0">
                   {% if dining.image2 %}
-                  <img src="{{ dining.image2.url }}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;" >
+                  <img src="{{ dining.image2.url }}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:7rem;" >
                   {% else %}
                   <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;">
                   {% endif %}
                 </div>
                 <div class="col-6 ps-0">
                   {% if dining.image3 %}
-                  <img src="{{ dining.image3.url }}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;">
+                  <img src="{{ dining.image3.url }}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:7rem;">
                   {% else %}
                   <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;">
                   {% endif %}
                 </div>
                 <div class="col-6 pe-0">
                   {% if dining.image4 %}
-                  <img src="{{ dining.image4.url }}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;" >
+                  <img src="{{ dining.image4.url }}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:7rem;" >
                   {% else %}
                   <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;">
                   {% endif %}
                 </div>
                 <div class="col-6 ps-0">
                   {% if dining.image5 %}
-                  <img src="{{ dining.image5.url }}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;">
+                  <img src="{{ dining.image5.url }}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:7rem;">
                   {% else %}
                   <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;">
                   {% endif %}
@@ -122,10 +122,6 @@
             <p>{{dining.address_address}}</p>
             <p>{{dining.address_detail}}</p>
             <p>{{dining.address_extra}}</p>   
-            {% comment %} <a href="#">{{ dining.address_mc_do}}</a>
-            <a href="#">{{ dining.address_city}}</a>
-            <a href="#">{{ dining.address_dong}}</a> {% endcomment %}
-            <p>{{ dining.address_detail }}</p>
           </div>
           <div class="d-flex gap-2">
             <span class="icon_size material-symbols-rounded">
@@ -167,16 +163,18 @@
           <h2>메뉴정보</h2>
           <div class="p-2">
             {% for menu in menus %}
+            {% if request.user.is_superuser %}
+            <form action="{% url 'dinings:menu_delete' dining.pk menu.pk %}" methos="POST">
+              {% csrf_token %}
               <div class='d-flex justify-content-between'>
                 <p>{{menu.name}}</p>
-                <p>{{menu.price}}</p>
-                {% if request.user.is_superuser %}
-                  <form action="{% url 'dinings:menu_delete' dining.pk menu.pk %}" methos="POST">
-                    {% csrf_token %}
-                    <input type="submit" value="삭제">
-                  </form>
-                {% endif %}
+                <div class="d-flex">
+                  <p>{{menu.price}}</p>
+                  <input type="submit" value="X" class="btn btn-danger rounded-circle btn-sm" style="height:2rem">
+                </div>
               </div>
+            </form>
+            {% endif %}
             {% endfor %}
             {% if request.user.is_superuser %}
               <button class="btn btn-primary menu-add">추가</button>
@@ -244,7 +242,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-4 mt-5">
+            <div class="col-4 mt-5" style="font-size:12px">
               <div class="d-flex">
                 <p class="col-6">매우만족({{satisfaction|reportkey:"매우만족"}})</p>
                 <div class="progress col-6" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">

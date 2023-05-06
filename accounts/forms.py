@@ -41,8 +41,7 @@ class CustomUserCreationForm(UserCreationForm):
 class CustomUserChangeForm(UserChangeForm):
     class Meta(UserChangeForm):
         model = get_user_model()
-        fields = ('username', 'email', 'phonenumber' , 'first_name',
-                  'last_name', 'profile_image',)
+        fields = ('profile_image' , 'username', 'email', 'phonenumber' , )
         label_suffix = ''
 
     username = forms.CharField(label='ID', label_suffix='', widget=forms.TextInput(
@@ -50,10 +49,6 @@ class CustomUserChangeForm(UserChangeForm):
     email = forms.EmailField(label='이메일', label_suffix='', widget=forms.EmailInput(
         attrs={'class': 'form-control'}))
     phonenumber = forms.CharField(label='전화번호', label_suffix='', widget=forms.TextInput(
-        attrs={'class': 'form-control'}))
-    first_name = forms.CharField(label='이름', label_suffix='', widget=forms.TextInput(
-        attrs={'class': 'form-control'}))
-    last_name = forms.CharField(label='성', label_suffix='', widget=forms.TextInput(
         attrs={'class': 'form-control'}))
     profile_image = ProcessedImageField(
         spec_id='profile_image_thumbnail',
