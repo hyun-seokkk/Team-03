@@ -127,17 +127,14 @@
         <input type="hidden" name="latitude" id="latitude">
         <input type="hidden" name="longitude" id="longitude">
       </form>
-
       <button type="button" class="btn btn-primary" onclick="clearLocation()">다른 지역 선택</button>
       {% comment %} <button class="btn btn-success" onclick="getLocation()">현 위치로 설정</button> {% endcomment %}
       <button class="btn btn-success" id="my-location-btn">현 위치로 설정</button>
     </div>
-
     <div id="address-form-container" style="display:none; margin-top: 20px;">
       <form id="address-form" onsubmit="saveLocation(event)">
         <input type="text" id="search" placeholder="원하는 주소를 직접 입력하세요">
         <button type="submit" class="btn btn-primary">입력</button>
-
       </form>
     </div>
 </div>
@@ -163,174 +160,11 @@
   </div>
 </div>
 
-{% comment %} {% for tag in tags %}
-    <div
-      style="
-        justify-content: center;
-        display: grid;
-        margin: 10px 0px;
-        overflow-x: hidden;
-      "
-    >
 
-      <div id="carousel1" class="carousel slide">
-        <div class="carousel-inner">
-          {% if region_dinings %}
-          {% for dining in region_dinings %} 
-            {% if forloop.counter0|divisibleby:4 %}
-              <div class="carousel-item {% if forloop.first %}active{% endif %}">
-            {% endif %}
-            <div class="mx-3" style="float: left; width: 220px">
-              <div class="card mx-3" style="width: 220px; margin-right: 0px">
-                <div class="card-body" style="padding: 0px">
-                  <a href="{% url 'dinings:detail' dining.pk %}">
-                    {% if dining.image1 %}
-                    <img src="{{ dining.image1.url }}" class="img-fluid rounded-start" alt="{{ dining.title }}" style="border-radius: 7px; width: 250px; height: 250px;">
-                    {% else %}
-                    <img src="{% static 'blank_img.png' %}" class="img-fluid rounded-start" alt="{{ dining.title }}" style="border-radius: 7px; width: 250px; height: 250px;">
-                    {% endif %}
-                  </a>
-                </div>
-              </div>
-              <a href="{% url 'dinings:detail' dining.pk %}" class="px-3">{{ dining.title }}</a>
-            </div>
-            {% if forloop.counter0|add:1|divisibleby:4 or forloop.last %}
-              </div>
-            {% endif %}
-          {% endfor %}
-        {% else %}
-          {# region_dinings가 없을 경우 #}
-          {% for dining in dinings %} 
-            {% if forloop.counter0|divisibleby:4 %}
-              <div class="carousel-item {% if forloop.first %}active{% endif %}">
-            {% endif %}
-            <div class="mx-3" style="float: left; width: 220px">
-              <div class="card mx-3" style="width: 220px; margin-right: 0px">
-                <div class="card-body" style="padding: 0px">
-                  <a href="{% url 'dinings:detail' dining.pk %}">
-                    {% if dining.image1 %}
-                    <img src="{{ dining.image1.url }}" class="img-fluid rounded-start" alt="{{ dining.title }}" style="border-radius: 7px; width: 250px; height: 250px;">
-                    {% else %}
-                    <img src="{% static 'blank_img.png' %}" class="img-fluid rounded-start" alt="{{ dining.title }}" style="border-radius: 7px; width: 250px; height: 250px;">
-                    {% endif %}
-                  </a>
-                </div>
-              {% if forloop.counter0|add:1|divisibleby:4 or forloop.last %}
-              </div>
-
-              <a href="{% url 'dinings:detail' dining.pk %}" class="px-3">{{ dining.title }}</a>
-            </div>
-            {% if forloop.counter0|add:1|divisibleby:4 or forloop.last %}
-              </div>
-            {% endif %}
-          {% endfor %}
-        {% endif %}
-        </div>
-
-
-        <button
-          class="carousel-control-prev"
-          type="button"
-          data-bs-target="#carousel1"
-          data-bs-slide="prev"
-        >
-          <span
-            class="carousel-control-prev-icon"
-            aria-hidden="true"
-          ></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button
-          class="carousel-control-next"
-          type="button"
-          data-bs-target="#carousel1"
-          data-bs-slide="next"
-        >
-          <span
-            class="carousel-control-next-icon"
-            aria-hidden="true"
-          ></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-{% endfor %} {% endcomment %}
 {% block script %}
 <script>
 
-  /*function getLocation() {
 
-  function showAddressForm() {
-    var addressFormContainer = document.getElementById("address-form-container");
-    addressFormContainer.style.display = "block";
-  }
-  function saveLocation(event) {
-    event.preventDefault();
-    var inputElement = document.getElementById("search");
-    var location = inputElement.value;
-  
-    localStorage.setItem("location", location);
-  }
-  document.getElementById("address-form").addEventListener("submit", function(event) {
-    event.preventDefault();  // 기본 동작인 페이지 새로고침을 막음
-    
-    var inputElement = document.querySelector("#address-form input[type=text]");
-    var newLocation = inputElement.value;
-    
-    // localStorage에 저장
-    localStorage.setItem("location", newLocation);
-    
-    // 현재 페이지에서 location 정보를 출력
-    var locationElement = document.getElementById("location");
-    locationElement.innerHTML = newLocation;
-  });
-  function getLocation() {
-
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition, showError);
-    } else {
-      alert("Geolocation is not supported by this browser.");
-    }
-  }
-  function showPosition(position) {
-    var lat = position.coords.latitude;
-    var lon = position.coords.longitude;
-    var url = "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=" + lat + "&longitude=" + lon + "&localityLanguage=ko";
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        var locationElement = document.getElementById("location");
-        locationElement.innerHTML = data.locality;
-        
-        // 위치 정보를 localStorage에 저장
-        localStorage.setItem("location", data.locality);
-        
-        // showmap 버튼을 보이도록 설정
-        var showmapButton = document.getElementById("showmap-button");
-        showmapButton.style.display = "block";
-      })
-      .catch(error => {
-        console.error(error);
-        showError();
-      });
-  }
-  
-  function showError() {
-    ;
-  }
-  function loadLocation() {
-    var location = localStorage.getItem("location");
-    if (location) {
-      var locationElement = document.getElementById("location");
-      locationElement.innerHTML = location;
-    }
-  }
-  
-  window.onload = function() {
-    loadLocation();
-  };*/
 
   function clearLocation() {
     localStorage.removeItem("location");

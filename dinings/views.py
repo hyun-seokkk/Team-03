@@ -118,7 +118,7 @@ def detail(request, pk):
 def dining_create(request):
     if request.user.is_superuser:
         if request.method == 'POST':
-            form = DiningForm(request.POST, request.FILES)
+            form = DiningForm(request.POST, request.FILES) 
             if form.is_valid():
                 dining = form.save(commit=False)
                 dining.address_postcode = request.POST['address_postcode']
