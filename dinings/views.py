@@ -1,12 +1,26 @@
 from django.shortcuts import render, redirect
-from .models import Dining, Review, Menu, PurposeTag, AtmosphereTag, FacilityTag
+from .models import Dining, Review, Menu, PurposeTag, AtmosphereTag, FacilityTag, Tag
 from .forms import DiningForm, ReviewForm, MenuForm
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.http import JsonResponse
+from collections import defaultdict
 import random
 
 # Create your views here.
+
+# def index(request):
+#     dinings = Dining.objects.all()
+#     tags = Tag.objects.all()
+#     tag_dining_dict = defaultdict(list)
+#     for dining in dinings:
+#         for tag in dining.tags.all():
+#             tag_dining_dict[tag].append(dining)
+#     for tag in tags:
+#         for dining in Dining.objects.filter(tags=tag):
+#             tag_dining_dict[tag].append(dining)
+#     context = {'tags': tags, 'tag_dining_dict': tag_dining_dict, 'tag': tag}
+#     return render(request, 'dinings/index.html', context)
 
 
 def index(request):
@@ -143,7 +157,21 @@ def review_create(request, dining_pk):
             review.rating_price = request.POST.get('rating_price')
             review.rating_kind = request.POST.get('rating_kind')
             review.save()
-            review_form.save_m2m()
+            purpose_tag_ids = request.POST.get('purpose_tags').split(',')
+            atmosphere_tag_ids = request.POST.get('atmosphere_tags').split(',')
+            facility_tag_ids = request.POST.get('facility_tags').split(',')
+            review.purpose_tags.set(purpose_tag_ids)
+            review.atmosphere_tags.set(atmosphere_tag_ids)
+            review.facility_tags.set(facility_tag_ids)
+            # for tag_id in purpose_tag_ids:
+            #     if tag_id:
+            #         review.purpose_tags.create(purposetag_id=tag_id)
+            # for tag_id in atmosphere_tag_ids:
+            #     if tag_id:
+            #         review.atmosphere_tags.create(atmospheretag_id=tag_id)
+            # for tag_id in facility_tag_ids:
+            #     if tag_id:
+            #         review.facility_tags.create(facilitytag_id=tag_id)
             return redirect('dinings:detail', dining.pk)
     # 리뷰 작성 페이지
     else:
