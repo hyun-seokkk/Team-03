@@ -1,7 +1,6 @@
 from django.db import models
 from django.conf import settings
 from taggit.managers import TaggableManager
-import re
 
 
 # Create your models here.
@@ -47,7 +46,7 @@ class Dining(models.Model):
     opening_hours = models.CharField(max_length=20)
     phone_number = models.CharField(max_length=20, blank=True)
     
-    tags = TaggableManager(blank=True)
+    tags = TaggableManager(blank=True, related_name='dining_tags')
 
 
 class Review(models.Model):
