@@ -138,6 +138,7 @@ def dining_create(request):
                 dining.address_detail = request.POST['address_detail']
                 dining.address_extra = request.POST['address_extra']
                 dining.save()
+                form.save_m2m()
                 return redirect('dinings:index')
         else:
             form = DiningForm()
