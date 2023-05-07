@@ -33,11 +33,15 @@ load_dotenv()
 환경 변수에서 key가 SECRET_KEY인 value 불러오기
 """
 SECRET_KEY = os.getenv('SECRET_KEY')
-
+KAKAO_KEY = os.getenv('KAKAO_KEY')
+GOOGLE_KEY = os.getenv('GOOGLE_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['port-0-team-03-1lfmx2blhdo8dn5.sel4.cloudtype.app']
+ALLOWED_HOSTS = [
+    'port-0-team-03-1lfmx2blhdo8dn5.sel4.cloudtype.app',
+    '127.0.0.1'
+    ]
 
 
 # Application definition
