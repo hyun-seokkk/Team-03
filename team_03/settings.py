@@ -40,6 +40,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'port-0-team-03-1lfmx2blhdo8dn5.sel4.cloudtype.app',
+    'port-0-team-03-xiy3e2blhdsgslz.sel4.cloudtype.app',
     '127.0.0.1'
     ]
 
