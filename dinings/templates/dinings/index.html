@@ -127,13 +127,17 @@
         <input type="hidden" name="latitude" id="latitude">
         <input type="hidden" name="longitude" id="longitude">
       </form>
-      <button type="button" class="btn btn-primary" onclick="showAddressForm()">다른 지역 선택</button>
-      <button class="btn btn-success" onclick="getLocation()">현 위치로 설정</button>
-    </div> 
+
+      <button type="button" class="btn btn-primary" onclick="clearLocation()">다른 지역 선택</button>
+      {% comment %} <button class="btn btn-success" onclick="getLocation()">현 위치로 설정</button> {% endcomment %}
+      <button class="btn btn-success" id="my-location-btn">현 위치로 설정</button>
+    </div>
+
     <div id="address-form-container" style="display:none; margin-top: 20px;">
       <form id="address-form" onsubmit="saveLocation(event)">
         <input type="text" id="search" placeholder="원하는 주소를 직접 입력하세요">
         <button type="submit" class="btn btn-primary">입력</button>
+
       </form>
     </div>
 </div>
@@ -168,58 +172,61 @@
         overflow-x: hidden;
       "
     >
-      <div class="card" style="width: 100%">
-        <div
-          class="card-header"
-          style="font-family: 'NanumBarunGothic', serif; font-size: 25px"
-        >
-          #{{ tag.name }}
-        </div>
-        <div
-          class="card-body"
-          style="
-            display: flex;
-            align-items: center;
-            min-width: 1070px;
-            max-width: 1070px;
-            overflow-x: hidden;
-          "
-        >
-          <div id="carousel1" class="carousel slide">
-            <div class="carousel-inner">
-              {% for dining in tag_dining_dict[tag] %}
-              {% if forloop.counter0|divisibleby:4 %}
+
+      <div id="carousel1" class="carousel slide">
+        <div class="carousel-inner">
+          {% if region_dinings %}
+          {% for dining in region_dinings %} 
+            {% if forloop.counter0|divisibleby:4 %}
               <div class="carousel-item {% if forloop.first %}active{% endif %}">
-              {% endif %}
-                <div class="mx-3" style="float: left; width: 220px">
-                  <div class="card mx-3" style="width: 220px; margin-right: 0px">
-                    <div class="card-body" style="padding: 0px">
-                      <a href="{% url 'dinings:detail' dining.pk %}">
-                        {% if dining.image1 %}
-                        <img
-                          src="{{ dining.image1.url }}"
-                          class="img-fluid rounded-start"
-                          alt="{{ dining.title }}"
-                          style="border-radius: 7px; width: 250px; height: 250px;"
-                        />
-                        {% else %}
-                        <img
-                          src="{% static 'blank_img.png' %}"
-                          class="img-fluid rounded-start"
-                          alt="{{ dining.title }}"
-                          style="border-radius: 7px; width: 250px; height: 250px;"
-                        />
-                        {% endif %}
-                      </a>
-                    </div>
-                  </div>
-                  <a href="{% url 'dinings:detail' dining.pk %}" class="px-3">{{ dining.title }}</a>
+            {% endif %}
+            <div class="mx-3" style="float: left; width: 220px">
+              <div class="card mx-3" style="width: 220px; margin-right: 0px">
+                <div class="card-body" style="padding: 0px">
+                  <a href="{% url 'dinings:detail' dining.pk %}">
+                    {% if dining.image1 %}
+                    <img src="{{ dining.image1.url }}" class="img-fluid rounded-start" alt="{{ dining.title }}" style="border-radius: 7px; width: 250px; height: 250px;">
+                    {% else %}
+                    <img src="{% static 'blank_img.png' %}" class="img-fluid rounded-start" alt="{{ dining.title }}" style="border-radius: 7px; width: 250px; height: 250px;">
+                    {% endif %}
+                  </a>
+                </div>
+              </div>
+              <a href="{% url 'dinings:detail' dining.pk %}" class="px-3">{{ dining.title }}</a>
+            </div>
+            {% if forloop.counter0|add:1|divisibleby:4 or forloop.last %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          {# region_dinings가 없을 경우 #}
+          {% for dining in dinings %} 
+            {% if forloop.counter0|divisibleby:4 %}
+              <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            {% endif %}
+            <div class="mx-3" style="float: left; width: 220px">
+              <div class="card mx-3" style="width: 220px; margin-right: 0px">
+                <div class="card-body" style="padding: 0px">
+                  <a href="{% url 'dinings:detail' dining.pk %}">
+                    {% if dining.image1 %}
+                    <img src="{{ dining.image1.url }}" class="img-fluid rounded-start" alt="{{ dining.title }}" style="border-radius: 7px; width: 250px; height: 250px;">
+                    {% else %}
+                    <img src="{% static 'blank_img.png' %}" class="img-fluid rounded-start" alt="{{ dining.title }}" style="border-radius: 7px; width: 250px; height: 250px;">
+                    {% endif %}
+                  </a>
                 </div>
               {% if forloop.counter0|add:1|divisibleby:4 or forloop.last %}
               </div>
-              {% endif %} 
-              {% comment %} {% endfor %}
+
+              <a href="{% url 'dinings:detail' dining.pk %}" class="px-3">{{ dining.title }}</a>
             </div>
+            {% if forloop.counter0|add:1|divisibleby:4 or forloop.last %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+        </div>
+
 
         <button
           class="carousel-control-prev"
@@ -252,6 +259,9 @@
 {% endfor %} {% endcomment %}
 {% block script %}
 <script>
+
+  /*function getLocation() {
+
   function showAddressForm() {
     var addressFormContainer = document.getElementById("address-form-container");
     addressFormContainer.style.display = "block";
@@ -277,6 +287,7 @@
     locationElement.innerHTML = newLocation;
   });
   function getLocation() {
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showPosition, showError);
     } else {
@@ -319,13 +330,29 @@
   
   window.onload = function() {
     loadLocation();
-  };
+  };*/
 
-function clearLocation() {
+  function clearLocation() {
     localStorage.removeItem("location");
     var locationElement = document.getElementById("location");
     locationElement.innerHTML = "";
-  } 
+  }
+  
+  const myLocBtn = document.querySelector('#my-location-btn');
+  const locationDiv = document.querySelector('#location');
+  const loc = '{{ my_location }}';
+  
+  console.log(myLocBtn);
+  
+  myLocBtn.addEventListener('click', function(event) {
+    event.preventDefault();
+    const url = `/dinings/?region=${loc}`;
+    window.location.href = url;
+  });
+  
+  locationDiv.textContent = loc;
+
+
 </script>  
 
 {% endblock script %}  

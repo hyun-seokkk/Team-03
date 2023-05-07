@@ -6,30 +6,49 @@ from django.db.models import Q, Count
 from django.http import JsonResponse
 from collections import defaultdict
 import random
+import requests, json, pprint
 
 # Create your views here.
+def get_address(lat, lng):
+    url = "https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x="+lng+"&y="+lat
+    # 'KaKaoAK '는 그대로 두시고 개인키만 지우고 입력해 주세요.
+    # ex) KakaoAK 6af8d4826f0e56c54bc794fa8a294
+    headers = {"Authorization": "KakaoAK 412ff50a9a87dcc9d1bbfed3fd9d2eb8"}
+    api_json = requests.get(url, headers=headers)
+    full_address = json.loads(api_json.text)
 
-# def index(request):
-#     dinings = Dining.objects.all()
-#     tags = Tag.objects.all()
-#     tag_dining_dict = defaultdict(list)
-#     for dining in dinings:
-#         for tag in dining.tags.all():
-#             tag_dining_dict[tag].append(dining)
-#     for tag in tags:
-#         for dining in Dining.objects.filter(tags=tag):
-#             tag_dining_dict[tag].append(dining)
-#     context = {'tags': tags, 'tag_dining_dict': tag_dining_dict, 'tag': tag}
-#     return render(request, 'dinings/index.html', context)
+
+    return full_address
 
 
 def index(request):
+    
+    url = f'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCXIgUb1J_z_7L8q-0cPRNZBVBfg8kJAvQ'
+    data = {
+        'considerIp': True,
+    }
+
+    result = requests.post(url, data).text
+    result = eval(result)
+    full_address = get_address(str(result['location']['lat']), str(result['location']['lng']))
+    my_location = full_address['documents'][0]['region_3depth_name']
+    print(my_location)
+
+    region = request.GET.get('region')
+    if region:
+        region_dinings = Dining.objects.filter(Q(address_gu__icontains=region) | Q(
+        address_dong__icontains=region)).distinct()
+    else:
+        region_dinings = Dining.objects.none()
+        
     dinings = Dining.objects.order_by("-pk")
     tags = list(set(tag for dining in dinings for tag in dining.tags.all()))
     random_tags = random.sample(tags, min(len(tags), 10))
     context = {
         'dinings': dinings,
         'tags': random_tags,
+        'my_location': my_location,
+        'region_dinings': region_dinings,
     }
     return render(request, 'dinings/index.html', context)
 
@@ -104,6 +123,18 @@ def dining_create(request):
                 dining = form.save(commit=False)
                 dining.address_postcode = request.POST['address_postcode']
                 dining.address_address = request.POST['address_address']
+
+                gu = [ele for ele in request.POST['address_address'].split() if ele[-1] == '구'][0]
+                if gu:
+                    dining.address_gu = gu
+                
+                dong = [ele for ele in request.POST['address_address'].split() if ele[-1] == '동' or ele[-1] == '읍' or ele[-1] ==
+                 '면' or ele[-1] == '리'][0]
+                if dong:
+                    dining.address_dong = dong
+
+                dining.address_extra = request.POST['address_extra']
+
                 dining.address_detail = request.POST['address_detail']
                 dining.address_extra = request.POST['address_extra']
                 dining.save()
