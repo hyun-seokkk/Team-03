@@ -127,7 +127,8 @@
         {% if dining.review_set.all %} 
         {% with review=dining.review_set.all|first %}
         <p class="card-text">{{ review.content }}</p>
-        {% endwith %} {% else %}
+        {% endwith %} 
+        {% else %}
         <p class="card-text">아직 리뷰가 없습니다.</p>
         {% endif %}
       </div>
