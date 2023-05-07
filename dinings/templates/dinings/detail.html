@@ -9,6 +9,7 @@
       <div class="col-3">
         <div class='card'>
           {% comment %} <div>지도</div> {% endcomment %}
+          <div id="map" style="width:100%; height: 300px;"></div>
           <a href="{% url 'dinings:dining_create'%}">create</a>
           <a href="{% url 'dinings:review_create' dining.pk %}">리뷰작성</a>
           <a href="{% url 'dinings:dining_update' dining.pk  %}">수정</a>
@@ -351,6 +352,35 @@
 </div>
 {% endblock content %}
 {% block script %}
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeo2OKCeAbkCAFFoXyrCP4rJEE1wMBs1w&callback=initMap"></script>
+<script>
+  function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 16
+    });
+  
+    // 위치를 가져오기
+    var geocoder = new google.maps.Geocoder();
+    var address = "{{dining.address_address}}"; // 주소
+    geocoder.geocode({ 'address': address }, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        var latitude = results[0].geometry.location.lat();
+        var longitude = results[0].geometry.location.lng();
+  
+        // 위치를 지도의 center 옵션으로 설정하기
+        map.setCenter({lat: latitude, lng: longitude});
+  
+        // 마커 생성하기
+        var marker = new google.maps.Marker({
+          position: {lat: latitude, lng: longitude},
+          map: map
+        });
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }
+</script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="{% static 'js/detail.js' %}"></script>
   <script>
