@@ -45,7 +45,7 @@
   </div>
 
   <div style="align-items: center; font-family: 'Chosunilbo_myungjo', serif;">
-    <button class="btn btn-primary">다른 지역 선택</button>
+    <button class="btn btn-primary" id="loc-select">다른 지역 선택</button>
     <button class="btn btn-success">현 위치로 설정</button>
   </div>
 
@@ -91,10 +91,14 @@
       <button class="btn btn-success" id="my-location-btn">현 위치로 설정</button>
     </div>
     <div id="address-form-container" style="display:none; margin-top: 20px;">
-      <form id="address-form" onsubmit="saveLocation(event)">
-        <input type="text" id="search" placeholder="원하는 주소를 직접 입력하세요">
+      <form action="{% url 'dinings:index' %}">
+        <input type="text" id="search" placeholder="원하는 주소를 직접 입력하세요" name="region">
         <button type="submit" class="btn btn-primary">입력</button>
       </form>
+      {% comment %} <form id="address-form" onsubmit="saveLocation(event)">
+        <input type="text" id="search" placeholder="원하는 주소를 직접 입력하세요">
+        <button type="submit" class="btn btn-primary">입력</button>
+      </form> {% endcomment %}
     </div>
 </div>
 
@@ -140,27 +144,46 @@
 {% block script %}
 <script>
 
-
+  const addressForm = document.querySelector('#address-form-container');
+  const locSelBtn = document.querySelector('#loc-select')
+  const myLocBtn = document.querySelector('#my-location-btn');
+  const locationDiv = document.querySelector('#location');
+  let loc = '';
 
   function clearLocation() {
     localStorage.removeItem("location");
     var locationElement = document.getElementById("location");
     locationElement.innerHTML = "";
+    addressForm.setAttribute('style', "margin-top: 20px;")
   }
-  
-  const myLocBtn = document.querySelector('#my-location-btn');
-  const locationDiv = document.querySelector('#location');
-  const loc = '{{ my_location }}';
+
+  addressForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const regionInput = document.querySelector('#search');
+    loc = regionInput.value;
+    const url = `/dinings/?region=${encodeURIComponent(loc)}`;
+    window.location.href = url;
+  });
   
   console.log(myLocBtn);
   
   myLocBtn.addEventListener('click', function(event) {
     event.preventDefault();
+    loc = '{{ my_location }}'
     const url = `/dinings/?region=${loc}`;
     window.location.href = url;
   });
-  
-  locationDiv.textContent = loc;
+
+  function updateLocationDiv(loc) {
+    locationDiv.textContent = loc;
+  }
+
+  updateLocationDiv(loc);
+  if (loc==='') {
+    loc = '{{ my_location }}'
+  }
+  console.log(1, loc)
+  locationDiv.textContent = loc
 
 
 </script>  
