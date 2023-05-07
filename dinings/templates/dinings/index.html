@@ -86,17 +86,14 @@
         <input type="hidden" name="latitude" id="latitude">
         <input type="hidden" name="longitude" id="longitude">
       </form>
-
       <button type="button" class="btn btn-primary" onclick="clearLocation()">다른 지역 선택</button>
       {% comment %} <button class="btn btn-success" onclick="getLocation()">현 위치로 설정</button> {% endcomment %}
       <button class="btn btn-success" id="my-location-btn">현 위치로 설정</button>
     </div>
-
     <div id="address-form-container" style="display:none; margin-top: 20px;">
       <form id="address-form" onsubmit="saveLocation(event)">
         <input type="text" id="search" placeholder="원하는 주소를 직접 입력하세요">
         <button type="submit" class="btn btn-primary">입력</button>
-
       </form>
     </div>
 </div>
@@ -143,77 +140,7 @@
 {% block script %}
 <script>
 
-  /*function getLocation() {
 
-  function showAddressForm() {
-    var addressFormContainer = document.getElementById("address-form-container");
-    addressFormContainer.style.display = "block";
-  }
-  function saveLocation(event) {
-    event.preventDefault();
-    var inputElement = document.getElementById("search");
-    var location = inputElement.value;
-  
-    localStorage.setItem("location", location);
-  }
-  document.getElementById("address-form").addEventListener("submit", function(event) {
-    event.preventDefault();  // 기본 동작인 페이지 새로고침을 막음
-    
-    var inputElement = document.querySelector("#address-form input[type=text]");
-    var newLocation = inputElement.value;
-    
-    // localStorage에 저장
-    localStorage.setItem("location", newLocation);
-    
-    // 현재 페이지에서 location 정보를 출력
-    var locationElement = document.getElementById("location");
-    locationElement.innerHTML = newLocation;
-  });
-  function getLocation() {
-
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition, showError);
-    } else {
-      alert("Geolocation is not supported by this browser.");
-    }
-  }
-  function showPosition(position) {
-    var lat = position.coords.latitude;
-    var lon = position.coords.longitude;
-    var url = "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=" + lat + "&longitude=" + lon + "&localityLanguage=ko";
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        var locationElement = document.getElementById("location");
-        locationElement.innerHTML = data.locality;
-        
-        // 위치 정보를 localStorage에 저장
-        localStorage.setItem("location", data.locality);
-        
-        // showmap 버튼을 보이도록 설정
-        var showmapButton = document.getElementById("showmap-button");
-        showmapButton.style.display = "block";
-      })
-      .catch(error => {
-        console.error(error);
-        showError();
-      });
-  }
-  
-  function showError() {
-    ;
-  }
-  function loadLocation() {
-    var location = localStorage.getItem("location");
-    if (location) {
-      var locationElement = document.getElementById("location");
-      locationElement.innerHTML = location;
-    }
-  }
-  
-  window.onload = function() {
-    loadLocation();
-  };*/
 
   function clearLocation() {
     localStorage.removeItem("location");

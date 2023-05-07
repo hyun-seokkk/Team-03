@@ -10,8 +10,15 @@
         <div class='card'>
           {% comment %} <div>지도</div> {% endcomment %}
           <div id="map" style="width:100%; height: 300px;"></div>
-          <a class="ms-3 mt-3">맛집더보기</a>
-          {% comment %} <a href="{% url 'dinings:dining_update' dining.pk  %}">수정</a>     {% endcomment %}
+          {% if request.user.is_superuser %}
+          <div class="d-flex">
+            <a style="width:70px" class="btn btn-info" href="{% url 'dinings:dining_update' dining.pk  %}">수정</a>   
+            <form action="{% url 'dinings:dining_delete' dining.pk %}" method="POST">
+              {% csrf_token %}
+              <input type="submit" class="btn btn-danger" value="글 삭제">
+            </form>
+          </div>
+          {% endif %} 
         </div>
       </div>
 
@@ -175,15 +182,6 @@
               </form>
             </div>
           </div>
-          <hr>
-          <h2>맛집태그</h2>
-          
-          <div class="d-flex gap-3">
-            <!-- 태그 수 많을 수록 텍스트 크기 커지게 -->
-            {% for tag in dining.tags.all %}
-            <p>{{ tag.name }}</p>
-            {% endfor %}
-          </div>
         </div>
 
         <!-- 리뷰 -->
@@ -192,47 +190,9 @@
             <h3 class="my-auto mt-3">{{ reviews.all|length }}건의 방문자 평가</h3>
           </div>
           <hr>
-          <div class="d-flex">
-            <div class="col-8">
-              <p>{{ avg }}점</p>
-              <div class="d-flex gap-1">
-              
-                <!-- 리뷰에 평가 세부모델 추가하기 -->
-                <p>맛</p>
-                <p>가격</p>
-                <p>서비스</p>
-              </div>
-              <div class="sm_tag ">
-                <div class="d-flex">
-                  <p class="me-4">방문목적</p>
-                  <div>
-                    {% for tag in dining.tags.all %}
-                    <p class="border rounded-pill px-2 d-inline-block" style="background-color: rgb(227, 227, 227);">{{ tag.name }}</p>
-                    {% if forloop.counter|divisibleby:5 and not forloop.last %}<br>{% endif %}
-                    {% endfor %}
-                  </div>
-                </div>
-                <div class="d-flex">
-                  <p style="margin-right:35px">분위기</p>
-                  <div>
-                    {% for tag in dining.tags.all %}
-                    <p class="border rounded-pill px-2 d-inline-block" style="background-color: rgb(227, 227, 227);">{{ tag.name }}</p>
-                    {% if forloop.counter|divisibleby:5 and not forloop.last %}<br>{% endif %}
-                    {% endfor %}
-                  </div>
-                </div>
-                <div class="d-flex">
-                  <p class="me-4">편의시설</p>
-                  <div>
-                    {% for tag in dining.purpose_tags.all %}
-                    <p class="border rounded-pill px-2 d-inline-block" style="background-color: rgb(227, 227, 227);">{{ tag.name }}</p>
-                    {% if forloop.counter|divisibleby:5 and not forloop.last %}<br>{% endif %}
-                    {% endfor %}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-4 mt-5" style="font-size:12px">
+          <div class="">
+            <p>{{ avg }}점</p>
+            <div class=" mt-5" style="font-size:12px">
               <div class="d-flex">
                 <p class="col-6">매우만족({{satisfaction|reportkey:"매우만족"}})</p>
                 <div class="progress col-6" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
@@ -322,10 +282,28 @@
                 <img src="{{ review.image5.url }}" alt="#" style=" width:20%; height:100%;">
                 {% endif %}
               </div>
-              <div class="d-flex gap-2 sm_tag">
-                {% for tag in dining.tags.all %}
-                <p class="border rounded-pill px-2"style="background-color: rgb(227, 227, 227);">{{ tag.name }}</p>
-                {% endfor %}
+              <div class="d-flex sm_tag">
+                <div class=" me-1">
+                  {% for tag in review.purpose_tags.all %}
+                    {% if forloop.counter <= 2 %}
+                    <p class="border rounded-pill px-2 d-inline-block"style="background-color: rgb(227, 227, 227);">{{ tag.tag }}</p>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+                <div class=" me-1">
+                  {% for tag in review.atmosphere_tags.all %}
+                    {% if forloop.counter <= 2 %}
+                    <p class="border rounded-pill px-2 d-inline-block"style="background-color: rgb(227, 227, 227);">{{ tag.tag }}</p>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+                <div class=" me-1">
+                  {% for tag in review.facility_tags.all %}
+                    {% if forloop.counter <= 2 %}
+                    <p class="border rounded-pill px-2 d-inline-block"style="background-color: rgb(227, 227, 227);">{{ tag.tag }}</p>
+                    {% endif %}
+                  {% endfor %}
+                </div>
               </div>
               <form action="{% url 'dinings:review_like' dining.pk review.pk %}" method="POST">
                 {% csrf_token %}
