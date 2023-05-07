@@ -161,7 +161,7 @@
     event.preventDefault();
     const regionInput = document.querySelector('#search');
     loc = regionInput.value;
-    const url = `/dinings/?region=${encodeURIComponent(loc)}`;
+    const url = `/dinings/?region_search=${encodeURIComponent(loc)}`;
     window.location.href = url;
   });
   
@@ -182,8 +182,14 @@
   if (loc==='') {
     loc = '{{ my_location }}'
   }
-  console.log(1, loc)
-  locationDiv.textContent = loc
+
+  console.log('{{select_region}}')
+
+  if ('{{is_selected}}' === 'True') {
+    locationDiv.textContent = '{{select_region}}'
+  } else {
+    locationDiv.textContent = loc
+  }
 
 
 </script>  
