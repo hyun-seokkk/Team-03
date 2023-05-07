@@ -127,17 +127,13 @@
         <input type="hidden" name="latitude" id="latitude">
         <input type="hidden" name="longitude" id="longitude">
       </form>
-      <button type="button" class="btn btn-primary" onclick="clearLocation()">다른 지역 선택</button>
+      <button type="button" class="btn btn-primary" onclick="showAddressForm()">다른 지역 선택</button>
       <button class="btn btn-success" onclick="getLocation()">현 위치로 설정</button>
-      <form action="{% url 'dinings:showmap' %}" method="GET">
-        {% csrf_token %}
-        <button class="btn btn-secondary" onclick="getLocation()">자세히 보기</button>
-      </form>
-    </div>
-    <div style="margin-top: 20px;">
-      <form onsubmit="searchLocation(event)">
-        <input type="text" id="search" placeholder="주소 검색">
-        <button type="submit" class="btn btn-primary">검색</button>
+    </div> 
+    <div id="address-form-container" style="display:none; margin-top: 20px;">
+      <form id="address-form" onsubmit="saveLocation(event)">
+        <input type="text" id="search" placeholder="원하는 주소를 직접 입력하세요">
+        <button type="submit" class="btn btn-primary">입력</button>
       </form>
     </div>
 </div>
@@ -249,6 +245,30 @@
 
 {% block script %}
 <script>
+  function showAddressForm() {
+    var addressFormContainer = document.getElementById("address-form-container");
+    addressFormContainer.style.display = "block";
+  }
+  function saveLocation(event) {
+    event.preventDefault();
+    var inputElement = document.getElementById("search");
+    var location = inputElement.value;
+  
+    localStorage.setItem("location", location);
+  }
+  document.getElementById("address-form").addEventListener("submit", function(event) {
+    event.preventDefault();  // 기본 동작인 페이지 새로고침을 막음
+    
+    var inputElement = document.querySelector("#address-form input[type=text]");
+    var newLocation = inputElement.value;
+    
+    // localStorage에 저장
+    localStorage.setItem("location", newLocation);
+    
+    // 현재 페이지에서 location 정보를 출력
+    var locationElement = document.getElementById("location");
+    locationElement.innerHTML = newLocation;
+  });
   function getLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showPosition, showError);
@@ -256,7 +276,6 @@
       alert("Geolocation is not supported by this browser.");
     }
   }
-  
   function showPosition(position) {
     var lat = position.coords.latitude;
     var lon = position.coords.longitude;

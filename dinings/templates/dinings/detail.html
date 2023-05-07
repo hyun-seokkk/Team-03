@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load customs %}
+{% block head  %}
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bf6b2ec27afff46be3e2df1a2fb99365"></script>
+{% endblock head  %}
+
 {% block content %}
 <div class="container ">
   <div class="row">
@@ -24,7 +27,7 @@
           <div class="row mt-2 p-0 m-0">
             <div class="col-6 col-md-6 p-0 m-0">
               {% if dining.image1 %}
-              <img src="{{ dining.image1.url }}" alt="..." class="img-fluid " style="min-width:14rem; width:100%; min-height:14rem; height:7rem;"  >
+              <img src="{{ dining.image1.url }}" alt="..." class="img-fluid " style="min-width:14rem; width:100%; min-height:14rem; height:100%;"  >
               {% else %}
               <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:14rem; width:100%; min-height:14rem; height:100%;">
               {% endif %}
@@ -33,28 +36,28 @@
               <div class="row">
                 <div class="col-6 pe-0">
                   {% if dining.image2 %}
-                  <img src="{{ dining.image2.url }}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:7rem;" >
+                  <img src="{{ dining.image2.url }}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;" >
                   {% else %}
                   <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;">
                   {% endif %}
                 </div>
                 <div class="col-6 ps-0">
                   {% if dining.image3 %}
-                  <img src="{{ dining.image3.url }}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:7rem;">
+                  <img src="{{ dining.image3.url }}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;">
                   {% else %}
                   <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;">
                   {% endif %}
                 </div>
                 <div class="col-6 pe-0">
                   {% if dining.image4 %}
-                  <img src="{{ dining.image4.url }}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:7rem;" >
+                  <img src="{{ dining.image4.url }}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;" >
                   {% else %}
                   <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;">
                   {% endif %}
                 </div>
                 <div class="col-6 ps-0">
                   {% if dining.image5 %}
-                  <img src="{{ dining.image5.url }}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:7rem;">
+                  <img src="{{ dining.image5.url }}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;">
                   {% else %}
                   <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;">
                   {% endif %}
@@ -118,10 +121,11 @@
           <div class="d-flex gap-2">
             <span class="icon_size material-symbols-rounded">
               location_on
-              </span>         
-            <p>{{dining.address_address}}</p>
-            <p>{{dining.address_detail}}</p>
-            <p>{{dining.address_extra}}</p>   
+              </span>
+            <a href="#">{{ dining.address_mc_do}}</a>
+            <a href="#">{{ dining.address_city}}</a>
+            <a href="#">{{ dining.address_dong}}</a>
+            <p>{{ dining.address_detail }}</p>
           </div>
           <div class="d-flex gap-2">
             <span class="icon_size material-symbols-rounded">
@@ -144,10 +148,8 @@
               chat
               </span>
             <a href="">폐업신고</a>
-            <a href="">정보수정 제안</a>   
-          </div>            
-          <br>
-
+            <a href="">정보수정 제안</a>
+          </div>
         </div>
 
         <!-- 3번 상자 -->
@@ -163,18 +165,16 @@
           <h2>메뉴정보</h2>
           <div class="p-2">
             {% for menu in menus %}
-            {% if request.user.is_superuser %}
-            <form action="{% url 'dinings:menu_delete' dining.pk menu.pk %}" methos="POST">
-              {% csrf_token %}
               <div class='d-flex justify-content-between'>
                 <p>{{menu.name}}</p>
-                <div class="d-flex">
-                  <p>{{menu.price}}</p>
-                  <input type="submit" value="X" class="btn btn-danger rounded-circle btn-sm" style="height:2rem">
-                </div>
+                <p>{{menu.price}}</p>
+                {% if request.user.is_superuser %}
+                  <form action="{% url 'dinings:menu_delete' dining.pk menu.pk %}" methos="POST">
+                    {% csrf_token %}
+                    <input type="submit" value="삭제">
+                  </form>
+                {% endif %}
               </div>
-            </form>
-            {% endif %}
             {% endfor %}
             {% if request.user.is_superuser %}
               <button class="btn btn-primary menu-add">추가</button>
@@ -242,35 +242,35 @@
                 </div>
               </div>
             </div>
-            <div class="col-4 mt-5" style="font-size:12px">
+            <div class="col-4 mt-5">
               <div class="d-flex">
-                <p class="col-6">매우만족({{satisfaction|reportkey:"매우만족"}})</p>
-                <div class="progress col-6" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                  <div class="progress-bar" style="width: 0%" id="prog1"></div>
+                <p>매우만족(5)</p>
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">20</div>
                 </div>
               </div>
               <div class="d-flex">
-                <p class="col-6">만족({{satisfaction|reportkey:"만족"}})</p>
-                <div class="progress col-6" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                  <div class="progress-bar" style="width: 0%" id="prog2"></div>
+                <p>만족(4)</p>
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" style="width: 80%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">20</div>
                 </div>
               </div>
               <div class="d-flex">
-                <p class="col-6">보통({{satisfaction|reportkey:"보통"}})</p>
-                <div class="progress col-6" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                  <div class="progress-bar" style="width: 0%" id="prog3"></div>
+                <p>보통(0)</p>
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" style="width: 80%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">20</div>
                 </div>
               </div>
               <div class="d-flex">
-                <p class="col-6">불만({{satisfaction|reportkey:"불만"}})</p>
-                <div class="progress col-6" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                  <div class="progress-bar" style="width: 0%" id="prog4"></div>
+                <p>불만(5)</p>
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" style="width: 80%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">20</div>
                 </div>
               </div>
               <div class="d-flex">
-                <p class="col-6">매우불만({{satisfaction|reportkey:"매우불만"}})</p>
-                <div class="progress col-6" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                  <div class="progress-bar" style="width: 0%" id="prog5"></div>
+                <p>매우 불만(5)</p>
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" style="width: 80%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">20</div>
                 </div>
               </div>
             </div> 
@@ -353,25 +353,4 @@
 {% block script %}
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="{% static 'js/detail.js' %}"></script>
-  <script>
-    const prog1 = document.querySelector('#prog1')
-    const prog2 = document.querySelector('#prog2')
-    const prog3 = document.querySelector('#prog3')
-    const prog4 = document.querySelector('#prog4')
-    const prog5 = document.querySelector('#prog5')
-    console.log({{reviews.all|length}})
-    
-    const prog1Ratio = {{satisfaction|reportkey:"매우만족"}} / {{reviews.all|length}} * 100
-    const prog2Ratio = {{satisfaction|reportkey:"만족"}} / {{reviews.all|length}} * 100
-    const prog3Ratio = {{satisfaction|reportkey:"보통"}} / {{reviews.all|length}} * 100
-    const prog4Ratio = {{satisfaction|reportkey:"불만"}} / {{reviews.all|length}} * 100
-    const prog5Ratio = {{satisfaction|reportkey:"매우불만"}} / {{reviews.all|length}} * 100
-    console.log(prog2Ratio, prog3Ratio, prog4Ratio)
-
-    prog1.setAttribute('style', `width: ${prog1Ratio}%;`)
-    prog2.setAttribute('style', `width: ${prog2Ratio}%;`)
-    prog3.setAttribute('style', `width: ${prog3Ratio}%;`)
-    prog4.setAttribute('style', `width: ${prog4Ratio}%;`)
-    prog5.setAttribute('style', `width: ${prog5Ratio}%;`)
-  </script>
 {% endblock script %}
