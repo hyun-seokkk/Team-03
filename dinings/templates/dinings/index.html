@@ -127,9 +127,9 @@
         <input type="hidden" name="latitude" id="latitude">
         <input type="hidden" name="longitude" id="longitude">
       </form>
-      <button type="button" class="btn btn-primary" onclick="searchLocation()">다른 지역 선택</button>
+      <button type="button" class="btn btn-primary" onclick="clearLocation()">다른 지역 선택</button>
       <button class="btn btn-success" onclick="getLocation()">현 위치로 설정</button>
-      <form action="{% url 'dinings:showmap' %}" method="POST">
+      <form action="{% url 'dinings:showmap' %}" method="GET">
         {% csrf_token %}
         <button class="btn btn-secondary" onclick="getLocation()">자세히 보기</button>
       </form>
@@ -251,12 +251,12 @@
 <script>
   function getLocation() {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
+      navigator.geolocation.getCurrentPosition(showPosition, showError);
     } else {
       alert("Geolocation is not supported by this browser.");
     }
   }
-
+  
   function showPosition(position) {
     var lat = position.coords.latitude;
     var lon = position.coords.longitude;
@@ -269,10 +269,19 @@
         
         // 위치 정보를 localStorage에 저장
         localStorage.setItem("location", data.locality);
+        
+        // showmap 버튼을 보이도록 설정
+        var showmapButton = document.getElementById("showmap-button");
+        showmapButton.style.display = "block";
       })
       .catch(error => {
         console.error(error);
+        showError();
       });
+  }
+  
+  function showError() {
+    ;
   }
   function loadLocation() {
     var location = localStorage.getItem("location");

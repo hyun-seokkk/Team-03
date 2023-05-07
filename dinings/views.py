@@ -33,7 +33,9 @@ def index(request):
 
 
 def showmap(request):
-    return render(request, 'dinings/showmap.html')
+    locality = request.GET.get('locality', '')
+    context = {'locality': locality}
+    return render(request, 'dinings/showmap.html', context)
 
 
 def detail(request, pk):
