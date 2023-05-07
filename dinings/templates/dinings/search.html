@@ -120,18 +120,18 @@
                 <span>({{ dining.like_users.all|length }})</span>
               </span>
             </div>
+            <div style="font-size: 17px;">
+              {% if dining.review_set.all %} 
+              {% with review=dining.review_set.all|first %}
+              <p class="card-text">{{ review.content }}</p>
+              {% endwith %} 
+              {% else %}
+              <p class="card-text">아직 리뷰가 없습니다.</p>
+              {% endif %}
+            </div>
           </div>
         </div>
       </a>
-      <div style="font-size: 20px; text-align: center">
-        {% if dining.review_set.all %} 
-        {% with review=dining.review_set.all|first %}
-        <p class="card-text">{{ review.content }}</p>
-        {% endwith %} 
-        {% else %}
-        <p class="card-text">아직 리뷰가 없습니다.</p>
-        {% endif %}
-      </div>
       {% if not forloop.last %}
       <hr />
       {% endif %}

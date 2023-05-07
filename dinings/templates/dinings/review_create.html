@@ -9,8 +9,8 @@
     <hr>
     <form action={% block form_url %}"{% url 'dinings:review_create' dining.pk %}"{% endblock form_url %} method="POST" enctype="multipart/form-data">
       {% csrf_token %}
-      <div class="rating-container row">
-        <div class="d-flex flex-column align-items-center rating-total col-12 col-lg-6">
+      <div class="rating-container row mb-5">
+        <div class="d-flex flex-column align-items-center rating-total col-12 col-lg-6 mb-5 mb-lg-0">
           <h4 class="m-0">전체적으로 어떠셨나요?</h4>
           <hr style="width: 100%;">
           <h5 class="mb-3 text-secondary">별점을 선택해주세요</h5>
@@ -50,83 +50,98 @@
           </div>
           <input type="number" hidden name="rating" value="" id="rating">
         </div>
-        <div class="rating-details col-12 col-lg-6">
+        <div class="rating-details col-12 col-lg-6 mb-5 mb-lg-0">
           <h4>항목별 평점</h4>
           <hr>
           <div class="rating-taste row">
             <div class="col-2 d-flex align-items-center justify-content-center fs-5">맛</div>
-            <div class="col-7 d-flex justify-content-between">
+            <div class="col-7 d-flex align-items-center justify-content-between">
               <input type="radio" name="rating_taste" id="taste-1" value="1">
               <input type="radio" name="rating_taste" id="taste-2" value="3">
               <input type="radio" name="rating_taste" id="taste-3" value="5">
             </div>
             <div class="col-3 d-flex flex-row-reverse">
-              <button class="btn btn-secondary rounded-pill disabled">평가없음</button>
+              <button class="btn btn-secondary rounded-pill disabled btn_rating_taste">평가없음</button>
             </div>
           </div>
           <div class="row">
             <div class="col-2"></div>
             <div class="col-7 d-flex justify-content-between">
-              <label for="taste-1">맛없음</label>
-              <label for="taste-2">보통</label>
-              <label for="taste-3">맛있음</label>
+              <label for="taste-1" class="labels_taste">맛없음</label>
+              <label for="taste-2" class="labels_taste">보통</label>
+              <label for="taste-3" class="labels_taste">맛있음</label>
             </div>
             <div class="col-3"></div>
           </div>
           <div class="rating-price row">
             <div class="col-2 d-flex align-items-center justify-content-center fs-5">가격</div>
-            <div class="col-7 d-flex justify-content-between">
+            <div class="col-7 d-flex align-items-center justify-content-between">
               <input type="radio" name="rating_price" id="price-1" value="1">
               <input type="radio" name="rating_price" id="price-2" value="3">
               <input type="radio" name="rating_price" id="price-3" value="5">
             </div>
             <div class="col-3 d-flex flex-row-reverse">
-              <button class="btn btn-secondary rounded-pill disabled">평가없음</button>
+              <button class="btn btn-secondary rounded-pill disabled btn_rating_price">평가없음</button>
             </div>
           </div>
           <div class="row">
             <div class="col-2"></div>
             <div class="col-7 d-flex justify-content-between">
-              <label for="price-1">가격불만</label>
-              <label for="price-2">보통</label>
-              <label for="price-3">가격만족</label>
+              <label for="price-1" class="labels_price">가격불만</label>
+              <label for="price-2" class="labels_price">보통</label>
+              <label for="price-3" class="labels_price">가격만족</label>
             </div>
             <div class="col-3"></div>
           </div>
           <div class="rating-price row">
             <div class="col-2 d-flex align-items-center justify-content-center fs-5">친절</div>
-            <div class="col-7 d-flex justify-content-between">
+            <div class="col-7 d-flex align-items-center justify-content-between">
               <input type="radio" name="rating_kind" id="kind-1" value="1">
               <input type="radio" name="rating_kind" id="kind-2" value="3">
               <input type="radio" name="rating_kind" id="kind-3" value="5">
             </div>
             <div class="col-3 d-flex flex-row-reverse">
-              <button class="btn btn-secondary rounded-pill disabled">평가없음</button>
+              <button class="btn btn-secondary rounded-pill disabled btn_rating_kind">평가없음</button>
             </div>
           </div>
           <div class="row">
             <div class="col-2"></div>
             <div class="col-7 d-flex justify-content-between">
-              <label for="kind-1">불친절</label>
-              <label for="kind-2">보통</label>
-              <label for="kind-3">친절함</label>
+              <label for="kind-1" class="labels_kind">불친절</label>
+              <label for="kind-2" class="labels_kind">보통</label>
+              <label for="kind-3" class="labels_kind">친절함</label>
             </div>
             <div class="col-3"></div>
           </div>
         </div>
       </div>
-      {% for purpose in purpose_tags %}
-      <button class="btn btn-primary">{{ purpose.tag }}</button>
-      {% empty %}
-      {% endfor %}
-      {% for atmosphere in atmosphere_tags %}
-      <button class="btn btn-primary">{{ atmosphere.tag }}</button>
-      {% empty %}
-      {% endfor %}
-      {% for facility in facility_tags %}
-      <button class="btn btn-primary">{{ facility.tag }}</button>
-      {% empty %}
-      {% endfor %}
+      <div>
+        <h4>음식점 키워드</h4>
+        <div class="mb-5">
+          <h5>이 식당은 어떤 <span class="text-primary">방문목적</span>에 적합한가요?(복수 선택 가능)</h5>
+          {% for purpose in purpose_tags %}
+            <button class="btn btn-outline-dark purpose-button" data-tag="{{ purpose.pk }}">{{ purpose.tag }}</button>
+          {% empty %}
+          {% endfor %}
+          <textarea id="purpose-tags" name="purpose_tags" style="display: none;"></textarea>
+        </div>
+        <div class="mb-5">
+          <h5>이 식당의 <span class="text-primary">분위기</span>를 선택해주세요.(복수 선택 가능)</h5>
+          {% for atmosphere in atmosphere_tags %}
+            <button class="btn btn-outline-dark atmosphere-button" data-tag="{{ atmosphere.pk }}">{{ atmosphere.tag }}</button>
+          {% empty %}
+          {% endfor %}
+          <textarea id="atmosphere-tags" name="atmosphere_tags" style="display: none;"></textarea>
+        </div>
+        <div class="mb-5">
+          <h5>이 식당은 어떤 <span class="text-primary">편의시설</span>이 있었나요?(복수 선택 가능)</h5>
+          {% for facility in facility_tags %}
+            <button class="btn btn-outline-dark facility-button" data-tag="{{ facility.pk }}">{{ facility.tag }}</button>
+          {% empty %}
+          {% endfor %}
+          <textarea id="facility-tags" name="facility_tags" style="display: none;"></textarea>
+        </div>
+      </div>
       {{ review_form.as_p }}
       <input type="submit" value="게시">
     </form>
