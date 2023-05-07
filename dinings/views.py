@@ -35,12 +35,19 @@ def index(request):
     print(my_location)
 
     region = request.GET.get('region')
+    region_search_param = request.GET.get('region_search')
+    is_selected = False
+    select_region = region_search_param = request.GET.get('region_search')
+
     if region:
         region_dinings = Dining.objects.filter(Q(address_gu__icontains=region) | Q(
         address_dong__icontains=region)).distinct()
+    elif region_search_param:
+        region_dinings = Dining.objects.filter(Q(address_gu__icontains=region_search_param) | Q(
+        address_dong__icontains=region_search_param)).distinct()
+        is_selected = True
     else:
         region_dinings = Dining.objects.none()
-        
     dinings = Dining.objects.order_by("-pk")
 
      # query for dinings
@@ -64,6 +71,8 @@ def index(request):
         'tags': random_tags,
         'my_location': my_location,
         'region_dinings': region_dinings,
+        'is_selected': is_selected,
+        'select_region': select_region,
     }
     return render(request, 'dinings/index.html', context)
 
