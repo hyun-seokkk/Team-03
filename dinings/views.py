@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Dining, Review, Menu, PurposeTag, AtmosphereTag, FacilityTag, Tag
+from .models import Dining, Review, Menu, PurposeTag, AtmosphereTag, FacilityTag
 from .forms import DiningForm, ReviewForm, MenuForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q, Count
