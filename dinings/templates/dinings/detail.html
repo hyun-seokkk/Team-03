@@ -239,8 +239,7 @@
                 <div class="container mt-2">
                   <div class="d-flex justify-content-between gap-2">
                     <div class="d-flex gap-2">
-                      <p>{{ review.user.username }}</p>
-
+                      <a href="{% url 'accounts:profile' review.user.pk %}"><p>{{ review.user.username }}</p></a>
                       <p>작성개수 {{ review.user.review_set.all|length }} , 공감개수 {{ review.like_users.all|length }}</p>
 
                     </div>
