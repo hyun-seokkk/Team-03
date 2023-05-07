@@ -1,7 +1,6 @@
 from django.db import models
 from django.conf import settings
 from taggit.managers import TaggableManager
-from taggit.models import Tag
 
 
 # Create your models here.
@@ -86,6 +85,27 @@ class Review(models.Model):
     purpose_tags = models.ManyToManyField(PurposeTag, related_name='purpose_reviews')
     atmosphere_tags = models.ManyToManyField(AtmosphereTag, related_name='atmosphere_reviews')
     facility_tags = models.ManyToManyField(FacilityTag, related_name='facility_reviews')
+
+    # def purpose_tag_list(self, tags):
+    #     tag_list = []
+    #     for tag in re.findall(r'#([a-zA-Z\dㄱ-힣]+)', tags):
+    #         tag, _ = PurposeTag.objects.get_or_create(tag=tag)
+    #         tag_list.append(tag)
+    #     return tag_list
+    
+    # def atmosphere_tag_list(self, tags):
+    #     tag_list = []
+    #     for tag in re.findall(r'#([a-zA-Z\dㄱ-힣]+)', tags):
+    #         tag, _ = AtmosphereTag.objects.get_or_create(pk=tag)
+    #         tag_list.append(tag)
+    #     return tag_list
+    
+    # def facility_tag_list(self, tags):
+    #     tag_list = []
+    #     for tag in re.findall(r'#([a-zA-Z\dㄱ-힣]+)', tags):
+    #         tag, _ = FacilityTag.objects.get_or_create(pk=tag)
+    #         tag_list.append(tag)
+    #     return tag_list
     
 
 class Menu(models.Model):
