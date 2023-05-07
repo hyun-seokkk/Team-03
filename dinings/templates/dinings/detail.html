@@ -10,9 +10,8 @@
         <div class='card'>
           {% comment %} <div>지도</div> {% endcomment %}
           <div id="map" style="width:100%; height: 300px;"></div>
-          <a href="{% url 'dinings:dining_create'%}">create</a>
-          <a href="{% url 'dinings:dining_update' dining.pk  %}">수정</a>    
-          <p>맛집더보기</p>
+          <a class="ms-3 mt-3">맛집더보기</a>
+          {% comment %} <a href="{% url 'dinings:dining_update' dining.pk  %}">수정</a>     {% endcomment %}
         </div>
       </div>
 
@@ -144,7 +143,7 @@
           <h2>영업시간</h2>
           <div class="d-flex justify-content-between">
             <!-- 요일 추가 -->
-            <p>요일</p>
+            <p>매일</p>
             <!-- 시간 -->
             <p>{{ dining.opening_hours }}</p>
           </div>
