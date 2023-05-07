@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +22,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure--lzs+qj)%)y%&*h)i0f#2_$^)8tc-bn=$l%w3o^s$i=porzppv'
+"""
+load_dotenv()
+.env 파일의 key-value를 프로그램 환경 변수에 등록
+"""
+load_dotenv()
+
+
+"""
+환경 변수에서 key가 SECRET_KEY인 value 불러오기
+"""
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['port-0-team-03-1lfmx2blhdo8dn5.sel4.cloudtype.app']
 
 
 # Application definition
