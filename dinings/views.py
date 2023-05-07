@@ -121,7 +121,21 @@ def review_create(request, dining_pk):
             review.rating_price = request.POST.get('rating_price')
             review.rating_kind = request.POST.get('rating_kind')
             review.save()
-            review_form.save_m2m()
+            purpose_tag_ids = request.POST.get('purpose_tags').split(',')
+            atmosphere_tag_ids = request.POST.get('atmosphere_tags').split(',')
+            facility_tag_ids = request.POST.get('facility_tags').split(',')
+            review.purpose_tags.set(purpose_tag_ids)
+            review.atmosphere_tags.set(atmosphere_tag_ids)
+            review.facility_tags.set(facility_tag_ids)
+            # for tag_id in purpose_tag_ids:
+            #     if tag_id:
+            #         review.purpose_tags.create(purposetag_id=tag_id)
+            # for tag_id in atmosphere_tag_ids:
+            #     if tag_id:
+            #         review.atmosphere_tags.create(atmospheretag_id=tag_id)
+            # for tag_id in facility_tag_ids:
+            #     if tag_id:
+            #         review.facility_tags.create(facilitytag_id=tag_id)
             return redirect('dinings:detail', dining.pk)
     # 리뷰 작성 페이지
     else:
