@@ -42,6 +42,21 @@ def index(request):
         region_dinings = Dining.objects.none()
         
     dinings = Dining.objects.order_by("-pk")
+
+     # query for dinings
+    count = dinings.count()
+
+    if count < 20:
+        # if there are less than 20 dinings, show all of them
+        dinings = dinings.all()
+    else:
+        # if there are more than 20 dinings, randomly sample 20 of them
+        dinings = random.sample(list(dinings), 20)
+
+    # get tags
+    tags = list(set(tag for dining in dinings for tag in dining.tags.all()))
+    random_tags = random.sample(tags, min(len(tags), 10))
+
     tags = list(set(tag for dining in dinings for tag in dining.tags.all()))
     random_tags = random.sample(tags, min(len(tags), 10))
     context = {
@@ -124,14 +139,15 @@ def dining_create(request):
                 dining.address_postcode = request.POST['address_postcode']
                 dining.address_address = request.POST['address_address']
 
-                gu = [ele for ele in request.POST['address_address'].split() if ele[-1] == '구'][0]
+                
+                gu = [ele for ele in request.POST['address_address'].split() if ele[-1] == '구']
                 if gu:
-                    dining.address_gu = gu
+                    dining.address_gu = gu[0]
                 
                 dong = [ele for ele in request.POST['address_address'].split() if ele[-1] == '동' or ele[-1] == '읍' or ele[-1] ==
-                 '면' or ele[-1] == '리'][0]
+                 '면' or ele[-1] == '리']
                 if dong:
-                    dining.address_dong = dong
+                    dining.address_dong = dong[0]
 
                 dining.address_extra = request.POST['address_extra']
 
