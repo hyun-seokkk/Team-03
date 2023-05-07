@@ -11,9 +11,7 @@
           {% comment %} <div>지도</div> {% endcomment %}
           <div id="map" style="width:100%; height: 300px;"></div>
           <a href="{% url 'dinings:dining_create'%}">create</a>
-          <a href="{% url 'dinings:review_create' dining.pk %}">리뷰작성</a>
-          <a href="{% url 'dinings:dining_update' dining.pk  %}">수정</a>
-         
+          <a href="{% url 'dinings:dining_update' dining.pk  %}">수정</a>    
           <p>맛집더보기</p>
         </div>
       </div>
@@ -25,7 +23,7 @@
           <div class="row mt-2 p-0 m-0">
             <div class="col-6 col-md-6 p-0 m-0">
               {% if dining.image1 %}
-              <img src="{{ dining.image1.url }}" alt="..." class="img-fluid " style="min-width:14rem; width:100%; min-height:14rem; height:7rem;"  >
+              <img src="{{ dining.image1.url }}" alt="..." class="img-fluid " style="min-width:14rem; width:100%; min-height:14rem; height:14rem;"  >
               {% else %}
               <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:14rem; width:100%; min-height:14rem; height:100%;">
               {% endif %}
@@ -36,28 +34,28 @@
                   {% if dining.image2 %}
                   <img src="{{ dining.image2.url }}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:7rem;" >
                   {% else %}
-                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;">
+                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:7rem;">
                   {% endif %}
                 </div>
                 <div class="col-6 ps-0">
                   {% if dining.image3 %}
                   <img src="{{ dining.image3.url }}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:7rem;">
                   {% else %}
-                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;">
+                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:7rem;">
                   {% endif %}
                 </div>
                 <div class="col-6 pe-0">
                   {% if dining.image4 %}
                   <img src="{{ dining.image4.url }}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:7rem;" >
                   {% else %}
-                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;">
+                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:7rem;">
                   {% endif %}
                 </div>
                 <div class="col-6 ps-0">
                   {% if dining.image5 %}
                   <img src="{{ dining.image5.url }}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:7rem;">
                   {% else %}
-                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:100%;">
+                  <img src="{% static 'img/blank_img.png' %}" alt="..." class="img-fluid " style="min-width:7rem; width:100%; min-height:7rem; height:7rem;">
                   {% endif %}
                 </div>
               </div>
@@ -67,25 +65,14 @@
           <div class="container mt-3">
             <h1>{{ dining.title }}</h1>
             <div class="d-flex gap-2">
-              <p><span style="margin-bottom: 20px; color: white; font-size: 30px; font-family: '조선일보명조', serif;">
-                당신을 위한<div id="location"></div>맛집 추천
-              </span></p>
-              <form id="location-form" method="POST">
-                {% csrf_token %}
-                <input type="hidden" name="latitude" id="latitude">
-                <input type="hidden" name="longitude" id="longitude">
-              </form>
-              <!-- 검색 view 생성하기 -->
-              <p>음식종류</p>
-            </div>
-            <div class="d-flex gap-2">
               <b><p>{{ reviews.half_star_rating }}점</p></b>
               <p class="sm_text">{{ reviews.all|length }}명의 평가</p>
               <b><p class="m_text">{{ avg }}점</p></b>
               <!-- 임시로 넣어두었음 , 총 별점 나타내야 함-->
-              {% for review in reviews %}
-              <p>{{ review.star_rating }} </p>
-              {% endfor %}
+              {% if reviews %}
+              <p>{{ reviews.first.star_rating }}</p>
+              {% endif %}
+            
             </div>
           </div>
           <hr>
@@ -104,8 +91,9 @@
               </form>
 
               <button type="button" class="rounded-pill btn btn-outline-dark m_text "><span class="material-symbols-rounded mx-1">
-                open_in_new
-                </span>공유</button>
+              open_in_new
+              </span>공유</button>
+              
             </div>
             <button type="button" class="m_text rounded-pill btn btn-outline-dark "><span class="material-symbols-rounded mx-1">
               edit
@@ -201,7 +189,9 @@
 
         <!-- 리뷰 -->
         <div class="container card mb-3">
-          <h3 class="my-auto mt-3">{{ reviews.all|length }}건의 방문자 평가</h3>
+          <div class="d-flex justify-content-between">
+            <h3 class="my-auto mt-3">{{ reviews.all|length }}건의 방문자 평가</h3>
+          </div>
           <hr>
           <div class="d-flex">
             <div class="col-8">
@@ -298,7 +288,7 @@
                     {% if request.user == review.user %}
                       <form action="{% url 'dinings:review_delete' dining.pk review.pk %}" method="POST">
                         {% csrf_token %}
-                        <input type="submit" value="삭제">
+                        <input class="btn btn-danger rounded-circle " type="submit" value="X">
                       </form>
                     {% endif %}
                   </div>
@@ -340,16 +330,19 @@
               </div>
               <form action="{% url 'dinings:review_like' dining.pk review.pk %}" method="POST">
                 {% csrf_token %}
-                <button type="submit" class="d-block">공감 <span>({{ review.like_users.all|length }})</span></button>
+                <button type="submit" class="btn btn-outline-success py-0 my-3 d-block">공감 <span>({{ review.like_users.all|length }})</span></button>
               </form>
             </div>
           {% empty %}
             <p>아직 리뷰가 없습니다.</p>
           {% endfor %}
+          <a class="btn btn-primary my-3" href="{% url 'dinings:review_create' dining.pk %}">리뷰작성</a>
+
         </div>
       </div>
   </div>
 </div>
+
 {% endblock content %}
 {% block script %}
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeo2OKCeAbkCAFFoXyrCP4rJEE1wMBs1w&callback=initMap"></script>

@@ -90,8 +90,8 @@ def dining_create(request):
                 dining = form.save(commit=False)
                 dining.address_postcode = request.POST['address_postcode']
                 dining.address_address = request.POST['address_address']
-                dining.address_extra = request.POST['address_extra']
                 dining.address_detail = request.POST['address_detail']
+                dining.address_extra = request.POST['address_extra']
                 dining.save()
                 return redirect('dinings:index')
         else:
