@@ -2,8 +2,9 @@ from django.db import models
 from django.conf import settings
 from taggit.managers import TaggableManager
 
-
 # Create your models here.
+
+
 def dining_img_path(instance, filename):
     return f'images/dining/{instance.title}/{filename}'
 

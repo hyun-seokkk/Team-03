@@ -236,7 +236,7 @@
           />
         </a>
       </div>
-
+  
       <form
         action="{% url 'dinings:search' %}"
         style="
@@ -261,7 +261,7 @@
           </button>
         </div>
       </form>
-
+  
       <div>
         {% if user.is_authenticated %}
         <a class="mx-1" href="{% url 'accounts:profile' user %}">{{user}}</a>
@@ -284,9 +284,9 @@
         {% endif %}
       </div>
     </header>
-
+  
     {% block content %} {% endblock content %}
-
+  
     <footer class="bg-light d-flex justify-content-center">
       <div style="margin-right: 350px">
         <p class="mb-3">
@@ -300,7 +300,7 @@
             >위치기반 서비스 이용약관</a
           >
         </p>
-
+  
         <p class="mb-2">
           <span class="font-weight-bold">(주)다이닝코드</span>
           <span class="mx-2">|</span>
@@ -308,9 +308,9 @@
           <span class="mx-2">|</span>
           <span>소재지 : 서울특별시 강남구 테헤란로79길 6</span>
         </p>
-
+  
         <p class="mb-2">이메일 문의 : contact@diningcode.com</p>
-
+  
         <p>
           <span
             >전화 문의 : 02-457-1304 (평일 : 10:00 ~ 19:00, 주말/공휴일
@@ -318,7 +318,7 @@
           >
         </p>
       </div>
-
+  
       <div style="letter-spacing: -1px; position: relative; padding-top: 80px">
         Copyright Ⓒ 2023 Diningcode
       </div>
