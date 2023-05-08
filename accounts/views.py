@@ -4,11 +4,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.contrib.auth import get_user_model
-
 from .forms import CustomUserCreationForm, CustomUserChangeForm, CustomPasswordChangeForm
 from dinings.models import Dining
 
 # Create your views here.
+
+
 def index(request):
     return render(request, 'accounts/index.html')
 
@@ -34,7 +35,7 @@ def signup(request):
 def login(request):
     if request.user.is_authenticated:
         return redirect('dinings:index')
-    
+
     if request.method == 'POST':
         form = AuthenticationForm(request, request.POST)
         if form.is_valid():
@@ -64,7 +65,8 @@ def delete(request):
 @login_required
 def update(request):
     if request.method == 'POST':
-        form = CustomUserChangeForm(request.POST, request.FILES, instance=request.user)
+        form = CustomUserChangeForm(
+            request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
             return redirect('dinings:index')
