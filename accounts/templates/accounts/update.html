@@ -68,24 +68,23 @@ $('#id_profile_image').change(function() {
 </script>
 {% endblock script %}
 
-
 <!--  <div class="d-flex align-items-end">
-          {% if user.profile_image %}
-            <img class="p-1 rounded-circle" src="{{ user.profile_image.url }}" alt="profile_image" style="width: 140px; height: 140px;">
-          {% else %}
-            <img class="p-1 rounded-circle" src="{% static 'img/blank-profile-image.png' %}" class="img-fluid" style="width: 140px; height: 140px;" alt="blank-profile-image">
-          {% endif %}
-            <form method="POST" enctype="multipart/form-data">
-              {% csrf_token %}
-              <div class="form-group">
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" id="profile_image" name="profile_image" style="display:none;" onchange="handleFiles(this.files)">
-                  <label for="profile_image" class="custom-file-label btn btn-primary" id="profile_image_label">
-                    파일 선택하기
-                  </label>
-                </div>
+        {% if user.profile_image %}
+          <img class="p-1 rounded-circle" src="{{ user.profile_image.url }}" alt="profile_image" style="width: 140px; height: 140px;">
+        {% else %}
+          <img class="p-1 rounded-circle" src="{% static 'img/blank-profile-image.png' %}" class="img-fluid" style="width: 140px; height: 140px;" alt="blank-profile-image">
+        {% endif %}
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="profile_image" name="profile_image" style="display:none;" onchange="handleFiles(this.files)">
+                <label for="profile_image" class="custom-file-label btn btn-primary" id="profile_image_label">
+                  파일 선택하기
+                </label>
               </div>
-              <button type="submit" class="btn btn-primary" >업로드</button>
-            </form>
-          </div>
+            </div>
+            <button type="submit" class="btn btn-primary" >업로드</button>
+          </form>
+      </div>
 -->
