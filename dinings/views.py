@@ -10,7 +10,6 @@ import requests, json, pprint
 from team_03 import settings
 
 # Create your views here.
-
 def get_address(lat, lng):
     url = "https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x="+lng+"&y="+lat
     # 'KaKaoAK '는 그대로 두시고 개인키만 지우고 입력해 주세요.
