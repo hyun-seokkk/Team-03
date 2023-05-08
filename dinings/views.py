@@ -7,6 +7,7 @@ from django.http import JsonResponse
 from collections import defaultdict
 import random
 import requests, json, pprint
+from team_03 import settings
 
 # Create your views here.
 
@@ -14,7 +15,7 @@ def get_address(lat, lng):
     url = "https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x="+lng+"&y="+lat
     # 'KaKaoAK '는 그대로 두시고 개인키만 지우고 입력해 주세요.
     # ex) KakaoAK 6af8d4826f0e56c54bc794fa8a294
-    headers = {"Authorization": "KakaoAK 412ff50a9a87dcc9d1bbfed3fd9d2eb8"}
+    headers = {"Authorization": f"KakaoAK {settings.KAKAO_KEY}"}
     api_json = requests.get(url, headers=headers)
     full_address = json.loads(api_json.text)
 
@@ -24,7 +25,7 @@ def get_address(lat, lng):
 
 def index(request):
     
-    url = f'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCXIgUb1J_z_7L8q-0cPRNZBVBfg8kJAvQ'
+    url = f'https://www.googleapis.com/geolocation/v1/geolocate?key={settings.GOOGLE_KEY}'
     data = {
         'considerIp': True,
     }
